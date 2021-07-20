@@ -4,6 +4,13 @@ var x2 = 3900;
 var y1 = -1000;
 var y2 = 4130
 
+// AtCoder grid
+var A =       [0,         400,       800,       1200,      1600,      2000,      2400,      2800,    3500];
+ACcolor = ["#808080", "#804000", "#008000", "#00C0C0", "#0000FF", "#C0C000", "#FF8000", "#FF0000"];
+// CodeForces grid
+var B = [500, 1200, 1400, 1600, 1900, 2100, 2300, 2600, 3000, 3500]
+var CFcolor = ["#CCCCCC", "#7CFD7E", "#7BDCBB", "#AAACFC", "#FD8CFD", "#FDBA5E", "#FD787A", "#FC363B", "#A8050E"]
+
 function convertAC2CFrating(a) {
   var res = ((x2 * (a - y1)) + (x1 * (y2 - a))) / (y2 - y1);
   return res | 0;
@@ -13,6 +20,8 @@ function convertCF2ACrating(a) {
   var res = ((y2 * (a - x1)) + (y1 * (x2 - a))) / (x2 - x1);
   return res | 0;
 }
+
+
 
 // var AC_CF_Ratings = []
 // var CF_AC_Ratings = []

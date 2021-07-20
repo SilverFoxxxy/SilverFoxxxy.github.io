@@ -11,9 +11,6 @@ function convertAC2CFrating(a) {
 
 function convertCF2ACrating(a) {
   var res = ((y2 * (a - x1)) + (y1 * (x2 - a))) / (x2 - x1);
-  if (res < 0) {
-    return 0;
-  }
   return res | 0;
 }
 
@@ -48,7 +45,8 @@ document.getElementById("AC2CFbutton").onclick = function()
   var inputVal = document.getElementById("AC_input").value;
   var a = parseInt(inputVal);
   var res = convertAC2CFrating(a);
-  document.getElementById("AC2CFrating").innerHTML = res.toString();
+  var txt_ = res.toString() + " - your expected rating on CodeForces";
+  document.getElementById("AC2CFrating").innerHTML = txt_;
 }
 
 var input2 = document.getElementById("CF_input");
@@ -65,7 +63,8 @@ document.getElementById("CF2ACbutton").onclick = function()
   var inputVal = document.getElementById("CF_input").value;
   var a = parseInt(inputVal);
   var res = convertCF2ACrating(a);
-  document.getElementById("CF2ACrating").innerHTML = res.toString();
+  var txt_ = res.toString() + " - your expected rating on AtCoder";
+  document.getElementById("CF2ACrating").innerHTML = txt_;
 }
 
 

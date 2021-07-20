@@ -32,19 +32,25 @@
       AtCoder to CodeForces converter:
     </b>
   </h1>
-
-  Enter your AtCoder rating here
-
   <br>
 
   <div class="input-group mb-3">
-    <div class="col-4 center-block">
-      <input type="number" class="form-control" name = "n1" id="AC_input" min="-1000" max="50000000">
+    <div class="col-5">
+      <input type="number" class="form-control" name = "n1" id="AC_input" min="-1000" max="50000000" placeholder="AtCoder rating">
     </div>
     <div class="input-group-append">
       <button type="button" class="btn btn-primary" id="AC2CFbutton">Convert</button>
     </div>
   </div>
+<!--    or <br>
+  <div class="input-group mb-3">
+    <div class="col-5">
+      <input type="text" class="form-control" name = "n3" id="ACname_input"placeholder="AtCoder handle">
+    </div>
+    <div class="input-group-append">
+      <button type="button" class="btn btn-primary" id="ACname2CFbutton">Convert</button>
+    </div>
+  </div> -->
 
 <!--  style="color: #FC363B; background-color: #7BDCBB;" -->
 
@@ -52,7 +58,7 @@
     <h3><b><text id="ACname"></text>
     <text>  </text>
     <text id="ACrating"></text>
-    <text> -> </text>
+    <text id="AC->"></text>
     <text id="CFprename1"></text><text id="CFname1"></text>
     <text>  </text>
     <text id="CFrating1"></text></b></h3>
@@ -66,16 +72,25 @@
     </b>
   </h1>
 
-  Enter your CodeForces rating here
-
   <br>
 
   <div class="input-group mb-3">
-    <div class="col-4">
-      <input type="number" class="form-control" name = "n1" id="CF_input" min="-1000" max="50000000">
+    <div class="col-5">
+      <input type="number" class="form-control" name = "n2" id="CF_input" min="-1000" max="50000000" placeholder="CodeForces rating">
     </div>
     <div class="input-group-append">
       <button type="button" class="btn btn-primary" id="CF2ACbutton">Convert</button>
+    </div>
+  </div>
+
+  or <br>
+
+  <div class="input-group mb-3">
+    <div class="col-5">
+      <input type="text" class="form-control" name = "n4" id="CFname_input" placeholder="CodeForces handle">
+    </div>
+    <div class="input-group-append">
+      <button type="button" class="btn btn-primary" id="CFname2ACbutton">Convert</button>
     </div>
   </div>
 
@@ -83,7 +98,7 @@
     <h3><b><text id="CFprename"></text><text id="CFname"></text>
     <text>  </text>
     <text id="CFrating"></text>
-    <text> -> </text>
+    <text id="CF->"></text>
     <text id="ACname1"></text>
     <text>  </text>
     <text id="ACrating1"></text></b></h3>

@@ -24,6 +24,33 @@ function convertCF2ACrating(a) {
   return res | 0;
 }
 
+async function getACrating(ACname) {
+  var url = "https://atcoder.jp/users/" + ACname + "?graph=rating";
+
+  var html = (await (await fetch(url, {mode: 'cors'})).text());
+
+  console.log(html);
+
+  var pref = "Rating</th><td>";
+
+  var i = html.split(pref)[1];
+
+  console.log(i);
+
+  var ress = (i.split('>'))[1].split('<')[0];
+  var res = parseInt(ress);
+  return res;
+}
+
+async function getCFrating(CFname) {
+  var url = ("https://codeforces.com/api/user.info?handles=" + CFname);
+  // console.log(url);
+  var html = (await (await fetch(url)).text());
+  // console.log(html.split('"rating":')[0]);
+  var res = parseInt(html.split('"rating":')[1].split(",")[0]);
+  return res;
+}
+
 function colorACrating(rating, ACname_id, ACname, ACrating_id) {
   var colorind = 0;
   for (var i = 0; i < A.length; i++) {
@@ -50,6 +77,7 @@ function colorCFrating(rating, CFname_id, CFprename_id, CFname, CFrating_id) {
     document.getElementById(CFname_id).innerHTML = CFname.slice(1, CFname.length);
     document.getElementById(CFname_id).style.color = CFcolor[colorind];
   } else {
+    document.getElementById(CFprename_id).innerHTML = "";
     document.getElementById(CFname_id).innerHTML = CFname;
     document.getElementById(CFname_id).style.color = CFcolor[colorind];
   }
@@ -91,9 +119,9 @@ document.getElementById("AC2CFbutton").onclick = function()
   // var txt_ = res.toString() + " - your expected rating on CodeForces";
   // document.getElementById("AC2CFrating").innerHTML = txt_;
   colorACrating(a, "ACname", username, "ACrating");
+  document.getElementById("AC->").innerHTML = " -> ";
   colorCFrating(res, "CFname1", "CFprename1",  username, "CFrating1");
 }
-
 
 
 
@@ -112,9 +140,71 @@ document.getElementById("CF2ACbutton").onclick = function()
   var a = parseInt(inputVal);
   var res = convertCF2ACrating(a);
   colorACrating(res, "ACname1", username, "ACrating1");
+  document.getElementById("CF->").innerHTML = " -> ";
   colorCFrating(a, "CFname", "CFprename",  username, "CFrating");
   // var txt_ = res.toString() + " - your expected rating on AtCoder";
   // document.getElementById("CF2ACrating").innerHTML = txt_;
 }
+
+
+
+
+
+var input3 = document.getElementById("ACname_input");
+
+input3.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("ACname2CFbutton").click();
+  }
+});
+
+document.getElementById("ACname2CFbutton").onclick = function()
+{
+  var inputVal = document.getElementById("ACname_input").value;
+  // document.getElementById("CF->").innerHTML = inputVal;
+  var nowname = inputVal;
+  (async () => {
+  var a = await getACrating(nowname);
+  var res = convertAC2CFrating(a);
+  colorACrating(a, "ACname", nowname, "ACrating");
+  document.getElementById("AC->").innerHTML = " -> ";
+  colorCFrating(res, "CFname1", "CFprename1",  nowname, "CFrating1");
+  })()
+}
+
+
+
+var input4 = document.getElementById("CFname_input");
+
+input4.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("CFname2ACbutton").click();
+  }
+});
+
+document.getElementById("CFname2ACbutton").onclick = function()
+{
+  var inputVal = document.getElementById("CFname_input").value;
+  // document.getElementById("CF->").innerHTML = inputVal;
+  var nowname = inputVal;
+  (async () => {
+  var a = await getCFrating(nowname);
+  var res = convertCF2ACrating(a);
+  colorACrating(res, "ACname1", nowname, "ACrating1");
+  document.getElementById("CF->").innerHTML = " -> ";
+  colorCFrating(a, "CFname", "CFprename",  nowname, "CFrating");
+  
+  })()
+  
+  // var txt_ = res.toString() + " - your expected rating on AtCoder";
+  // document.getElementById("CF2ACrating").innerHTML = txt_;
+}
+
+
+
+
+
 
 

@@ -2,6 +2,8 @@
 <head>  
 <!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
   <title> Rating converter </title>
 
@@ -22,6 +24,8 @@
 
 </head>
 <body>
+<div class="d-flex justify-content-center align-items-center" style="height:700px;"><span>
+
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
   <h1>
     <b>
@@ -34,7 +38,7 @@
   <br>
 
   <div class="input-group mb-3">
-    <div class="col-4">
+    <div class="col-4 center-block">
       <input type="number" class="form-control" name = "n1" id="AC_input" min="-1000" max="50000000">
     </div>
     <div class="input-group-append">
@@ -42,7 +46,19 @@
     </div>
   </div>
 
-  <p id="AC2CFrating"> -- </p>
+<!--  style="color: #FC363B; background-color: #7BDCBB;" -->
+
+  <p id="AC2CFrating"> 
+    <h3><b><text id="ACname"></text>
+    <text>  </text>
+    <text id="ACrating"></text>
+    <text> -> </text>
+    <text id="CFprename1"></text><text id="CFname1"></text>
+    <text>  </text>
+    <text id="CFrating1"></text></b></h3>
+    <br>
+    <!-- <text> - your expected CodeForces performance </text> -->
+  </p>
 
   <h1>
     <b>
@@ -63,14 +79,24 @@
     </div>
   </div>
 
-  <p bgcolor="#7BDCBB" id="CF2ACrating"> -- </p>
+  <p id="CF2ACrating">
+    <h3><b><text id="CFprename"></text><text id="CFname"></text>
+    <text>  </text>
+    <text id="CFrating"></text>
+    <text> -> </text>
+    <text id="ACname1"></text>
+    <text>  </text>
+    <text id="ACrating1"></text></b></h3>
+    <br>
+    <!-- <text> - your expected AtCoder performance </text> -->
+  </p>
 
   <script src="converter.js">
   </script>
+</span>
+</div>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
 
 </html>

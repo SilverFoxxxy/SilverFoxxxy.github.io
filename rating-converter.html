@@ -7,26 +7,34 @@
 
   <title> Rating converter </title>
 
-<!--   <style>
-   body{
-    background-color: #3366CC; /* Цвет фона веб-страницы */
-   } 
+  <style>
+    html,body{
+  overflow-y: scroll; }
+    /*overflow-y: scroll;*/
+    /*max-height: 500px;*/
+/*    background-color: #3366CC; /* Цвет фона веб-страницы */
+   footer{
+  /*position:static;*/
+ }
    h1 {
-    background-color: RGB(249, 201, 16); /* Цвет фона под заголовком */
+/*    background-color: RGB(249, 201, 16); /* Цвет фона под заголовком */
    }
    p {
-    background-color: maroon; /* Цвет фона под текстом параграфа */
+/*    background-color: maroon;  Цвет фона под текстом параграфа 
     color: white; /* Цвет текста */
    }
-  </style> -->
+  </style>
 
   <link rel="icon" href="icon_.png" type="image/icon type">
 
 </head>
 <body>
-<div class="d-flex justify-content-center align-items-center" style="height:700px;"><span>
+  <!-- style="height:700px;" -->
+<div class="d-flex justify-content-center align-items-center"><span>
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
+  <br><br><br>
+
   <h1>
     <b>
       AtCoder to CodeForces converter:
@@ -42,7 +50,7 @@
       <button type="button" class="btn btn-primary" id="AC2CFbutton">Convert</button>
     </div>
   </div>
-<!--    or <br>
+   or <br>
   <div class="input-group mb-3">
     <div class="col-5">
       <input type="text" class="form-control" name = "n3" id="ACname_input"placeholder="AtCoder handle">
@@ -50,7 +58,7 @@
     <div class="input-group-append">
       <button type="button" class="btn btn-primary" id="ACname2CFbutton">Convert</button>
     </div>
-  </div> -->
+  </div>
 
 <!--  style="color: #FC363B; background-color: #7BDCBB;" -->
 
@@ -61,7 +69,7 @@
     <text id="AC->"></text>
     <text id="CFprename1"></text><text id="CFname1"></text>
     <text>  </text>
-    <text id="CFrating1"></text></b></h3>
+    <text id="CFrating1" title="your expected rating on another platform"></text></b></h3>
     <br>
     <!-- <text> - your expected CodeForces performance </text> -->
   </p>
@@ -101,15 +109,28 @@
     <text id="CF->"></text>
     <text id="ACname1"></text>
     <text>  </text>
-    <text id="ACrating1"></text></b></h3>
+    <text id="ACrating1" title="your expected rating on another platform"></text></b></h3>
     <br>
     <!-- <text> - your expected AtCoder performance </text> -->
   </p>
 
   <script src="converter.js">
   </script>
+  <h6> Here you can watch some rating correlation plots between CodeForces and AtCoder:</h6>
+  <a href="https://silverfoxxxy.github.io/rating-correlation">Rating correlation page</a>
+
+  <a href="https://silverfoxxxy.github.io/rating-correlation">
+    <img alt="correlation_preview.png" src="correlation_preview.png"
+    width="330"
+    height="330">
+  </a>
+
+  <br><br><br>
+  <br><br><br>
 </span>
 </div>
+
+
 
 </body>
 

@@ -25,30 +25,51 @@ function convertCF2ACrating(a) {
 }
 
 async function getACrating(ACname) {
-  var url = "https://atcoder.jp/users/" + ACname + "?graph=rating";
+  try {
+    // var url = "https://atcoder.jp/users/" + ACname + "?graph=rating";
+    // var url = "https://atcoder.jp/";
+    var url = "http://176.119.156.91/vpn/atcoder?user=" + ACname;
 
-  var html = (await (await fetch(url, {mode: 'cors'})).text());
+    var html = (await (await fetch(url, {mode: 'cors', credentials: 'omit'})).text());
 
-  console.log(html);
+    if (html == null) {
+      return -1;
+    }
 
-  var pref = "Rating</th><td>";
+    console.log(html);
 
-  var i = html.split(pref)[1];
+    var pref = "Rating</th><td>";
 
-  console.log(i);
+    var i = html.split(pref)[1];
 
-  var ress = (i.split('>'))[1].split('<')[0];
-  var res = parseInt(ress);
-  return res;
+    // console.log(i);
+
+    var ress = (i.split('>'))[1].split('<')[0];
+    var res = parseInt(ress);
+    return res;
+  }
+  catch(err) {
+    console.log(err);
+    return -1;
+  }
 }
 
 async function getCFrating(CFname) {
-  var url = ("https://codeforces.com/api/user.info?handles=" + CFname);
-  // console.log(url);
-  var html = (await (await fetch(url)).text());
-  // console.log(html.split('"rating":')[0]);
-  var res = parseInt(html.split('"rating":')[1].split(",")[0]);
-  return res;
+  try {
+    var url = ("https://codeforces.com/api/user.info?handles=" + CFname);
+    // console.log(url);
+    var html = (await (await fetch(url)).text());
+    if (html == null) {
+      return -1;
+    }
+    // console.log(html.split('"rating":')[0]);
+    var res = parseInt(html.split('"rating":')[1].split(",")[0]);
+    return res;
+  }
+  catch(err) {
+    console.log(err);
+    return -1;
+  }
 }
 
 function colorACrating(rating, ACname_id, ACname, ACrating_id) {
@@ -150,28 +171,32 @@ document.getElementById("CF2ACbutton").onclick = function()
 
 
 
-// var input3 = document.getElementById("ACname_input");
+var input3 = document.getElementById("ACname_input");
 
-// input3.addEventListener("keyup", function(event) {
-//   if (event.keyCode === 13) {
-//     event.preventDefault();
-//     document.getElementById("ACname2CFbutton").click();
-//   }
-// });
+input3.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("ACname2CFbutton").click();
+  }
+});
 
-// document.getElementById("ACname2CFbutton").onclick = function()
-// {
-//   var inputVal = document.getElementById("ACname_input").value;
-//   // document.getElementById("CF->").innerHTML = inputVal;
-//   var nowname = inputVal;
-//   (async () => {
-//   var a = await getACrating(nowname);
-//   var res = convertAC2CFrating(a);
-//   colorACrating(a, "ACname", nowname, "ACrating");
-//   document.getElementById("AC->").innerHTML = " -> ";
-//   colorCFrating(res, "CFname1", "CFprename1",  nowname, "CFrating1");
-//   })()
-// }
+document.getElementById("ACname2CFbutton").onclick = function()
+{
+  var inputVal = document.getElementById("ACname_input").value;
+  // document.getElementById("CF->").innerHTML = inputVal;
+  var nowname = inputVal;
+  (async () => {
+  var a = await getACrating(nowname);
+  if (a == -1) {
+    alert("User " + nowname + " not found");
+    return;
+  }
+  var res = convertAC2CFrating(a);
+  colorACrating(a, "ACname", nowname, "ACrating");
+  document.getElementById("AC->").innerHTML = " -> ";
+  colorCFrating(res, "CFname1", "CFprename1",  nowname, "CFrating1");
+  })()
+}
 
 
 
@@ -191,6 +216,10 @@ document.getElementById("CFname2ACbutton").onclick = function()
   var nowname = inputVal;
   (async () => {
   var a = await getCFrating(nowname);
+  if (a == -1) {
+    alert("User " + nowname + " not found");
+    return;
+  }
   var res = convertCF2ACrating(a);
   colorACrating(res, "ACname1", nowname, "ACrating1");
   document.getElementById("CF->").innerHTML = " -> ";

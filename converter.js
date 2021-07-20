@@ -150,28 +150,28 @@ document.getElementById("CF2ACbutton").onclick = function()
 
 
 
-var input3 = document.getElementById("ACname_input");
+// var input3 = document.getElementById("ACname_input");
 
-input3.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    document.getElementById("ACname2CFbutton").click();
-  }
-});
+// input3.addEventListener("keyup", function(event) {
+//   if (event.keyCode === 13) {
+//     event.preventDefault();
+//     document.getElementById("ACname2CFbutton").click();
+//   }
+// });
 
-document.getElementById("ACname2CFbutton").onclick = function()
-{
-  var inputVal = document.getElementById("ACname_input").value;
-  // document.getElementById("CF->").innerHTML = inputVal;
-  var nowname = inputVal;
-  (async () => {
-  var a = await getACrating(nowname);
-  var res = convertAC2CFrating(a);
-  colorACrating(a, "ACname", nowname, "ACrating");
-  document.getElementById("AC->").innerHTML = " -> ";
-  colorCFrating(res, "CFname1", "CFprename1",  nowname, "CFrating1");
-  })()
-}
+// document.getElementById("ACname2CFbutton").onclick = function()
+// {
+//   var inputVal = document.getElementById("ACname_input").value;
+//   // document.getElementById("CF->").innerHTML = inputVal;
+//   var nowname = inputVal;
+//   (async () => {
+//   var a = await getACrating(nowname);
+//   var res = convertAC2CFrating(a);
+//   colorACrating(a, "ACname", nowname, "ACrating");
+//   document.getElementById("AC->").innerHTML = " -> ";
+//   colorCFrating(res, "CFname1", "CFprename1",  nowname, "CFrating1");
+//   })()
+// }
 
 
 

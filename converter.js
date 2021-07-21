@@ -28,8 +28,8 @@ async function getACrating(ACname) {
   try {
     // var url = "https://atcoder.jp/users/" + ACname + "?graph=rating";
     // var url = "https://atcoder.jp/";
-    var url = "http://176.119.156.91/vpn/atcoder?user=" + ACname;
-
+    // var url = "https://176.119.156.91/vpn/atcoder?user=" + ACname;
+    var url = "https://misha-sh-vm.publicvm.com/vpn/atcoder?user=" + ACname;
     var html = (await (await fetch(url, {mode: 'cors', credentials: 'omit'})).text());
 
     if (html == null) {
@@ -188,7 +188,7 @@ document.getElementById("ACname2CFbutton").onclick = function()
   (async () => {
   var a = await getACrating(nowname);
   if (a == -1) {
-    alert("User " + nowname + " not found");
+    alert("User " + nowname + " not found\n\n\nmight be problems with AtCoder\n(pls add API ;P )");
     return;
   }
   var res = convertAC2CFrating(a);

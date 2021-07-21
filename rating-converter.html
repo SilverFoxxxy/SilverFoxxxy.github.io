@@ -10,6 +10,11 @@
   <style>
     html,body{
   overflow-y: scroll; }
+  .centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
     /*overflow-y: scroll;*/
     /*max-height: 500px;*/
 /*    background-color: #3366CC; /* Цвет фона веб-страницы */
@@ -33,6 +38,7 @@
 <div class="d-flex justify-content-center align-items-center"><span>
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
+<center>
   <br><br><br>
 
   <h1>
@@ -42,7 +48,7 @@
   </h1>
   <br>
 
-  <div class="input-group mb-3">
+  <div class="input-group mb-3 centered">
     <div class="col-5">
       <input type="number" class="form-control" name = "n1" id="AC_input" min="-1000" max="50000000" placeholder="AtCoder rating">
     </div>
@@ -50,8 +56,11 @@
       <button type="button" class="btn btn-primary" id="AC2CFbutton">Convert</button>
     </div>
   </div>
-   or <br>
-  <div class="input-group mb-3">
+
+  <text style="color:grey">or</text>
+
+  <br>
+  <div class="input-group mb-3 centered">
     <div class="col-5">
       <input type="text" class="form-control" name = "n3" id="ACname_input"placeholder="AtCoder handle">
     </div>
@@ -82,7 +91,7 @@
 
   <br>
 
-  <div class="input-group mb-3">
+  <div class="input-group mb-3 centered">
     <div class="col-5">
       <input type="number" class="form-control" name = "n2" id="CF_input" min="-1000" max="50000000" placeholder="CodeForces rating">
     </div>
@@ -91,9 +100,10 @@
     </div>
   </div>
 
-  or <br>
+  <text style="color:grey">or</text>
+  <br>
 
-  <div class="input-group mb-3">
+  <div class="input-group mb-3 centered">
     <div class="col-5">
       <input type="text" class="form-control" name = "n4" id="CFname_input" placeholder="CodeForces handle">
     </div>
@@ -116,8 +126,13 @@
 
   <script src="converter.js">
   </script>
+
+  <br><br><br>
+
   <h6> Here you can watch some rating correlation plots between CodeForces and AtCoder:</h6>
   <a href="https://silverfoxxxy.github.io/rating-correlation">Rating correlation page</a>
+
+  <br>
 
   <a href="https://silverfoxxxy.github.io/rating-correlation">
     <img alt="correlation_preview.png" src="correlation_preview.png"
@@ -127,6 +142,8 @@
 
   <br><br><br>
   <br><br><br>
+
+</center>
 </span>
 </div>
 

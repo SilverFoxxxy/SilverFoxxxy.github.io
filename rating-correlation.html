@@ -1,0 +1,143 @@
+<html>
+<head>  
+<!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+  <title> Rating correlation </title>
+
+<style>
+  html,body{
+  overflow-y: scroll; }
+/*  text{
+  	overflow-wrap: normal;
+  }*//*
+  div {
+    width: 200px;
+    word-wrap: normal;
+  }*/
+</style>
+<!--   body{
+    background-color: #3366CC; /* Цвет фона веб-страницы */
+   } 
+   h1 {
+    background-color: RGB(249, 201, 16); /* Цвет фона под заголовком */
+   }
+   p {
+    background-color: maroon; /* Цвет фона под текстом параграфа */
+    color: white; /* Цвет текста */
+   }
+  </style> -->
+
+  <link rel="icon" href="icon_3.png" type="image/icon type">
+
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center"><span>
+
+  <br><br><br>
+
+	<center><b><h1>Sport programming sites rating correlation</h1></b></center>
+	<center><h3>AtCoder rating vs CodeForces rating</h3></center>
+
+	<text>
+	Hello, coders. <br>
+	I'm new on AtCoder and I was interested in correlation between CodeForces and AtCoder ratings. <br>
+	I took AtCoder accounts which have link to corresponding CodeForces handles. <br>
+	Then selected only those who have at least 7 writed contests on both. <br> (Today it's 4517 of coders) <br>
+	Let's look what we have now.
+	</text>
+
+	<br>
+	<text><b>З.Ы. <br><a href="https://silverfoxxxy.github.io/rating-converter">Here</a> you can get your expected rank on AtCoder (or Codeforces) <br> from your rating on the site you're expirienced on.</b></text>
+	<br><br><br>
+	<center><h3><text>
+	-- Here are some plots --
+	</text></h3></center>
+	<br><br>
+	<center><h5><text>
+		*** At first just users of both sites, represented as points with rating-coordinates. ***
+	</text></h5>
+	<img alt="scatter_rainbow.png" src="scatter_rainbow.png"
+    width="700"
+    height="700"></center>
+
+    <center><h5><text>
+		*** Then the same, but in a heatmap form. ***
+	</text></h5>
+	<br><br>
+	<img alt="heatmap_rating_axis.png" src="heatmap_rating_axis.png"
+    width="660"
+    height="660">
+    <br><br><br><br></center>
+
+
+    <center><h5><text>
+		*** Now the plot of mean values of each 20 consecutive users<br>(sorted by CodeForces rating) ***
+	</text></h5>
+	<br><br>
+	<img alt="mean_20_plot.png" src="mean_20_plot.png"
+    width="700"
+    height="700"></center>
+
+    <center><h5><text>
+		*** Seems linear ***
+	</text></h5>
+	<br><br>
+	<img alt="mean_20_with_line.png" src="aprox.png"
+    width="800"
+    height="800"></center>
+
+    <center><h5><text>
+		*** Let's show this dependency differently ***
+	</text></h5>
+	<br><br>
+	<img alt="linear_correlation.png" src="linear_correlation.png"
+    width="691"
+    height="199"><br><br><br></center>
+
+    <br><br><br>
+	<center><h3><text>
+	-- Just for fun --
+	</text></h3></center>
+	<br><br>
+    <center><h5><text>
+		*** Plot of rating depending on count of written rounds ***
+	</text></h5>
+	<br><br>
+	<img alt="cnt2rating.png" src="cnt2rating4.png"
+    width="700"
+    height="700"></center>
+
+    <br><br>
+    <center><h5><text>
+		*** Aaand another one ***
+	</text></h5>
+	<br><br>
+	<img alt="cnt2rating_heatmap.png" src="heatmap.png"
+    width="700"
+    height="700"></center>
+
+    <br><br><br>
+    <center><h3><text>
+		-- Last but not least --
+	</text></h3>
+	<br><br>
+	<br>
+    <center><h5><text>
+		*** Histogram of both sites users ***
+	</text></h5>
+	<br><br>
+	<img alt="hist.png" src="hist.png"
+    width="700"
+    height="700"></center>
+
+</span>
+</div>
+
+</body>
+
+
+</html>

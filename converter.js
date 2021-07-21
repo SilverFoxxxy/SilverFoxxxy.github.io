@@ -1,8 +1,8 @@
 
 var x1 = 0;
 var x2 = 3900;
-var y1 = -1000;
-var y2 = 4130;
+var y1 = -1000 + 60;
+var y2 = 4130 + 85;
 
 var username = "UserName";
 

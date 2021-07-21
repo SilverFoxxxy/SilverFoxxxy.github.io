@@ -188,8 +188,12 @@ document.getElementById("ACname2CFbutton").onclick = function()
   (async () => {
   var a = await getACrating(nowname);
   if (a == -1) {
-    alert("User " + nowname + " not found\n\n\nmight be problems with AtCoder\n(pls add API ;P )");
+    alert("User " + nowname + " not found");
+    var s = "Sometimes there are problems<br>with getting info from AtCoder";
+    document.getElementById("ACproblem1").innerHTML=s;
     return;
+  } else {
+    document.getElementById("ACproblem1").innerHTML="";
   }
   var res = convertAC2CFrating(a);
   colorACrating(a, "ACname", nowname, "ACrating");

@@ -62,6 +62,7 @@ async function getCFrating(CFname) {
     if (html == null) {
       return -1;
     }
+    // console.log(html);
     // console.log(html.split('"rating":')[0]);
     var res = parseInt(html.split('"rating":')[1].split(",")[0]);
     return res;
@@ -72,7 +73,35 @@ async function getCFrating(CFname) {
   }
 }
 
+async function getCFrating_bymagic(CFname) {
+  try {
+    var url = ("https://codeforces.com/api/user.rating?handle=" + CFname);
+    // console.log(url);
+    var html = (await (await fetch(url)).text());
+    if (html == null) {
+      return -1;
+    }
+    // console.log(html);
+    // console.log(html.split('"rating":')[0]);
+    var spl = html.split('"newRating":')
+    var res = parseInt(spl[spl.length - 1].split("}")[0]);
+    return res;
+  }
+  catch(err) {
+    console.log(err);
+    return -1;
+  }
+}
+
 function colorACrating(rating, ACname_id, ACname, ACrating_id) {
+  if (rating < 0) {
+    document.getElementById(ACname_id).innerHTML = ACname;
+    document.getElementById(ACname_id).style.color = "#000000";
+    document.getElementById(ACrating_id).innerHTML = rating.toString();
+    document.getElementById(ACrating_id).style.color = "#FF0000";
+    return;
+  }
+
   var colorind = 0;
   for (var i = 0; i < A.length; i++) {
     if (rating >= A[i]) {
@@ -86,6 +115,13 @@ function colorACrating(rating, ACname_id, ACname, ACrating_id) {
 }
 
 function colorCFrating(rating, CFname_id, CFprename_id, CFname, CFrating_id) {
+  if (rating < 0) {
+    document.getElementById(CFname_id).innerHTML = CFname;
+    document.getElementById(CFname_id).style.color = "#000000";
+    document.getElementById(CFrating_id).innerHTML = rating.toString();
+    document.getElementById(CFrating_id).style.color = "#FC0D1B";
+    return;
+  }
   var colorind = 0;
   for (var i = 0; i < B.length; i++) {
     if (rating >= B[i]) {
@@ -221,6 +257,9 @@ document.getElementById("CFname2ACbutton").onclick = function()
   (async () => {
   var a = await getCFrating(nowname);
   if (a == -1) {
+    a = await getCFrating_bymagic(nowname);
+  }
+  if (a == -1) {
     alert("User " + nowname + " not found");
     return;
   }
@@ -234,10 +273,3 @@ document.getElementById("CFname2ACbutton").onclick = function()
   // var txt_ = res.toString() + " - your expected rating on AtCoder";
   // document.getElementById("CF2ACrating").innerHTML = txt_;
 }
-
-
-
-
-
-
-

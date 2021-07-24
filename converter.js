@@ -6,6 +6,8 @@ var y2 = 4130 + 85;
 
 var username = "UserName";
 
+const FAIL = -10000;
+
 // AtCoder grid
 var A =       [0,         400,       800,       1200,      1600,      2000,      2400,      2800];
 ACcolor =     ["#808080", "#804000", "#008000", "#00C0C0", "#0000FF", "#C0C000", "#FF8000", "#FF0000"];
@@ -25,6 +27,7 @@ function convertCF2ACrating(a) {
 }
 
 async function getACrating(ACname) {
+  // return FAIL;
   try {
     // var url = "https://atcoder.jp/users/" + ACname + "?graph=rating";
     // var url = "https://atcoder.jp/";
@@ -33,10 +36,10 @@ async function getACrating(ACname) {
     var html = (await (await fetch(url, {mode: 'cors', credentials: 'omit'})).text());
 
     if (html == null) {
-      return -1;
+      return FAIL;
     }
 
-    console.log(html);
+    // console.log(html);
 
     var pref = "Rating</th><td>";
 
@@ -50,7 +53,7 @@ async function getACrating(ACname) {
   }
   catch(err) {
     console.log(err);
-    return -1;
+    return FAIL;
   }
 }
 
@@ -60,7 +63,7 @@ async function getCFrating(CFname) {
     // console.log(url);
     var html = (await (await fetch(url)).text());
     if (html == null) {
-      return -1;
+      return FAIL;
     }
     // console.log(html);
     // console.log(html.split('"rating":')[0]);
@@ -69,7 +72,7 @@ async function getCFrating(CFname) {
   }
   catch(err) {
     console.log(err);
-    return -1;
+    return FAIL;
   }
 }
 
@@ -79,7 +82,7 @@ async function getCFrating_bymagic(CFname) {
     // console.log(url);
     var html = (await (await fetch(url)).text());
     if (html == null) {
-      return -1;
+      return FAIL;
     }
     // console.log(html);
     // console.log(html.split('"rating":')[0]);
@@ -89,7 +92,7 @@ async function getCFrating_bymagic(CFname) {
   }
   catch(err) {
     console.log(err);
-    return -1;
+    return FAIL;
   }
 }
 
@@ -116,6 +119,7 @@ function colorACrating(rating, ACname_id, ACname, ACrating_id) {
 
 function colorCFrating(rating, CFname_id, CFprename_id, CFname, CFrating_id) {
   if (rating < 0) {
+    document.getElementById(CFprename_id).innerHTML = "";
     document.getElementById(CFname_id).innerHTML = CFname;
     document.getElementById(CFname_id).style.color = "#000000";
     document.getElementById(CFrating_id).innerHTML = rating.toString();
@@ -223,7 +227,7 @@ document.getElementById("ACname2CFbutton").onclick = function()
   var nowname = inputVal;
   (async () => {
   var a = await getACrating(nowname);
-  if (a == -1) {
+  if (a == FAIL) {
     alert("User " + nowname + " not found");
     var s = "Sometimes there are problems<br>with getting info from AtCoder";
     document.getElementById("ACproblem1").innerHTML=s;
@@ -256,10 +260,10 @@ document.getElementById("CFname2ACbutton").onclick = function()
   var nowname = inputVal;
   (async () => {
   var a = await getCFrating(nowname);
-  if (a == -1) {
+  if (a == FAIL) {
     a = await getCFrating_bymagic(nowname);
   }
-  if (a == -1) {
+  if (a == FAIL) {
     alert("User " + nowname + " not found");
     return;
   }
@@ -273,3 +277,68 @@ document.getElementById("CFname2ACbutton").onclick = function()
   // var txt_ = res.toString() + " - your expected rating on AtCoder";
   // document.getElementById("CF2ACrating").innerHTML = txt_;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/// test
+
+
+var urlParams = new URLSearchParams(window.location.search);
+// console.log(window.location.search);
+var test = urlParams.get('test');
+
+function set_test_true() {
+  document.getElementById("testinfo").innerHTML = "test: ok";
+  document.getElementById("testinfo").style.color = "grey";
+}
+
+function set_test_false() {
+  document.getElementById("testinfo").innerHTML = "test: faled";
+  document.getElementById("testinfo").style.color = "red";
+}
+
+async function checkGetAC() {
+  var a = await getACrating("tourist");
+  if (a == FAIL) {
+    return FAIL;
+  }
+  return 1;
+}
+
+async function checkGetCF() {
+  var a = await getCFrating("tourist");
+  // console.log("ac:");
+  // console.log(a);
+  var b = await getCFrating_bymagic("tourist");
+  if (a == FAIL || b == FAIL) {
+    return FAIL;
+  }
+  return 1;
+}
+
+if (test == 'true') {
+  // console.log("test\n");
+  (async () => {
+    var a = await checkGetAC();
+    var b = await checkGetCF();
+    // console.log(a);
+    // console.log(b);
+    if (a != 1 || b != 1) {
+      set_test_false();
+    } else {
+      set_test_true();
+    }
+  })()
+  
+  // var c = checkMinus();
+}
+

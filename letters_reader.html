@@ -1,5 +1,7 @@
 <html>
 <head>  
+
+
 <!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -9,7 +11,11 @@
 
   <style>
   html,body {
-  overflow-y: scroll; }
+    background-color: #A0A0A0;
+    overflow-y: scroll; }
+  #messages_block {
+    background-color: grey;
+  }
   .centered {
     display: flex;
     align-items: center;
@@ -17,9 +23,55 @@
   }
   .scrollable {
     overflow-y: scroll;
-    height:500px;
-    width:400px;
+    /*height:100%;*/
   }
+  #block {
+    width:40%;
+    margin-left: 30%;
+  }
+  .right_block {
+    /*background-color: #CCFFCC;*/
+    float: right;
+    width:75%;
+    padding-right: 3%;
+    font-size:1.5vw;
+    text-align:right;
+  }
+  .left_block {
+    /*background-color: #FFCCCC;*/
+    float: left;
+    width:75%;
+    padding-left: 3%;
+    font-size:1.5vw;
+    text-align:left;
+  }
+  .right_msg {
+    background-color: #CCFFCC;
+    width: fit-content;
+    float: right;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .left_msg {
+    background-color: #FFCCCC;
+    width: fit-content;
+    float: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .outln {
+    margin-left: 15;
+    margin-right: 15;
+    /*width: 100px; height: 100px;*/ /* Размеры */
+    background: #F6F6FF; /* Цвет фона */
+    outline: 2px solid #000; /* Чёрная рамка */
+    /*border: 3px solid #fff;*/ /* Белая рамка */
+    /*border-radius: 10px; *//* Радиус скругления */
+   }
   /*overflow-y: scroll;*/
   /*max-height: 500px;*/
   /*    background-color: #3366CC; /* Цвет фона веб-страницы */
@@ -35,6 +87,7 @@
   }
   </style>
 
+  <link rel="stylesheet" type="text/css" href="letters_reader.css">
 <!--   <link rel="icon" href="icon_.png" type="image/icon type">
  -->
 </head>
@@ -53,53 +106,95 @@
 </center>
 <br>
 
-<div style="text-align:right;"></div>
+<div style=""></div>
 
 <!-- messages block -->
-  <div class="scrollable">
+  <div class="scrollable outln" id="block">
     <br><br><br><br>
     <text id="messages_block">
-      <div style="background-color: #CCFFCC; float: right; width:300px;">
-      Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста </div>
+      <div class="left_block">
+        <div class="left_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
 
-      <div style="width:400px;float: right"><br><br></div>
+      <div class="left_block"><br><br></div>
 
-      <div style="background-color: #FFCCCC; float: left; width:300px;">
-      Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста </div>
+      <div class="right_block">
+        <div class="right_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
 
-      <div style="width:400px;float: right"><br><br></div>
+      <div class="left_block"><br><br></div>
 
-      <div style="background-color: #CCFFCC; float: right; width:300px;">
+      <div class="left_block">
+        <div class="left_msg">
+          Не очень много текста Не очень много текста Не очень много текста 
+        </div>
+      </div>
 
-      Немного текста </div>
+      <div class="left_block"><br><br></div>
 
-      <div style="width:400px;float: right"><br><br></div>
+      <div class="right_block">
+        <div class="right_msg">
+          Немного текста
+        </div>
+      </div>
 
-      <div style="background-color: #FFCCCC; float: left; width:300px;">
-        
-      Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста </div>
+      <div class="left_block"><br><br></div>
 
-      <div style="width:400px;float: right"><br><br></div>
+      <div class="left_block">
+        <div class="left_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
 
-      <div style="background-color: #CCFFCC; float: right; width:300px;">
+      <div class="left_block"><br><br></div>
 
-      Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста </div>
-      
-      <div style="width:400px;float: right"><br><br></div>
+      <div class="right_block">
+        <div class="right_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
 
-      <div style="background-color: #FFCCCC; float: left; width:300px;">
-      
-      Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста </div>
+      <div class="left_block"><br><br></div>
+
+      <div class="left_block">
+        <div class="left_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
+
+      <div class="left_block"><br><br></div>
+
+      <div class="left_block">
+        <div class="left_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
+
+      <div class="left_block"><br><br></div>
+
+      <div class="right_block">
+        <div class="right_msg">
+          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+        </div>
+      </div>
+
+      <div class="left_block"><br><br></div>
+
+
     </text>
     <br><br><br><br>
   </div>
 <br><br><br><br>
 <div class="input-group mb-3 centered">
     <div class="col-5">
-      <button type="button" class="btn btn-primary" id="prev_page_button">Prev page</button>
+      <button type="button" class="btn btn-secondary" id="prev_page_button"><- Prev page </button>
     </div>
     <div class="input-group-append">
-      <button type="button" class="btn btn-primary" id="next_page_button">Next page</button>
+      <button type="button" class="btn btn-secondary" id="next_page_button">Next page -> </button>
     </div>
   </div>
 

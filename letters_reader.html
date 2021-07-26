@@ -11,7 +11,8 @@
 
   <style>
   html,body {
-    background-color: #A0A0A0;
+    color: white;
+    background-color: #25181F;/*#C6E6F0;*/
     overflow-y: scroll; }
   #messages_block {
     background-color: grey;
@@ -26,6 +27,12 @@
     /*height:100%;*/
   }
   #block {
+    background-color: #1D1016;
+    width:40%;
+    margin-left: 30%;
+  }
+  #iblock {
+    background-color: #1D1016;
     width:40%;
     margin-left: 30%;
   }
@@ -46,7 +53,7 @@
     text-align:left;
   }
   .right_msg {
-    background-color: #CCFFCC;
+    background-color: #693651;/*#CCFFCC;*/
     width: fit-content;
     float: right;
     padding-top: 5px;
@@ -55,7 +62,7 @@
     padding-left: 15px;
   }
   .left_msg {
-    background-color: #FFCCCC;
+    background-color: #2C1B23;/*#FFCCCC;*/
     width: fit-content;
     float: left;
     padding-top: 5px;
@@ -110,7 +117,7 @@
 
 <!-- messages block -->
   <div class="scrollable outln" id="block">
-    <br><br><br><br>
+    <br>
     <text id="messages_block">
       <div class="left_block">
         <div class="left_msg">
@@ -188,15 +195,19 @@
     </text>
     <br><br><br><br>
   </div>
-<br><br><br><br>
-<div class="input-group mb-3 centered">
+  <div class="scrollable outln" id="iblock">
+    <br>
+    <div class="input-group mb-3 centered">
     <div class="col-5">
-      <button type="button" class="btn btn-secondary" id="prev_page_button"><- Prev page </button>
+      <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="prev_page_button"><- Prev page </button>
     </div>
     <div class="input-group-append">
-      <button type="button" class="btn btn-secondary" id="next_page_button">Next page -> </button>
+      <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="next_page_button">Next page -> </button>
     </div>
   </div>
+  </div>
+<br><br><br><br>
+
 
 <br><br><br><br>
 <script src="letters_reader.js">

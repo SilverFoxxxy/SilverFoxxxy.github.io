@@ -13,7 +13,7 @@
   html,body {
     color: white;
     background-color: #25181F;/*#C6E6F0;*/
-    overflow-y: scroll; }
+    /*overflow-y: scroll;*/ }
   #messages_block {
     background-color: grey;
   }
@@ -23,16 +23,25 @@
     justify-content: center;
   }
   .scrollable {
-    overflow-y: scroll;
+    overflow: auto;
+    /*overflow-y: scroll;*/
     /*height:100%;*/
   }
   #block {
+    /*background: #F6F6FF; *//* Цвет фона */
+    /*outline: 2px solid #000;*/ /* Чёрная рамка */
+/*    border: 3px solid #fff;
+    display: block;
+    clear: both;*/
     background-color: #1D1016;
     width:40%;
     margin-left: 30%;
   }
   #iblock {
     background-color: #1D1016;
+/*    border: 3px solid #fff;
+    display: block;
+    clear: both;*/
     width:40%;
     margin-left: 30%;
   }
@@ -71,12 +80,14 @@
     padding-right: 15px;
   }
   .outln {
-    margin-left: 15;
-    margin-right: 15;
+    /*margin-left: 15;
+    margin-right: 15;*/
     /*width: 100px; height: 100px;*/ /* Размеры */
-    background: #F6F6FF; /* Цвет фона */
-    outline: 2px solid #000; /* Чёрная рамка */
-    /*border: 3px solid #fff;*/ /* Белая рамка */
+    /*background: #F6F6FF;*/ /* Цвет фона */
+    outline: 3px solid #000; /* Чёрная рамка */
+    /*border: 3px solid #fff; *//* Белая рамка */
+    /*display: block;
+    clear: both;*/
     /*border-radius: 10px; *//* Радиус скругления */
    }
   /*overflow-y: scroll;*/
@@ -198,13 +209,13 @@
   <div class="scrollable outln" id="iblock">
     <br>
     <div class="input-group mb-3 centered">
-    <div class="col-5">
-      <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="prev_page_button"><- Prev page </button>
+      <div class="col-5">
+        <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="prev_page_button"><- Prev page </button>
+      </div>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="next_page_button">Next page -> </button>
+      </div>
     </div>
-    <div class="input-group-append">
-      <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="next_page_button">Next page -> </button>
-    </div>
-  </div>
   </div>
 <br><br><br><br>
 

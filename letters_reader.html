@@ -13,7 +13,7 @@
   html,body {
     color: white;
     background-color: #25181F;/*#C6E6F0;*/
-    /*overflow-y: scroll;*/ }
+    overflow-y: auto; }
   #messages_block {
     background-color: grey;
   }
@@ -23,7 +23,9 @@
     justify-content: center;
   }
   .scrollable {
-    overflow: auto;
+    overflow-y: scroll;
+    height: 70vh;
+    /*overflow: auto;*/
     /*overflow-y: scroll;*/
     /*height:100%;*/
   }
@@ -38,12 +40,16 @@
     margin-left: 30%;
   }
   #iblock {
+    /*padding-top: 15px;
+    padding-bottom: 15px;*/
     background-color: #1D1016;
 /*    border: 3px solid #fff;
     display: block;
     clear: both;*/
     width:40%;
     margin-left: 30%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
   }
   .right_block {
     /*background-color: #CCFFCC;*/
@@ -114,7 +120,7 @@
 <div class="d-flex justify-content-center align-items-center"><span>
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
-<br><br><br>
+<br>
 <center>
 <h1>
   <b>
@@ -206,8 +212,7 @@
     </text>
     <br><br><br><br>
   </div>
-  <div class="scrollable outln" id="iblock">
-    <br>
+  <div class="outln" id="iblock">
     <div class="input-group mb-3 centered">
       <div class="col-5">
         <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vw;" id="prev_page_button"><- Prev page </button>

@@ -24,7 +24,7 @@
   }
   .scrollable {
     overflow-y: scroll;
-    height: 85vh;
+    height: 86vh;
     /*overflow: auto;*/
     /*overflow-y: scroll;*/
     /*height:100%;*/
@@ -36,8 +36,10 @@
     display: block;
     clear: both;*/
     background-color: #1D1016;
-    width:50%;
-    margin-left: 25%;
+    width:55vh;
+    /*width:50%;*/
+    margin: auto;
+    /*margin-left: 25%;*/
   }
   #iblock {
     /*padding-top: 15px;
@@ -46,8 +48,10 @@
 /*    border: 3px solid #fff;
     display: block;
     clear: both;*/
-    width:50%;
-    margin-left: 25%;
+    width:55vh;
+    /*width:50%;*/
+    margin:auto;
+    /*margin-left: 25%;*/
     margin-top: 1vh;
     margin-bottom: 1vh;
   }
@@ -56,7 +60,7 @@
     float: right;
     width:75%;
     padding-right: 3%;
-    font-size:1.5vw;
+    font-size:1.5vh;
     text-align:right;
   }
   .left_block {
@@ -64,8 +68,18 @@
     float: left;
     width:75%;
     padding-left: 3%;
-    font-size:1.5vw;
+    font-size:1.5vh;
     text-align:left;
+  }
+  .center_block {
+    float:center;
+    width:75%;
+    margin: auto;
+    /*margin-left: 7%;*/
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size:1.5vh;
+    text-align:center;
   }
   .right_msg {
     background-color: #693651;/*#CCFFCC;*/
@@ -85,6 +99,16 @@
     padding-left: 15px;
     padding-right: 15px;
   }
+  .center_msg {
+    background-color: #656A6C;/*#2C1B23;*//*#FFCCCC;*/
+    border: 2px dashed grey;
+    width: fit-content;
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
   .outln {
     /*margin-left: 15;
     margin-right: 15;*/
@@ -96,6 +120,23 @@
     clear: both;*/
     /*border-radius: 10px; *//* Радиус скругления */
    }
+
+
+   table {
+      /*border-collapse: collapse;*/
+    }
+    tr { 
+      /*border: solid;
+      border-width: 1px 1px;
+      border-color: white;*/
+    }
+
+
+  div {
+    /*border: solid;
+    border-width: 1px 1px;
+    border-color: green;*/
+  }
   /*overflow-y: scroll;*/
   /*max-height: 500px;*/
   /*    background-color: #3366CC; /* Цвет фона веб-страницы */
@@ -135,82 +176,165 @@
   <div class="scrollable outln" id="block">
     <br>
     <text id="messages_block">
-      <div class="left_block">
-        <div class="left_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+      <table>
+        <tr><td>
+          <div class="left_block">
+            <div class="left_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+        </td></tr>
+        <tr><td>
+          <div class="left_block"><br><br></div>
+        </td></tr>
 
-      <div class="left_block"><br><br></div>
+        <tr><td>
+          <div class="right_block">
+            <div class="right_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+        </td></tr>
+        <tr><td>
 
-      <div class="right_block">
-        <div class="right_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+          <div class="left_block"><br><br></div>
 
-      <div class="left_block"><br><br></div>
+        </td></tr>
+        <tr><td>
+          <div class="left_block">
+            <div class="left_msg">
+              Не очень много текста Не очень много текста Не очень много текста 
+            </div>
+          </div>
+        </td></tr>
+        <tr><td>
 
-      <div class="left_block">
-        <div class="left_msg">
-          Не очень много текста Не очень много текста Не очень много текста 
-        </div>
-      </div>
+          <div class="left_block"><br><br></div>
 
-      <div class="left_block"><br><br></div>
+        </td></tr>
+        <tr><td>
 
-      <div class="right_block">
-        <div class="right_msg">
-          Немного текста
-        </div>
-      </div>
+          <div class="right_block">
+            <div class="right_msg">
+              Немного текста
+            </div>
+          </div>
 
-      <div class="left_block"><br><br></div>
+        </td></tr>
+        <tr><td>
 
-      <div class="left_block">
-        <div class="left_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+          <div class="left_block"><br><br></div>
 
-      <div class="left_block"><br><br></div>
+        </td></tr>
+        <tr><td>
 
-      <div class="right_block">
-        <div class="right_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+          <div class="left_block">
+            <div class="left_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+        </td></tr>
+        <tr><td>
 
-      <div class="left_block"><br><br></div>
+          <div class="left_block"><br><br></div>
 
-      <div class="left_block">
-        <div class="left_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+        </td></tr>
+        <tr><td>
 
-      <div class="left_block"><br><br></div>
+          <div class="center_block">
+            <div class="center_msg">
+              Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора 
+            </div>
+          </div>
 
-      <div class="left_block">
-        <div class="left_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+        </td></tr>
+        <tr><td>
 
-      <div class="left_block"><br><br></div>
+          <div class="left_block"><br><br></div>
 
-      <div class="right_block">
-        <div class="right_msg">
-          Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-        </div>
-      </div>
+        </td></tr>
+        <tr><td>
 
-      <div class="left_block"><br><br></div>
+          <div class="right_block">
+            <div class="right_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block"><br><br></div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block">
+            <div class="left_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block"><br><br></div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="center_block">
+            <div class="center_msg">
+              Слова автора
+            </div>
+          </div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block"><br><br></div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block">
+            <div class="left_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block"><br><br></div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="right_block">
+            <div class="right_msg">
+              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
+            </div>
+          </div>
+
+        </td></tr>
+        <tr><td>
+
+          <div class="left_block"><br><br></div>
+
+        </td></tr>
+        <tr><td>
 
 
     </text>
     <br><br><br><br>
+
+    </table>
+
   </div>
+
+
+
   <div class="outln" id="iblock">
     <div class="input-group mb-3 centered">
       <div class="col-5">
@@ -224,6 +348,8 @@
 
 
 <br><br><br>
+
+
 <script src="letters_reader.js">
 </script>
 

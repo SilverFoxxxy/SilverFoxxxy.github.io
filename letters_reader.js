@@ -45,16 +45,20 @@ var ispartloaded = -1;
 //   console.log('File data:', jsonString)
 // })
 
-$.ajax({
-  url: "letters_example.json",
-  dataType: "json",
-  success: function(response) {
-    $.each(response.Users, function(item) {
-      informationArray.push(item);
-    });
-    informationArray.push("success");
-  }
-});
+var data;
+$.getJSON("letters_example.json", data);
+console.log('File data:', data)
+
+// $.ajax({
+//   url: "http://cors.io/?https://github.com/SilverFoxxxy/SilverFoxxxy.github.io/letters_example.json",
+//   dataType: "json",
+//   success: function(response) {
+//     $.each(response.Users, function(item) {
+//       informationArray.push(item);
+//     });
+//     informationArray.push("success");
+//   }
+// });
 
 // function load() {
 // 	if (name != null && part_n != null && page_n != null) {

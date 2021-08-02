@@ -46,11 +46,13 @@ var ispartloaded = -1;
 // })
 
 var data;
-data = $.getJSON("letters_example.json", function() {
+data = $.getJSON("letters_example.json", function(test) {
  console.log( "success" );
+ data = test;
+ console.log(JSON.stringify(test));
 });
 
-console.log(JSON.stringify(data));
+
 
 // $.ajax({
 //   url: "http://cors.io/?https://github.com/SilverFoxxxy/SilverFoxxxy.github.io/letters_example.json",

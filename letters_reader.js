@@ -48,7 +48,9 @@ var ispartloaded = -1;
 var data;
 data = $.getJSON("letters_example.json", function() {
  console.log( "success" );
-})
+});
+
+console.log(JSON.stringify(data));
 
 // $.ajax({
 //   url: "http://cors.io/?https://github.com/SilverFoxxxy/SilverFoxxxy.github.io/letters_example.json",

@@ -85,8 +85,9 @@ async function reload_page() {
 		if (DEBUG) {
 			data = await(JSON.parse(datastr));
 		} else {
+			url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
 			name = "letters_example";
-			data = await fetch(name + ".json");
+			data = await fetch(url + name + ".json");
 		}
 	}
 	if (part_n == null) {

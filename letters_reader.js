@@ -20,7 +20,7 @@
 //     return null;
 // }
 
-const DEBUG = false;
+const DEBUG = true;
 
 var urlParams = new URLSearchParams(window.location.search);
 // console.log(window.location.search);
@@ -82,12 +82,17 @@ function parse_page(partjs) {
 async function reload_page() {
 	// document.getElementById("title").innerHTML = title;
 	if (ispartloaded == -1) {
+		// if (name == null) {
+		// 	name = "letters_example";
+		// }
 		if (DEBUG) {
-			data = await(JSON.parse(datastr));
+			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/" + name + ".json")).json();
+			// data = await(JSON.parse(datastr));
 		} else {
-			url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
-			name = "letters_example";
-			data = await fetch(url + name + ".json");
+			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/" + name + ".json")).json();
+			// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
+			// name = "letters_example";
+			// data = await fetch(url + name + ".json");
 		}
 	}
 	if (part_n == null) {

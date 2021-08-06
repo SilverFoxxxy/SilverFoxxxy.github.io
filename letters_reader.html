@@ -26,12 +26,26 @@
   }
   .scrollable {
     overflow-y: scroll;
-    height: 86vh;
+    height: 90vh;
     /*overflow: auto;*/
     /*overflow-y: scroll;*/
     /*height:100%;*/
   }
-  #block {
+  .nameblock {
+    /*background: #F6F6FF; *//* Цвет фона */
+    /*outline: 2px solid #000;*/ /* Чёрная рамка */
+/*    border: 3px solid #fff;
+    display: block;
+    clear: both;*/
+    /*background-color: #1D1016;*/
+    width:95%;
+    max-width:75vh;
+    /*max-width:95%;*/
+    /*width:50%;*/
+    margin: auto;
+    /*margin-left: 25%;*/
+  }
+  .block {
     /*background: #F6F6FF; *//* Цвет фона */
     /*outline: 2px solid #000;*/ /* Чёрная рамка */
 /*    border: 3px solid #fff;
@@ -45,7 +59,7 @@
     margin: auto;
     /*margin-left: 25%;*/
   }
-  #iblock {
+  .iblock {
     /*padding-top: 15px;
     padding-bottom: 15px;*/
     background-color: #1D1016;
@@ -179,7 +193,6 @@
 <!-- <div class="d-flex justify-content-center align-items-center"><span> -->
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
-<br>
 <center>
 <h3>
   <b>
@@ -191,7 +204,7 @@
 <div style=""></div>
 
 <!-- messages block -->
-  <div class="scrollable outln" id="block">
+  <div class="scrollable outln block">
     <br>
     <text id="messages_block">
       <table>
@@ -353,7 +366,7 @@
 
 
 
-  <div class="outln" id="iblock">
+  <div class="outln iblock">
     <div class="input-group mb-3 centered">
       <div class="col-5">
         <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vh;" id="prev_page_button"><- Prev page </button>
@@ -365,7 +378,7 @@
   </div>
 
 
-<br><br><br>
+<!-- <br><br><br> -->
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->
 

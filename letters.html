@@ -26,31 +26,35 @@
   }
   .scrollable {
     overflow-y: scroll;
-    height: 86vh;
+    height: 100vh;
     /*overflow: auto;*/
     /*overflow-y: scroll;*/
     /*height:100%;*/
   }
-  #block {
+  .block {
     /*background: #F6F6FF; *//* Цвет фона */
     /*outline: 2px solid #000;*/ /* Чёрная рамка */
 /*    border: 3px solid #fff;
     display: block;
     clear: both;*/
     background-color: #1D1016;
-    width:55vh;
+    width:95vw;
+    max-width:75vh;
+    /*max-width:95%;*/
     /*width:50%;*/
     margin: auto;
     /*margin-left: 25%;*/
   }
-  #iblock {
+  .iblock {
     /*padding-top: 15px;
     padding-bottom: 15px;*/
     background-color: #1D1016;
 /*    border: 3px solid #fff;
     display: block;
     clear: both;*/
-    width:55vh;
+    width:95%;
+    max-width:75vh;
+    /*max-width:95%;*/
     /*width:50%;*/
     margin:auto;
     /*margin-left: 25%;*/
@@ -164,25 +168,25 @@
 <div class="d-flex justify-content-center align-items-center"><span>
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
+<div class="block scrollable">
+  <br>
+  <center>
+  <h3>
+    <b>
+      <text id="title" style="font-size: 3vh;">Что-то почитать (примеры)</text>
+    </b>
+  </h3>
 
-<br>
-<center>
-<h3>
-  <b>
-    <text id="title" style="font-size: 3vh;">Что-то почитать (примеры)</text>
-  </b>
-</h3>
+  <br><br><br>
 
-<br><br><br>
+  <a href="https://silverfoxxxy.github.io/letters_reader?name=letters_example" style="font-size: 2vh;">Алиса в Стране чудес. Отрывок</a>
 
-<a href="https://silverfoxxxy.github.io/letters_reader?name=letters_example">Алиса в Стране чудес. Отрывок</a>
+  <br><br><br>
 
-<br><br><br>
+  <a href="https://silverfoxxxy.github.io/letters_reader?name=ahill" style="font-size: 2vh;">Ахиллес и Черепаха. Отрывок</a>
 
-<a href="https://silverfoxxxy.github.io/letters_reader?name=ahill">Ахиллес и Черепаха. Отрывок</a>
-
-</center>
-
+  </center>
+</div>
 
 
 <br><br><br>

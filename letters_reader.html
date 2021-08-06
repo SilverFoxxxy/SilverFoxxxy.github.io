@@ -9,7 +9,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <title> Letters reader </title>
+  <title id="page_title">Letters reader </title>
 
   <style>
   html,body {
@@ -38,7 +38,9 @@
     display: block;
     clear: both;*/
     background-color: #1D1016;
-    width:55vh;
+    width:95%;
+    max-width:75vh;
+    /*max-width:95%;*/
     /*width:50%;*/
     margin: auto;
     /*margin-left: 25%;*/
@@ -50,7 +52,9 @@
 /*    border: 3px solid #fff;
     display: block;
     clear: both;*/
-    width:55vh;
+    width:95%;
+    max-width:75vh;
+    /*max-width:95%;*/
     /*width:50%;*/
     margin:auto;
     /*margin-left: 25%;*/
@@ -61,17 +65,22 @@
     /*background-color: #CCFFCC;*/
     float: right;
     width:75%;
-    padding-right: 3%;
+    margin:auto;
+    padding-right: 3vh;
     font-size:1.5vh;
-    text-align:right;
+    /*text-align:right;*/
+    /*border: 1px solid #00FFFF;*/
   }
   .left_block {
+    block-size: fit-content;
     /*background-color: #FFCCCC;*/
-    float: left;
+    /*float: left;*/
     width:75%;
+    /*margin:auto;*/
     padding-left: 3%;
     font-size:1.5vh;
-    text-align:left;
+    /*text-align:left;*/
+    /*border: 1px solid #00FFFF;*/
   }
   .center_block {
     float:center;
@@ -82,25 +91,30 @@
     padding-right: 3%;
     font-size:1.5vh;
     text-align:center;
+    /*border: 1px solid #00FFFF;*/
   }
   .right_msg {
     background-color: #693651;/*#CCFFCC;*/
     width: fit-content;
     float: right;
+    margin:auto;
     text-align: left;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-right: 15px;
     padding-left: 15px;
+    /*border: 2px solid #00FF00;*/
   }
   .left_msg {
     background-color: #35252C;/*#2C1B23;*//*#FFCCCC;*/
     width: fit-content;
-    float: left;
+    /*float: left;*/
+    /*margin:auto;*/
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    /*border: 2px solid #00FF00;*/
   }
   .center_msg {
     background-color: #656A6C;/*#2C1B23;*//*#FFCCCC;*/
@@ -111,6 +125,7 @@
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    /*border: 2px solid #00FF00;*/
   }
   .outln {
     /*margin-left: 15;
@@ -161,7 +176,7 @@
 </head>
 <body>
   <!-- style="height:700px;" -->
-<div class="d-flex justify-content-center align-items-center"><span>
+<!-- <div class="d-flex justify-content-center align-items-center"><span> -->
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
 <br>
@@ -357,8 +372,8 @@
 <script src="letters_reader.js">
 </script>
 
-</span>
-</div>
+<!-- </span>
+</div> -->
 
 </body>
 

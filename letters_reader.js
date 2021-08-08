@@ -74,8 +74,8 @@ function parse_page(partjs) {
 	html = '<table>';
 	for (txt in partjs) {
 		console.log(txt);
-		nowtxt = parse_txt(partjs[txt])
-		html = html + '<tr><td style="font-size:' + nowtxt + '</td></tr>';
+		nowtxt = parse_txt(partjs[txt]);
+		html = html + '<tr><td style="font-size:' + global_fontsz + '">' + nowtxt + '</td></tr>';
 		html += '<tr><td><div class="left_block"><br></div></td></tr>';
 	}
 	html = html + '</table>';
@@ -98,7 +98,7 @@ async function reload_page() {
 			// data = await fetch(url + name + ".json");
 		}
 	}
-	var font_n = parseInt(data["header"]["fontsz"]);
+	var font_n = parseInt(data["header"]["font"]);
 	font_n--;
 	if (font_n < 0) {
 		font_n = 0;
@@ -111,8 +111,9 @@ async function reload_page() {
 		font_n = 3;
 	}
 	global_fontsz = font_sz[font_n];
-	document.getElementById("title").style.font_size = ("font-size:" + global_fontsz);
-	document.getElementById("lrbuttons").style = ("font-size:" + global_fontsz);
+	document.getElementById("title").style = ("font-size:" + global_fontsz);
+	document.getElementById("prev_page_button").style = ("font-size:" + global_fontsz);
+	document.getElementById("next_page_button").style = ("font-size:" + global_fontsz);
 
 	nowpart = part_n;
 	nowpage = page_n;

@@ -16,8 +16,11 @@
     color: white;
     background-color: #35252C;/*#25181F;*//*#C6E6F0;*/
     overflow-y: auto; }
+  div {
+    /*border: 3px solid #00FFFF;*/
+  }
   #messages_block {
-    background-color: grey;
+    /*background-color: grey;*/
   }
   .centered {
     display: flex;
@@ -25,7 +28,9 @@
     justify-content: center;
   }
   .scrollable {
+    /*font-size:1.5vh;*/
     min-height: 82vh;
+    overflow: auto;
     /*overflow-y: scroll;
     height: 82vh;*/
     /*overflow: auto;*/
@@ -47,6 +52,7 @@
     /*margin-left: 25%;*/
   }
   .block {
+    height: fit-content;
     /*background: #F6F6FF; *//* Цвет фона */
     /*outline: 2px solid #000;*/ /* Чёрная рамка */
 /*    border: 3px solid #fff;
@@ -81,19 +87,19 @@
     float: right;
     width:75%;
     margin:auto;
-    padding-right: 3vh;
-    font-size:1.5vh;
+    padding-right: 2vh;
+    /*font-size:1.5vh;*/
     /*text-align:right;*/
     /*border: 1px solid #00FFFF;*/
   }
   .left_block {
-    block-size: fit-content;
+    /*block-size: fit-content;*/
     /*background-color: #FFCCCC;*/
-    /*float: left;*/
+    float: left;
     width:75%;
-    /*margin:auto;*/
-    padding-left: 3%;
-    font-size:1.5vh;
+    margin:auto;
+    padding-left: 2vh;
+    /*font-size:1.5vh;*/
     /*text-align:left;*/
     /*border: 1px solid #00FFFF;*/
   }
@@ -104,7 +110,7 @@
     /*margin-left: 7%;*/
     padding-left: 3%;
     padding-right: 3%;
-    font-size:1.5vh;
+    /*font-size:1.5vh;*/
     text-align:center;
     /*border: 1px solid #00FFFF;*/
   }
@@ -155,6 +161,11 @@
    }
 
 
+  table, th, td {
+    font-size: 3vh;
+    width: 100%;
+    /*border: 1px solid red;*/
+  }
    table {
       /*border-collapse: collapse;*/
     }
@@ -167,8 +178,8 @@
 
   div {
     /*border: solid;
-    border-width: 1px 1px;
-    border-color: green;*/
+    border-width: 1px 1px;*/
+    /*border-color: green;*/
   }
   /*overflow-y: scroll;*/
   /*max-height: 500px;*/
@@ -188,6 +199,7 @@
   <link rel="stylesheet" type="text/css" href="letters_reader.css">
 <!--   <link rel="icon" href="icon_.png" type="image/icon type">
  -->
+
 </head>
 <body>
   <!-- style="height:700px;" -->
@@ -206,8 +218,7 @@
 
 <!-- messages block -->
   <div class="scrollable outln block">
-    <br>
-    <text id="messages_block">
+    <div id="messages_block">
       <table>
         <tr><td>
           <div class="left_block">
@@ -355,31 +366,22 @@
           <div class="left_block"><br><br></div>
 
         </td></tr>
-        <tr><td>
-
-
-    </text>
-    <br><br><br><br>
-
-    </table>
-
+      </table>
+    </div>
   </div>
 
-
-
-  <div class="outln iblock">
+  <div class="outln iblock" id="lrbuttons">
     <div class="input-group mb-3 centered">
       <div class="col-5">
-        <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vh;" id="prev_page_button"><- Prev page </button>
+        <button type="button" class="btn btn-secondary" style="background: #191919; " id="prev_page_button"><- Prev page </button>
       </div>
       <div class="input-group-append">
-        <button type="button" class="btn btn-secondary" style="background: #191919; font-size:1.5vh;" id="next_page_button">Next page -> </button>
+        <button type="button" class="btn btn-secondary" style="background: #191919;" id="next_page_button">Next page -> </button>
       </div>
     </div>
   </div>
 
-
-<br><br><br>
+<br><br><br><br>
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->
 

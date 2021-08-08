@@ -46,24 +46,27 @@ var title = null;
 
 var textes;
 
+const font_sz = ["1.5vh", "2vh", "3vh", "4vh", "5vh"];
+var global_fontsz = "3vh";
+
 function parse_txt(txt) {
-	var from = txt["from"];
+	var from = txt[0];
 	var pref = '';
 	var suf = '';
-	if (from == 1) {
+	if (from == '0' || from == 'автор'  || from == 'author') {
 		pref = '<div class="center_block"><div class="center_msg">';
 		suf = '</div></div>';
 	}
-	if (from == 2) {
+	if (from == 1) {
 		pref = '<div class="left_block"><div class="left_msg">';
 		suf = '</div></div>';
 	}
-	if (from == 3) {
+	if (from == 2) {
 		pref = '<div class="right_block"><div class="right_msg">';
 		suf = '</div></div>';
 	}
 	console.log(txt);
-	return (pref + txt["text"] + suf);
+	return (pref + txt[1] + suf);
 }
 
 function parse_page(partjs) {
@@ -72,7 +75,7 @@ function parse_page(partjs) {
 	for (txt in partjs) {
 		console.log(txt);
 		nowtxt = parse_txt(partjs[txt])
-		html = html + '<tr><td>' + nowtxt + '</td></tr>';
+		html = html + '<tr><td style="font-size:' + nowtxt + '</td></tr>';
 		html += '<tr><td><div class="left_block"><br></div></td></tr>';
 	}
 	html = html + '</table>';
@@ -95,24 +98,47 @@ async function reload_page() {
 			// data = await fetch(url + name + ".json");
 		}
 	}
-	if (part_n == null) {
-		part_n = 0;
+	var font_n = parseInt(data["header"]["fontsz"]);
+	font_n--;
+	if (font_n < 0) {
+		font_n = 0;
 	}
-	if (page_n == null || page_n < 0) {
-		page_n = 0;
+	if (font_n >= font_sz.length) {
+		font_n = font_sz.length - 1;
 	}
-	if (page_n >= data["parts"].length) {
-		page_n = data["parts"].length - 1;
+	console.log(font_n);
+	if (font_n == null) {
+		font_n = 3;
 	}
-	title = data["title"];
+	global_fontsz = font_sz[font_n];
+	document.getElementById("title").style.font_size = ("font-size:" + global_fontsz);
+	document.getElementById("lrbuttons").style = ("font-size:" + global_fontsz);
+
+	nowpart = part_n;
+	nowpage = page_n;
+	if (nowpart == null || nowpart < 0) {
+		nowpart = 0;
+	}
+	if (nowpart >= data["parts"].length) {
+		nowpart = data["parts"].length - 1;
+	}
+	if (nowpage == null || nowpage < 0) {
+		nowpage = 0;
+	}
+	if (nowpage >= data["parts"][nowpart]["pages"].length) {
+		nowpage = data["parts"][nowpart]["pages"].length - 1;
+	}
+	title = data["header"]["title"];
 	document.getElementById("title").innerHTML = title;
 	// TODO: название главы
 	// TODO: тома (несколько глав)
-	var nowpage = parse_page(data["parts"][page_n]);
+	var nowpage = parse_page(data["parts"][nowpart]["pages"][nowpage]);
 
 	// console.log(nowpage);
 
 	document.getElementById("messages_block").innerHTML = nowpage;
+
+	window.scrollTo(0, 0);
 	// html = json2page(data);
 	// title = json2title(data);
 }

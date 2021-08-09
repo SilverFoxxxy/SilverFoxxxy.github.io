@@ -46,8 +46,8 @@ var title = null;
 
 var textes;
 
-const font_sz = ["1.5vh", "2vh", "3vh", "4vh", "5vh"];
-var global_fontsz = "3vh";
+const font_sz = ["0.5rem", "0.75rem", "1rem", "1.5rem", "2rem"];
+var global_fontsz = "1.5rem";
 
 function parse_txt(txt) {
 	var from = txt[0];

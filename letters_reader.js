@@ -47,7 +47,7 @@ var title = null;
 var textes;
 
 const font_sz = ["0.5rem", "0.75rem", "1rem", "1.5rem", "2rem"];
-var global_fontsz = "1.5rem";
+var global_fontsz = "1rem";
 
 function parse_txt(txt) {
 	var from = txt[0];
@@ -100,16 +100,18 @@ async function reload_page() {
 	}
 	var font_n = parseInt(data["header"]["font"]);
 	font_n--;
-	if (font_n < 0) {
+	if (font_n == -1) {
 		font_n = 0;
 	}
-	if (font_n >= font_sz.length) {
+	if (font_n == font_sz.length) {
 		font_n = font_sz.length - 1;
 	}
-	console.log(font_n);
-	if (font_n == null) {
-		font_n = 3;
+	if (!(font_n>= 0 && font_n < font_sz.length)) {
+		font_n = 2;
 	}
+	
+	console.log(font_n);
+	
 	global_fontsz = font_sz[font_n];
 	document.getElementById("title").style = ("font-size:" + global_fontsz);
 	document.getElementById("prev_page_button").style = ("font-size:" + global_fontsz);

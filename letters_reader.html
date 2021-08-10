@@ -41,6 +41,15 @@
     max-width:95%;
     margin: auto;
   }
+  .header {
+    font-size: 1.5rem;
+    height: fit-content;
+    background-color: #191520;
+    /*#1D1016;*/
+    width:fit-content;
+    max-width:95%;
+    margin: auto;
+  }
   .block {
     height: fit-content;
     background-color: #191520;
@@ -122,23 +131,18 @@
     /*border: 2px solid #00FF00;*/
   }
   .outln {
-    /*margin-left: 15;
-    margin-right: 15;*/
-    /*width: 100px; height: 100px;*/ /* Размеры */
-    /*background: #F6F6FF;*/ /* Цвет фона */
-    outline: 3px solid #000; /* Чёрная рамка */
-    /*border: 3px solid #fff; *//* Белая рамка */
-    /*display: block;
-    clear: both;*/
-    /*border-radius: 10px; *//* Радиус скругления */
+    outline: 3px solid #000;
    }
 
 
   table, th, td {
     line-height: 1.7;
-    font-size: 1.5rem;
     width: 100%;
     /*border: 1px solid red;*/
+  }
+  select {
+    color: #D1CAE0;
+    background-color: #221E2A;
   }
    table {
       /*border-collapse: collapse;*/
@@ -176,6 +180,40 @@
 
 </head>
 <body>
+<br>
+<div class="header" id="header">
+  <!-- здесь всё, что выше непосредственно текста -->
+  <table style="float:center;">
+    <tr>
+      <td style="width: fit-content">
+        <button type="button" class="btn btn-secondary" style="background: #191919; font-size: 1rem; width:4rem;" id="prev_page_button1"> < </button>
+      </td>
+      <td style="width: fit-content">
+        <div style="font-size: 1.5rem;">
+          &nbspстраница&nbsp
+        </div>
+      </td>
+      <td style="width: fit-content">
+        <div id="page_n" style="font-size: 1.5rem;">
+          <select name="pages" id="pages" style="background: #191919;">
+          </select> 
+        </div>
+      </td>
+      <td style="width: fit-content">
+        <div style="font-size: 1.5rem;">
+          &nbspиз&nbsp
+        </div>
+      </td>
+      <td style="width: fit-content">
+        <div id="max_page_n" style="font-size: 1.5rem;">1&nbsp</div>
+      </td>
+      <td style="width: fit-content">
+        <button type="button" class="btn btn-secondary" style="background: #191919; font-size: 1rem; width:4rem;" id="next_page_button1"> > </button>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
   <!-- style="height:700px;" -->
 <!-- <div class="d-flex justify-content-center align-items-center"><span> -->
 
@@ -348,10 +386,10 @@
   <div class="outln iblock" id="lrbuttons">
     <div class="input-group mb-3 centered">
       <div class="col-5">
-        <button type="button" class="btn btn-secondary" style="background: #191919; " id="prev_page_button"><- Prev page </button>
+        <button type="button" class="btn btn-secondary" style="background: #191919; font-size: 1.5rem; width: 7rem;" id="prev_page_button"> < </button>
       </div>
       <div class="input-group-append">
-        <button type="button" class="btn btn-secondary" style="background: #191919;" id="next_page_button">Next page -> </button>
+        <button type="button" class="btn btn-secondary" style="background: #191919; font-size: 1.5rem; width: 7rem;" id="next_page_button"> > </button>
       </div>
     </div>
   </div>

@@ -82,6 +82,20 @@ function parse_page(partjs) {
 	return html;
 }
 
+function createPageSelect(page_, max_page_) {
+	html = "";
+	for (var i = 0; i < max_page_; i++) {
+		// <option value="1" selected>Saab</option>
+		html += '<option';// value="' + (i + 1) + '"';
+		if (i == page_) {
+			html += ' selected';
+		}
+		html +=  '>' + (i + 1) + '</option>';
+	}
+	console.log(html);
+	return html;
+}
+
 async function reload_page() {
 	// document.getElementById("title").innerHTML = title;
 	if (ispartloaded == -1) {
@@ -114,8 +128,8 @@ async function reload_page() {
 	
 	global_fontsz = font_sz[font_n];
 	document.getElementById("title").style = ("font-size:" + global_fontsz);
-	document.getElementById("prev_page_button").style = ("font-size:" + global_fontsz);
-	document.getElementById("next_page_button").style = ("font-size:" + global_fontsz);
+	// document.getElementById("prev_page_button").style = ("font-size:" + global_fontsz);
+	// document.getElementById("next_page_button").style = ("font-size:" + global_fontsz);
 
 	nowpart = part_n;
 	nowpage = page_n;
@@ -135,16 +149,21 @@ async function reload_page() {
 		nowpage = 0;
 		page_n = 0;
 	}
-	if (nowpage >= data["parts"][nowpart]["pages"].length) {
-		nowpage = data["parts"][nowpart]["pages"].length - 1;
-		page_n = data["parts"][nowpart]["pages"].length - 1;
+	var max_page_n = data["parts"][nowpart]["pages"].length;
+	if (nowpage >= max_page_n) {
+		nowpage = max_page_n - 1;
+		page_n = max_page_n - 1;
 	}
-	if (!(nowpage >= 0 && nowpage < data["parts"][nowpart]["pages"].length)) {
+
+	if (!(nowpage >= 0 && nowpage < max_page_n)) {
 		nowpage = 0;
 		page_n = 0;
 	}
  	title = data["header"]["title"];
 	document.getElementById("title").innerHTML = title;
+	// document.getElementById("page_n").innerHTML = (page_n + 1);
+	document.getElementById("max_page_n").innerHTML = data["parts"][nowpart]["pages"].length;
+	document.getElementById("pages").innerHTML = createPageSelect(page_n, max_page_n);
 	// TODO: название главы
 	// TODO: тома (несколько глав)
 	var nowpage = parse_page(data["parts"][nowpart]["pages"][nowpage]);
@@ -185,6 +204,34 @@ document.getElementById("next_page_button").onclick = function()
   page_n++;
   reload_page();
 }
+
+document.getElementById("prev_page_button1").onclick = function()
+{
+  page_n--;
+  reload_page();
+}
+
+document.getElementById("next_page_button1").onclick = function()
+{
+  page_n++;
+  reload_page();
+}
+
+var activities = document.getElementById("pages");
+
+// activities.addEventListener("click", function() {
+//     var options = activities.querySelectorAll("option");
+//     var count = options.length;
+//     if(typeof(count) === "undefined" || count < 2)
+//     {
+//         addActivityItem();
+//     }
+// });
+
+activities.addEventListener("change", function() {
+    page_n = parseInt(activities.value) - 1;
+    reload_page();
+});
 
 // console.log(JSON.stringify(data));
 

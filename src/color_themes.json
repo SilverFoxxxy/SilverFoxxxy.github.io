@@ -1,5 +1,5 @@
 {
-	"light":
+	"themes":[
 		[
 			["main-bg", "#F1F1F1"],
 			["main-color", "#000000"],
@@ -8,8 +8,6 @@
 			["left-bg", "#FDFDFD"],
 			["author-bg", "#F1F1F1"]
 		],
-
-	"dark":
 		[
 			["main-bg", "#221E2A"],
 			["main-color", "#D1CAE0"],
@@ -17,6 +15,7 @@
 			["right-bg", "#463865"],
 			["left-bg", "#322C3B"],
 			["author-bg", "#555565"]
-		],
+		]
+	]
 
 }

@@ -132,7 +132,8 @@ async function reload_page() {
 	}
 	if (isthemeloaded == -1) {
 		try {
-			themes = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/color_themes.json")).json();
+			var themes_json = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/color_themes.json")).json();
+			themes = themes_json["themes"];
 			isthemeloaded = true;
 
 			if (now_theme >= 0 && now_theme < themes.length) {

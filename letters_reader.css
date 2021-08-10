@@ -26,6 +26,12 @@ html,body {
 	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
 	overflow-y: auto;
 }
+
+button {
+	color: var(--main-color);/*white;*/
+	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
+}
+
 a {
 	color: var(--main-color);
 }

@@ -92,7 +92,7 @@ async function reload_page() {
 			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
 			// data = await(JSON.parse(datastr));
 		} else {
-			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes" + name + ".json")).json();
+			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
 			// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
 			// name = "letters_example";
 			// data = await fetch(url + name + ".json");

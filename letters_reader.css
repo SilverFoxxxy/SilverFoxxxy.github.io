@@ -8,3 +8,190 @@
    /*-khtml-border-radius: 10px; for old Konqueror browsers 
 }
 */
+
+:root {
+	--main-bg: #221E2A;
+	--main-color: #D1CAE0;
+	--block-bg: #191520;
+	--right-bg: #463865;
+	--left-bg: #322C3B;
+	--author-bg: #555565;
+}
+
+html,body {
+	line-height: 2.5;
+	/*font-family: Tahoma;*/
+	font-family: Georgia;
+	color: var(--main-color);/*white;*/
+	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
+	overflow-y: auto;
+}
+a {
+	color: var(--main-color);
+}
+div {
+	/*border: 3px solid #00FFFF;*/
+}
+#messages_block {
+	/*background-color: grey;*/
+}
+.centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.scrollable {
+	/*font-size:1.5vh;*/
+	min-height: 95vh;
+	overflow: auto;
+	/*overflow-y: scroll;*/
+	/*height:100%;*/
+}
+.nameblock {
+	width:35rem;
+	max-width:95%;
+	margin: auto;
+}
+.header {
+	font-size: 1.5rem;
+	height: fit-content;
+	background-color: var(--block-bg);
+	/*#1D1016;*/
+	width:fit-content;
+	max-width:95%;
+	margin: auto;
+}
+.block {
+	height: fit-content;
+	background-color: var(--block-bg);
+	/*#1D1016;*/
+	width:35rem;
+	max-width:95%;
+	margin: auto;
+}
+.iblock {
+	background-color: var(--block-bg);
+	/*#1D1016;*/
+	width:35rem;
+	max-width:95%;
+	margin:auto;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
+}
+.right_block {
+	/*background-color: #CCFFCC;*/
+	float: right;
+	width:80%;
+	margin:auto;
+	padding-right: 2vh;
+	/*font-size:1.5vh;*/
+	/*text-align:right;*/
+	/*border: 1px solid #00FFFF;*/
+}
+.left_block {
+	/*block-size: fit-content;*/
+	/*background-color: #FFCCCC;*/
+	float: left;
+	width:80%;
+	margin:auto;
+	padding-left: 2vh;
+	/*border: 1px solid #00FFFF;*/
+}
+.center_block {
+	float:center;
+	width:80%;
+	margin: auto;
+	padding-left: 3%;
+	padding-right: 3%;
+	/*font-size:1.5vh;*/
+	text-align:center;
+	/*border: 1px solid #00FFFF;*/
+}
+.link_block {
+	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
+	width: fit-content;
+	max-width: 
+	text-align: center;
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.right_msg {
+	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
+	width: fit-content;
+	float: right;
+	margin:auto;
+	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 15px;
+	padding-left: 15px;
+	/*border: 2px solid #00FF00;*/
+}
+.left_msg {
+	background-color: var(--left-bg);/*#272131;/*#35252C;/*#2C1B23;*//*#FFCCCC;*/
+	width: fit-content;
+	/*float: left;*/
+	/*margin:auto;*/
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	/*border: 2px solid #00FF00;*/
+}
+.center_msg {
+	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
+	border: 2px dashed grey;
+	width: fit-content;
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+	/*border: 2px solid #00FF00;*/
+}
+
+.outln {
+	outline: 3px solid #000;
+}
+
+
+table, th, td {
+	line-height: 1.7;
+	width: 100%;
+	/*border: 1px solid red;*/
+}
+select {
+	color: var(--main-color);
+	background-color: var(--main-bg);
+}
+table {
+  /*border-collapse: collapse;*/
+}
+tr { 
+  /*border: solid;
+  border-width: 1px 1px;
+  border-color: white;*/
+}
+
+div {
+/*border: solid;
+border-width: 1px 1px;
+border-color: green;*/
+}
+/*overflow-y: scroll;*/
+/*max-height: 500px;*/
+/*    background-color: #3366CC; /* Цвет фона веб-страницы */
+footer{
+/*position:static;*/
+}
+h1 {
+/*    background-color: RGB(249, 201, 16); /* Цвет фона под заголовком */
+}
+p {
+/*    background-color: maroon;  Цвет фона под текстом параграфа 
+color: white; /* Цвет текста */
+}
+

@@ -1,24 +1,26 @@
 // TODO: dark-theme
 
-// function setCookie(name,value,days) {
-//     var expires = "";
-//     if (days) {
-//         var date = new Date();
-//         date.setTime(date.getTime() + (days*24*60*60*1000));
-//         expires = "; expires=" + date.toUTCString();
-//     }
-//     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-// }
-// function getCookie(name) {
-//     var nameEQ = name + "=";
-//     var ca = document.cookie.split(';');
-//     for(var i=0;i < ca.length;i++) {
-//         var c = ca[i];
-//         while (c.charAt(0)==' ') c = c.substring(1,c.length);
-//         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-//     }
-//     return null;
-// }
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+
 
 const DEBUG = true;
 
@@ -29,6 +31,8 @@ var name = urlParams.get('name');
 
 var part_n = urlParams.get('part');
 
+var now_theme = 1;
+
 // if (part_n == null) {
 // 	console.log("default - null");
 // }
@@ -38,9 +42,13 @@ datastr='{"title": "Alice", "parts": [[{"text": "Завидев Алису, Ко
 var page_n = urlParams.get('page');
 var max_page = 1;
 
+var isthemeloaded = -1;
 var ispartloaded = -1;
+var lastname = -1;
 
 var data;
+
+var themes;
 
 var title = null;
 
@@ -96,9 +104,19 @@ function createPageSelect(page_, max_page_) {
 	return html;
 }
 
+function setTheme(theme_array) {
+	var root = document.querySelector(':root');
+	for (a in theme_array) {
+		var now_name = a[0];
+		var now_color = a[1];
+		root.style.setProperty(now_name, now_color);
+	}
+}
+
 async function reload_page() {
+	now_theme = getCookie('color_theme');
 	// document.getElementById("title").innerHTML = title;
-	if (ispartloaded == -1) {
+	if (ispartloaded == -1 || lastname != name) {
 		// if (name == null) {
 		// 	name = "letters_example";
 		// }
@@ -112,6 +130,21 @@ async function reload_page() {
 			// data = await fetch(url + name + ".json");
 		}
 	}
+	if (isthemeloaded == -1) {
+		try {
+			themes = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/color_themes.json")).json();
+			isthemeloaded = true;
+
+			if (now_theme >= 0 && now_theme < themes.length) {
+				setTheme(themes[now_theme]);
+			}
+		}
+		catch{}
+	}
+	lastname = name;
+	ispartloaded = true;
+	
+
 	var font_n = parseInt(data["header"]["font"]);
 	font_n--;
 	if (font_n == -1) {
@@ -232,6 +265,19 @@ activities.addEventListener("change", function() {
     page_n = parseInt(activities.value) - 1;
     reload_page();
 });
+
+document.getElementById("color_theme_button").onclick = function()
+{
+  now_theme = 1 - theme;
+  if (now_theme == 1 || now_theme == 0) {
+  	setCookie('color_theme', now_theme, 30);
+  }
+  reload_page();
+}
+
+// setCookie("user_email","bobthegreat@gmail.com",30); //set "user_email" cookie, expires in 30 days
+// var userEmail=getCookie("user_email");//"bobthegreat@gmail.com"
+
 
 // console.log(JSON.stringify(data));
 

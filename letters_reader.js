@@ -268,7 +268,7 @@ activities.addEventListener("change", function() {
 
 document.getElementById("color_theme_button").onclick = function()
 {
-  now_theme = 1 - theme;
+  now_theme = 1 - now_theme;
   if (now_theme == 1 || now_theme == 0) {
   	setCookie('color_theme', now_theme, 30);
   }

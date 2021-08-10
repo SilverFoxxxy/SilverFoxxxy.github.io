@@ -121,17 +121,29 @@ async function reload_page() {
 	nowpage = page_n;
 	if (nowpart == null || nowpart < 0) {
 		nowpart = 0;
+		part_n = 0;
 	}
 	if (nowpart >= data["parts"].length) {
 		nowpart = data["parts"].length - 1;
+		part_n = data["parts"].length - 1;
+	}
+	if (!(nowpart >= 0 && nowpart < data["parts"].length)) {
+		nowpart = 0;
+		part_n = 0;
 	}
 	if (nowpage == null || nowpage < 0) {
 		nowpage = 0;
+		page_n = 0;
 	}
 	if (nowpage >= data["parts"][nowpart]["pages"].length) {
 		nowpage = data["parts"][nowpart]["pages"].length - 1;
+		page_n = data["parts"][nowpart]["pages"].length - 1;
 	}
-	title = data["header"]["title"];
+	if (!(nowpage >= 0 && nowpage < data["parts"][nowpart]["pages"].length) {
+		nowpage = 0;
+		page_n = 0;
+	}
+ 	title = data["header"]["title"];
 	document.getElementById("title").innerHTML = title;
 	// TODO: название главы
 	// TODO: тома (несколько глав)

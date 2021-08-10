@@ -11,13 +11,22 @@
 
   <title> Letters reader </title>
 
-  <style>
+    <style>
   html,body {
-    color: white;
-    background-color: #35252C;/*#25181F;*//*#C6E6F0;*/
+    line-height: 2.5;
+    /*font-family: Tahoma;*/
+    font-family: Georgia;
+    color: #D1CAE0;/*white;*/
+    background-color: #221E2A;/*#35252C;/*#25181F;*//*#C6E6F0;*/
     overflow-y: auto; }
+  a {
+    color: #D1CAE0;
+  }
+  div {
+    /*border: 3px solid #00FFFF;*/
+  }
   #messages_block {
-    background-color: grey;
+    /*background-color: grey;*/
   }
   .centered {
     display: flex;
@@ -25,89 +34,97 @@
     justify-content: center;
   }
   .scrollable {
-    /*overflow-y: scroll;*/
-    min-height: 82vh;
-    /*overflow: auto;*/
+    /*font-size:1.5vh;*/
+    min-height: 95vh;
+    overflow: auto;
     /*overflow-y: scroll;*/
     /*height:100%;*/
   }
-  .block {
-    /*background: #F6F6FF; *//* Цвет фона */
-    /*outline: 2px solid #000;*/ /* Чёрная рамка */
-/*    border: 3px solid #fff;
-    display: block;
-    clear: both;*/
-    background-color: #1D1016;
-    width:95vw;
-    max-width:75vh;
-    /*max-width:95%;*/
-    /*width:50%;*/
+  .nameblock {
+    width:35rem;
+    max-width:95%;
     margin: auto;
-    /*margin-left: 25%;*/
+  }
+  .header {
+    font-size: 1.5rem;
+    height: fit-content;
+    background-color: #191520;
+    /*#1D1016;*/
+    width:fit-content;
+    max-width:95%;
+    margin: auto;
+  }
+  .block {
+    height: fit-content;
+    background-color: #191520;
+    /*#1D1016;*/
+    width:35rem;
+    max-width:95%;
+    margin: auto;
   }
   .iblock {
-    /*padding-top: 15px;
-    padding-bottom: 15px;*/
-    background-color: #1D1016;
-/*    border: 3px solid #fff;
-    display: block;
-    clear: both;*/
-    width:95%;
-    max-width:75vh;
-    /*max-width:95%;*/
-    /*width:50%;*/
+    background-color: #191520;
+    /*#1D1016;*/
+    width:35rem;
+    max-width:95%;
     margin:auto;
-    /*margin-left: 25%;*/
     margin-top: 1vh;
     margin-bottom: 1vh;
   }
   .right_block {
     /*background-color: #CCFFCC;*/
     float: right;
-    width:75%;
-    padding-right: 3%;
-    font-size:1.5vh;
-    text-align:right;
+    width:80%;
+    margin:auto;
+    padding-right: 2vh;
+    /*font-size:1.5vh;*/
+    /*text-align:right;*/
+    /*border: 1px solid #00FFFF;*/
   }
   .left_block {
+    /*block-size: fit-content;*/
     /*background-color: #FFCCCC;*/
     float: left;
-    width:75%;
-    padding-left: 3%;
-    font-size:1.5vh;
-    text-align:left;
+    width:80%;
+    margin:auto;
+    padding-left: 2vh;
+    /*border: 1px solid #00FFFF;*/
   }
   .center_block {
-    float: center;
-    width:75%;
+    float:center;
+    width:80%;
     margin: auto;
-    /*margin-left: 7%;*/
     padding-left: 3%;
     padding-right: 3%;
-    font-size:1.5vh;
+    /*font-size:1.5vh;*/
     text-align:center;
+    /*border: 1px solid #00FFFF;*/
   }
   .right_msg {
-    background-color: #693651;/*#CCFFCC;*/
+    background-color: #463865;/*#693651;/*#CCFFCC;*/
     width: fit-content;
-    /*float: right;*/
+    float: right;
+    margin:auto;
     text-align: left;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-right: 15px;
     padding-left: 15px;
+    /*border: 2px solid #00FF00;*/
   }
   .left_msg {
-    background-color: #35252C;/*#2C1B23;*//*#FFCCCC;*/
+    background-color: #322C3B;/*#272131;/*#35252C;/*#2C1B23;*//*#FFCCCC;*/
     width: fit-content;
-    float: left;
+    /*float: left;*/
+    /*margin:auto;*/
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    /*border: 2px solid #00FF00;*/
   }
   .center_msg {
-    background-color: #656A6C;/*#2C1B23;*//*#FFCCCC;*/
+    background-color: #555565;/*#2C1B23;*//*#FFCCCC;*/
     border: 2px dashed grey;
     width: fit-content;
     margin: auto;
@@ -115,20 +132,33 @@
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    /*border: 2px solid #00FF00;*/
+  }
+  .link_block {
+    background-color: #463865;/*#693651;/*#CCFFCC;*/
+    width: fit-content;
+    max-width: 
+    text-align: center;
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .outln {
-    /*margin-left: 15;
-    margin-right: 15;*/
-    /*width: 100px; height: 100px;*/ /* Размеры */
-    /*background: #F6F6FF;*/ /* Цвет фона */
-    outline: 3px solid #000; /* Чёрная рамка */
-    /*border: 3px solid #fff; *//* Белая рамка */
-    /*display: block;
-    clear: both;*/
-    /*border-radius: 10px; *//* Радиус скругления */
+    outline: 3px solid #000;
    }
 
 
+  table, th, td {
+    line-height: 1.7;
+    width: 100%;
+    /*border: 1px solid red;*/
+  }
+  select {
+    color: #D1CAE0;
+    background-color: #221E2A;
+  }
    table {
       /*border-collapse: collapse;*/
     }
@@ -165,28 +195,45 @@
 </head>
 <body>
   <!-- style="height:700px;" -->
-<div class="d-flex justify-content-center align-items-center"><span>
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
+<center>
 <div class="block scrollable">
   <br>
-  <center>
-  <h3>
-    <b>
-      <text id="title" style="font-size: 3vh;">Что-то почитать</text>
-    </b>
-  </h3>
+  <table>
+    <tr><td>
+      <center>
+      <h3>
+        <b>
+          <text id="title" style="font-size: 3vh;">Что-то почитать</text>
+        </b>
+      </h3>
+      </center>
+    </td></tr>
 
-  <br><br><br>
+    <tr><td>
+      <br><br><br>
+    </td></tr>
 
-  <a href="https://silverfoxxxy.github.io/letters_reader?name=nezhnost_barbyus" style="font-size: 2vh;">Анри Барбюс. Нежность</a>
+    <tr><td>
+      <div class="link_block">
+        <a href="https://silverfoxxxy.github.io/letters_reader?name=nezhnost_barbyus" style="font-size: 2vh;">Анри Барбюс. Нежность</a>
+      </div>
+    </td></tr>
 
-  <br><br><br>
+    <tr><td>
+      <br><br><br>
+    </td></tr>
 
-  <a href="https://silverfoxxxy.github.io/letters_reader?name=skazhesh_mne" style="font-size: 2vh;">Скажешь мне..?</a>
+    <tr><td>
+      <div class="link_block">
+        <a href="https://silverfoxxxy.github.io/letters_reader?name=skazhesh_mne" style="font-size: 2vh;">Скажешь мне..?</a>
+      </div>
+    </td></tr>
 
-  </center>
+  </table>
 </div>
+</center>
 
 
 <br><br><br>
@@ -196,8 +243,6 @@
 <script src="letters_reader.js">
 </script>
 
-</span>
-</div>
 
 </body>
 

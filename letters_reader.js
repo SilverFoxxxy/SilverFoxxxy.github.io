@@ -139,7 +139,7 @@ async function reload_page() {
 		nowpage = data["parts"][nowpart]["pages"].length - 1;
 		page_n = data["parts"][nowpart]["pages"].length - 1;
 	}
-	if (!(nowpage >= 0 && nowpage < data["parts"][nowpart]["pages"].length) {
+	if (!(nowpage >= 0 && nowpage < data["parts"][nowpart]["pages"].length)) {
 		nowpage = 0;
 		page_n = 0;
 	}

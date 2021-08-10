@@ -31,8 +31,6 @@ var name = urlParams.get('name');
 
 var part_n = urlParams.get('part');
 
-var theme_n = 1;
-
 // if (part_n == null) {
 // 	console.log("default - null");
 // }
@@ -42,13 +40,10 @@ datastr='{"title": "Alice", "parts": [[{"text": "Завидев Алису, Ко
 var page_n = urlParams.get('page');
 var max_page = 1;
 
-var isthemeloaded = -1;
 var ispartloaded = -1;
 var lastname = -1;
 
 var data;
-
-var themes;
 
 var title = null;
 
@@ -104,25 +99,7 @@ function createPageSelect(page_, max_page_) {
 	return html;
 }
 
-function setTheme(theme_array) {
-	// console.log(theme_array);
-	var root = document.querySelector(':root');
-	for (a in theme_array) {
-		var now_name = theme_array[a][0];
-		var now_color = theme_array[a][1];
-		// console.log('--'+now_name+' = ' + now_color);
-		root.style.setProperty('--'+now_name, now_color);
-	}
-}
-
 async function reload_page() {
-	var now_theme = parseInt(getCookie('color_theme'));
-	console.log(now_theme);
-	if (now_theme == null || now_theme == NaN) {
-		now_theme = 2;
-	}
-	now_theme--;
-	// console.log(now_theme);
 	// document.getElementById("title").innerHTML = title;
 	if (ispartloaded == -1 || lastname != name) {
 		// if (name == null) {
@@ -136,47 +113,6 @@ async function reload_page() {
 			// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
 			// name = "letters_example";
 			// data = await fetch(url + name + ".json");
-		}
-	}
-	if (isthemeloaded == -1) {
-		try {
-			var themes_json = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/color_themes.json")).json();
-			// console.log(themes_json);
-			themes = themes_json["themes"];
-			if (themes.length != 0) {
-				isthemeloaded = true;
-			}
-			// console.log(themes[0]);
-			// console.log(now_theme);
-
-			var max_themes_n = themes.length;
-			if (!(now_theme >= 0 && now_theme < themes.length)) {
-				// console.log(now_theme);
-				now_theme = theme_n;
-				setCookie('color_theme', now_theme + 1, 30);
-				setTheme(themes[now_theme]);
-			} else {
-				if (now_theme >= 0 && now_theme < themes.length) {
-					setTheme(themes[now_theme]);
-				}
-				theme_n = now_theme;
-				setCookie('color_theme', now_theme + 1, 30);
-			}
-		}
-		catch{}
-	} else {
-		var max_themes_n = themes.length;
-		if (!(now_theme >= 0 && now_theme < themes.length)) {
-			// console.log(now_theme);
-			now_theme = theme_n;
-			setCookie('color_theme', now_theme + 1, 30);
-			setTheme(themes[now_theme]);
-		} else {
-			if (now_theme >= 0 && now_theme < themes.length) {
-				setTheme(themes[now_theme]);
-			}
-			theme_n = now_theme;
-			setCookie('color_theme', now_theme + 1, 30);
 		}
 	}
 	if (data["parts"].length != 0) {
@@ -306,15 +242,15 @@ activities.addEventListener("change", function() {
     reload_page();
 });
 
-document.getElementById("color_theme_button").onclick = function()
-{
-  theme_n = 1 - theme_n;
-  console.log(theme_n);
-  if (theme_n == 1 || theme_n == 0) {
-  	setCookie('color_theme', theme_n + 1, 30);
-  }
-  reload_page();
-}
+// document.getElementById("color_theme_button").onclick = function()
+// {
+//   theme_n = 1 - theme_n;
+//   console.log(theme_n);
+//   if (theme_n == 1 || theme_n == 0) {
+//   	setCookie('color_theme', theme_n + 1, 30);
+//   }
+//   reload_page();
+// }
 
 // setCookie("user_email","bobthegreat@gmail.com",30); //set "user_email" cookie, expires in 30 days
 // var userEmail=getCookie("user_email");//"bobthegreat@gmail.com"

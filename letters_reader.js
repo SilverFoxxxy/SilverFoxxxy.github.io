@@ -46,7 +46,7 @@ var title = null;
 
 var textes;
 
-const font_sz = ["0.5rem", "0.75rem", "1rem", "1.5rem", "2rem"];
+const font_sz = ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"];
 var global_fontsz = "1rem";
 
 function parse_txt(txt) {
@@ -89,10 +89,10 @@ async function reload_page() {
 		// 	name = "letters_example";
 		// }
 		if (DEBUG) {
-			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/" + name + ".json")).json();
+			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
 			// data = await(JSON.parse(datastr));
 		} else {
-			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/" + name + ".json")).json();
+			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes" + name + ".json")).json();
 			// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
 			// name = "letters_example";
 			// data = await fetch(url + name + ".json");
@@ -106,7 +106,7 @@ async function reload_page() {
 	if (font_n == font_sz.length) {
 		font_n = font_sz.length - 1;
 	}
-	if (!(font_n>= 0 && font_n < font_sz.length)) {
+	if (!(font_n >= 0 && font_n < font_sz.length)) {
 		font_n = 2;
 	}
 	

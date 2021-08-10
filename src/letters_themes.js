@@ -85,6 +85,8 @@ async function reload_theme() {
     }
 }
 
+reload_theme();
+
 document.getElementById("color_theme_button").onclick = function()
 {
   theme_n = 1 - theme_n;

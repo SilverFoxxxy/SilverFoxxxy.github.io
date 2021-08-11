@@ -36,7 +36,7 @@ var theme_n = 1;
 
 async function reload_theme() {
     var now_theme = parseInt(getCookie('color_theme'));
-    console.log(now_theme);
+    // console.log(now_theme);
     if (now_theme == null || now_theme == NaN) {
         now_theme = 2;
     }
@@ -90,7 +90,7 @@ reload_theme();
 document.getElementById("color_theme_button").onclick = function()
 {
   theme_n = 1 - theme_n;
-  console.log(theme_n);
+  // console.log(theme_n);
   if (theme_n == 1 || theme_n == 0) {
     setCookie('color_theme', theme_n + 1, 30);
   }

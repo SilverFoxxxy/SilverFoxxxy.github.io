@@ -95,7 +95,7 @@ function createPageSelect(page_, max_page_) {
 		}
 		html +=  '>' + (i + 1) + '</option>';
 	}
-	console.log(html);
+	// console.log(html);
 	return html;
 }
 
@@ -133,7 +133,7 @@ async function reload_page() {
 		font_n = 2;
 	}
 	
-	console.log(font_n);
+	// console.log(font_n);
 	
 	global_fontsz = font_sz[font_n];
 	document.getElementById("title").style = ("font-size:" + global_fontsz);
@@ -181,7 +181,16 @@ async function reload_page() {
 
 	document.getElementById("messages_block").innerHTML = nowpage;
 
-	window.scrollTo(0, 0);
+
+	// TODO: scrollToTop
+	// (now is "won't fix" problem for browsers)
+	// document.body.scrollTop = 0; // For Safari
+  	// document.documentElement.scrollTop = 0;
+  	// setTimeout(function() {window.scroll({ top: 0, behavior: 'smooth' });},1);
+	// window.scrollTo().then(function() {
+ //        window.scrollBy({ top: -1000, behavior: 'smooth' });
+ //    });
+	// window.scrollTo({ top: 0, behavior: 'smooth' });
 	// html = json2page(data);
 	// title = json2title(data);
 }

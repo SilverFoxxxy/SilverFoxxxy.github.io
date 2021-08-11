@@ -48,7 +48,7 @@ div {
 }
 .scrollable {
 	/*font-size:1.5vh;*/
-	min-height: 95vh;
+	min-height: 35rem;
 	overflow: auto;
 	/*overflow-y: scroll;*/
 	/*height:100%;*/
@@ -81,15 +81,15 @@ div {
 	width:35rem;
 	max-width:95%;
 	margin:auto;
-	margin-top: 1vh;
-	margin-bottom: 1vh;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
 }
 .right_block {
 	/*background-color: #CCFFCC;*/
 	float: right;
 	width:80%;
 	margin:auto;
-	padding-right: 2vh;
+	padding-right: 1.5rem;
 	/*font-size:1.5vh;*/
 	/*text-align:right;*/
 	/*border: 1px solid #00FFFF;*/
@@ -100,7 +100,7 @@ div {
 	float: left;
 	width:80%;
 	margin:auto;
-	padding-left: 2vh;
+	padding-left: 1.5rem;
 	/*border: 1px solid #00FFFF;*/
 }
 .center_block {

@@ -34,7 +34,6 @@ function getCookie(name) {
 }
 
 
-
 const DEBUG = true;
 
 var urlParams = new URLSearchParams(window.location.search);
@@ -48,6 +47,19 @@ var part_n = urlParams.get('part');
 // 	console.log("default - null");
 // }
 
+var data;
+
+var person_side = {};
+
+function get_person_sides() {
+	if (data != null) {
+		for (a in data['header']['person']) {
+			var now_person = data['header']['person'][a];
+			person_side[now_person['name']] = now_person['side'];
+		}
+	}
+}
+
 datastr='{"title": "Alice", "parts": [[{"text": "Завидев Алису, Кот только улыбнулся. Вид у него был добродушный, но когти длинные, а зубов так много, что Алиса сразу поняла, что с ним шутки плохи.", "from": 1}, {"text": "Котик! Чешик! ", "from": 2}, {"text": "робко начала Алиса. Она не знала, понравится ли ему это имя, но он только шире улыбнулся в ответ.", "from": 1}, {"text": "Ничего", "from": 2}, {"text": "подумала Алиса, – кажется, доволен. Вслух же она спросила:", "from": 1}, {"text": "Скажите, пожалуйста, куда мне отсюда идти?", "from": 2}, {"text": "А куда ты хочешь попасть?", "from": 3}, {"text": "ответил Кот", "from": 1}, {"text": "Мне все равно…", "from": 2}, {"text": "Тогда все равно, куда и идти", "from": 3}, {"text": "… только бы попасть куда-нибудь", "from": 2}, {"text": "Куда-нибудь ты обязательно попадешь, нужно только достаточно долго идти", "from": 3}, {"text": "С этим нельзя было не согласиться. Алиса решила переменить тему.", "from": 1}], [{"text": "А что здесь за люди живут?", "from": 2}, {"text": "Вон там живет Болванщик. А там Мартовский заяц. Все равно, к кому ты пойдешь. Оба не в своем уме", "from": 3}, {"text": "На что мне безумцы?", "from": 2}, {"text": "Ничего не поделаешь, все мы здесь не в своем уме – и ты, и я", "from": 3}]]}';
 
 var page_n = urlParams.get('page');
@@ -56,14 +68,12 @@ var max_page = 1;
 var ispartloaded = -1;
 var lastname = -1;
 
-var data;
-
 var title = null;
 
 var textes;
 
 window.fontsz_a = [
-	["2vw", "2.5vw", "3vw", "4vw", "5.5vw"],
+	["2.5vw", "3vw", "3.5vw", "4.5vw", "6vw"],
     ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"]
 ]
 window.font_sz = fontsz_a[window.view_theme];
@@ -72,18 +82,23 @@ document.querySelector(':root').style.setProperty('--msg-fontsz', window.font_sz
 
 function parse_txt(txt) {
 	var from = txt[0];
+	var now_side = person_side['from'];
 	var pref = '';
 	var suf = '';
-	if (from == '0' || from == 'автор'  || from == 'author') {
-		pref = '<div class="center_block"><div class="center_msg">';
+	if (now_side == 'author') {
+		pref = '<div class="author_block"><div class="author_msg">';
 		suf = '</div></div>';
 	}
-	if (from == 1) {
+	if (now_side == 'left') {
 		pref = '<div class="left_block"><div class="left_msg">';
 		suf = '</div></div>';
 	}
-	if (from == 2) {
+	if (now_side == 'right') {
 		pref = '<div class="right_block"><div class="right_msg">';
+		suf = '</div></div>';
+	}
+	if (now_side == 'center') {
+		pref = '<div class="center_block"><div class="center_msg">';
 		suf = '</div></div>';
 	}
 	// console.log(txt);
@@ -126,9 +141,11 @@ async function reload_page() {
 		// }
 		if (DEBUG) {
 			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+			get_person_sides();
 			// data = await(JSON.parse(datastr));
 		} else {
 			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+			get_person_sides();
 			// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
 			// name = "letters_example";
 			// data = await fetch(url + name + ".json");

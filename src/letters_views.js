@@ -98,6 +98,7 @@ async function reload_view() {
     if ((now_theme >= 0 && now_theme < themes.length)) {
         setTheme(themes[now_theme]);
         theme_n = now_theme;
+        window.view_theme = theme_n;
     }
 }
 

@@ -1,5 +1,3 @@
-window.color_theme = 1;
-window.view_theme = 1;
 
 function GetZoomFactor () {
     var factor = 1;
@@ -14,7 +12,6 @@ function GetZoomFactor () {
     }
     return factor;
 }
-
 
 function setCookie(name,value,days) {
     var expires = "";

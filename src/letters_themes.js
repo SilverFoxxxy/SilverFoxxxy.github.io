@@ -94,6 +94,8 @@ async function reload_theme() {
     if ((now_theme >= 0 && now_theme < color_themes.length)) {
         setTheme(color_themes[now_theme]);
         color_theme_n = now_theme;
+        window.color_theme = color_theme_n;
+
     }
 }
 

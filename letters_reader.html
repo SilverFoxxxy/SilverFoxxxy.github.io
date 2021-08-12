@@ -18,39 +18,42 @@
 <body>
 <br>
 <center>
-  <a href="https://silverfoxxxy.github.io/letters" style="font-size: 1rem;">На главную</a>
+  <a href="https://silverfoxxxy.github.io/letters" style="font-size: var(--def-fontsz);">На главную</a>
 </center>
 <div class="header" id="header">
   <!-- здесь всё, что выше непосредственно текста -->
   <table style="float:center;">
     <tr>
       <td style="width: fit-content">
-        <button type="button" style="font-size: 1rem; width:4rem;" id="prev_page_button1"> < </button>
+        <button type="button" style="font-size: var(--def-fontsz); width:var(--button-width);" id="view_theme_button"> <img src="src/icons/default_dark.png" width="100%" height="100%" id="view_icon"/> </button>
       </td>
       <td style="width: fit-content">
-        <div style="font-size: 1.5rem;">
+        <button type="button" style="font-size: var(--def-fontsz); width:var(--button-width);" id="prev_page_button1"> < </button>
+      </td>
+      <td style="width: fit-content;">
+        <div style="font-size: var(--def-fontsz);">
           &nbspстраница&nbsp
         </div>
       </td>
       <td style="width: fit-content">
-        <div id="page_n" style="font-size: 1.5rem;">
+        <div id="page_n" style="font-size: var(--def-fontsz);">
           <select name="pages" id="pages">
-          </select> 
+          </select>
         </div>
       </td>
       <td style="width: fit-content">
-        <div style="font-size: 1.5rem;">
+        <div style="font-size: var(--def-fontsz);">
           &nbspиз&nbsp
         </div>
       </td>
       <td style="width: fit-content">
-        <div id="max_page_n" style="font-size: 1.5rem;">1&nbsp</div>
+        <div id="max_page_n" style="font-size: var(--def-fontsz);">1&nbsp</div>
       </td>
       <td style="width: fit-content">
-        <button type="button" style="font-size: 1rem; width:4rem;" id="next_page_button1"> > </button>
+        <button type="button" style="font-size: var(--def-fontsz); width:var(--button-width);" id="next_page_button1"> > </button>
       </td>
       <td style="width: fit-content">
-        <button type="button" style="font-size: 1rem; width:4rem;" id="color_theme_button"> <img src="src/sun_moon2.jpg" width="100%" height="100%"/> </button>
+        <button type="button" style="font-size: var(--def-fontsz); width:var(--button-width);" id="color_theme_button"> <img src="src/sun_moon2.jpg" width="100%" height="100%"/> </button>
       </td>
     </tr>
   </table>
@@ -63,7 +66,7 @@
 <center>
 <h3>
   <b>
-    <text id="title" style="font-size: 1.5rem;"></text>
+    <text id="title" style="font-size: var(--msg-fontsz);"></text>
   </b>
 </h3>
 </center>
@@ -228,10 +231,10 @@
   <div class="outln iblock" id="lrbuttons">
     <div class="input-group mb-3 centered">
       <div class="col-5">
-        <button type="button" style="font-size: 1.5rem; width: 7rem;" id="prev_page_button"> < </button>
+        <button type="button" style="font-size: var(--def-fontsz); width:var(--bbutton-width);" id="prev_page_button"> < </button>
       </div>
       <div class="input-group-append">
-        <button type="button" style="font-size: 1.5rem; width: 7rem;" id="next_page_button"> > </button>
+        <button type="button" style="font-size: var(--def-fontsz); width:var(--bbutton-width);" id="next_page_button"> > </button>
       </div>
     </div>
   </div>
@@ -244,6 +247,9 @@
 </script>
 
 <script src="src/letters_themes.js">
+</script>
+
+<script src="src/letters_views.js">
 </script>
 
 <!-- </span>

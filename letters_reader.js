@@ -1,4 +1,20 @@
-// TODO: dark-theme
+window.color_theme = 1;
+window.view_theme = 1;
+
+function GetZoomFactor () {
+    var factor = 1;
+    if (document.body.getBoundingClientRect) {
+            // rect is only in physical pixel size in IE before version 8 
+        var rect = document.body.getBoundingClientRect ();
+        var physicalW = rect.right - rect.left;
+        var logicalW = document.body.offsetWidth;
+
+            // the zoom level is always an integer percent value
+        factor = Math.round ((physicalW / logicalW) * 100) / 100;
+    }
+    return factor;
+}
+
 
 function setCookie(name,value,days) {
     var expires = "";
@@ -49,8 +65,13 @@ var title = null;
 
 var textes;
 
-const font_sz = ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"];
-var global_fontsz = "1rem";
+window.fontsz_a = [
+	["2vw", "2.5vw", "3vw", "4vw", "5.5vw"],
+    ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"]
+]
+window.font_sz = fontsz_a[window.view_theme];
+window.msg_font_n = 2;
+document.querySelector(':root').style.setProperty('--msg-fontsz', window.font_sz[window.msg_font_n]);
 
 function parse_txt(txt) {
 	var from = txt[0];
@@ -78,7 +99,8 @@ function parse_page(partjs) {
 	for (txt in partjs) {
 		// console.log(txt);
 		nowtxt = parse_txt(partjs[txt]);
-		html = html + '<tr><td style="font-size:' + global_fontsz + '">' + nowtxt + '</td></tr>';
+		// html = html + '<tr><td style="font-size:' + global_fontsz + '">' + nowtxt + '</td></tr>';
+		html = html + '<tr><td>' + nowtxt + '</td></tr>';
 		html += '<tr><td><div class="left_block"><br></div></td></tr>';
 	}
 	html = html + '</table>';
@@ -126,8 +148,8 @@ async function reload_page() {
 	if (font_n == -1) {
 		font_n = 0;
 	}
-	if (font_n == font_sz.length) {
-		font_n = font_sz.length - 1;
+	if (font_n == window.font_sz.length) {
+		font_n = window.font_sz.length - 1;
 	}
 	if (!(font_n >= 0 && font_n < font_sz.length)) {
 		font_n = 2;
@@ -135,8 +157,9 @@ async function reload_page() {
 	
 	// console.log(font_n);
 	
-	global_fontsz = font_sz[font_n];
-	document.getElementById("title").style = ("font-size:" + global_fontsz);
+	window.msg_font_n = font_n;
+	document.querySelector(':root').style.setProperty('--msg-fontsz', window.font_sz[window.msg_font_n]);
+	// document.getElementById("title").style = ("font-size:" + global_fontsz);
 	// document.getElementById("prev_page_button").style = ("font-size:" + global_fontsz);
 	// document.getElementById("next_page_button").style = ("font-size:" + global_fontsz);
 
@@ -182,12 +205,15 @@ async function reload_page() {
 	document.getElementById("messages_block").innerHTML = nowpage;
 
 
+
+
 	// TODO: scrollToTop
 	// (now is "won't fix" problem for browsers)
-	// document.body.scrollTop = 0; // For Safari
-  	// document.documentElement.scrollTop = 0;
-  	// setTimeout(function() {window.scroll({ top: 0, behavior: 'smooth' });},1);
-	// window.scrollTo().then(function() {
+	document.body.scrollTop = 0; // For Safari
+  	document.documentElement.scrollTop = 0;
+  	setTimeout(function() {window.scroll({ top: 0, behavior: 'smooth' });},1);
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+	// .then(function() {
  //        window.scrollBy({ top: -1000, behavior: 'smooth' });
  //    });
 	// window.scrollTo({ top: 0, behavior: 'smooth' });

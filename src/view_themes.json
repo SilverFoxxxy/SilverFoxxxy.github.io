@@ -1,0 +1,21 @@
+{
+	"themes":[
+		[
+			["block-width", "60vh"],
+			["def-fontsz", "1.5rem"],
+			["small-fontsz", "1rem"],
+			["button-width", "4rem"],
+			["bbutton-width", "9rem"],
+			["border-rad", "0.2rem"]
+		],
+		[
+			["block-width", "35rem"],
+			["def-fontsz", "1.5rem"],
+			["small-fontsz", "1rem"],
+			["button-width", "4rem"],
+			["bbutton-width", "9rem"],
+			["border-rad", "0.2rem"]
+		]
+	]
+
+}

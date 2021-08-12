@@ -49,6 +49,8 @@ var view_icons = [["src/icons/width_light.png",
                   "src/icons/width_dark.png"],
                   ["src/icons/default_light.png",
                   "src/icons/default_dark.png"]];
+var theme_icons = ["src/icons/light_sun.png",
+                   "src/icons/dark_moon.png"];
 function setIcon() {
     var root = document.querySelector(':root');
     var cth = window.color_theme;
@@ -57,6 +59,8 @@ function setIcon() {
     // console.log(view_icons[vth][cth]);
     var nowimg = document.getElementById("view_icon");
     nowimg.src = view_icons[vth][cth];
+    nowimg = document.getElementById("theme_icon");
+    nowimg.src = theme_icons[cth];
 }
 
 function setTheme(theme_array) {

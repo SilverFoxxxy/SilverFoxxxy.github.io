@@ -21,6 +21,8 @@
 	--msg-fontsz: 1.5rem;
 	--small-fontsz: 1rem;
 	--button-width: 4rem;
+	--button-h: 4rem;
+	--bbutton-h: 3rem;
 	--bbutton-width: 9rem;
 	--border-rad: 0.2rem;
 	--block-width: 35rem;
@@ -38,6 +40,8 @@ html, body {
 
 button {
 	border: 1px solid var(--main-color);
+	height: fit-content;
+	width: var(--button-width);
 	color: var(--main-color);/*white;*/
 	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
 	border-radius: var(--border-rad);

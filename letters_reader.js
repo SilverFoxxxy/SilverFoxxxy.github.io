@@ -55,6 +55,7 @@ function get_person_sides() {
 	if (data != null) {
 		for (a in data['header']['person']) {
 			var now_person = data['header']['person'][a];
+			// console.log(now_person['name'] + ' ' + now_person['side']);
 			person_side[now_person['name']] = now_person['side'];
 		}
 	}
@@ -82,7 +83,9 @@ document.querySelector(':root').style.setProperty('--msg-fontsz', window.font_sz
 
 function parse_txt(txt) {
 	var from = txt[0];
-	var now_side = person_side['from'];
+	// console.log(from);
+	var now_side = person_side[from];
+	// console.log(now_side);
 	var pref = '';
 	var suf = '';
 	if (now_side == 'author') {
@@ -98,6 +101,7 @@ function parse_txt(txt) {
 		suf = '</div></div>';
 	}
 	if (now_side == 'center') {
+		// console.log("center_msg");
 		pref = '<div class="center_block"><div class="center_msg">';
 		suf = '</div></div>';
 	}

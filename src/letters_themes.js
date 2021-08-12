@@ -95,7 +95,6 @@ async function reload_theme() {
         setTheme(color_themes[now_theme]);
         color_theme_n = now_theme;
         window.color_theme = color_theme_n;
-
     }
 }
 

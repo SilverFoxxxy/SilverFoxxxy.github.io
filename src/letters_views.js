@@ -76,6 +76,7 @@ async function reload_view() {
         now_theme = theme_n + 1;
     }
     now_theme--;
+    window.view_theme = now_theme;
 
     window.font_sz = fontsz_a[window.view_theme];
     document.querySelector(':root').style.setProperty('--msg-fontsz', window.font_sz[window.msg_font_n]);

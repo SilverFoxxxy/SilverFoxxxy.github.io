@@ -25,6 +25,7 @@ var themes = [
             ["small-fontsz", "2.5vw"],
             ["button-width", "11vw"],
             ["button-h", "7.5vw"],
+            ["bbutton-h", "8.75vw"],
             ["bbutton-width", "25vw"],
             ["border-rad", "0.55vw"]
         ],
@@ -34,6 +35,7 @@ var themes = [
             ["small-fontsz", "1rem"],
             ["button-width", "4rem"],
             ["button-h", "3rem"],
+            ["bbutton-h", "3.5rem"],
             ["bbutton-width", "9rem"],
             ["border-rad", "0.2rem"]
         ]

@@ -165,6 +165,7 @@ div {
 }
 
 .link_block {
+	font-size: var(--def-fontsz);
 	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
 	width: fit-content;
 	max-width: 

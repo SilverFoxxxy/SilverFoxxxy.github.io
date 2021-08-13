@@ -71,11 +71,21 @@ var color_themes = [
 // var is_color_theme_loaded = -1;
 var is_color_theme_loaded = 1;
 var color_theme_n = 1;
+var color_theme_not_set = 1;
 
 async function reload_theme() {
     var now_theme = parseInt(getCookie('color_theme'));
     
     if (!(0 < now_theme && now_theme <= 2)) {
+        if (color_theme_not_set == 1) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                // dark mode
+                color_theme_n = 1;
+            } else {
+                color_theme_n = 0;
+            }
+            color_theme_not_set = -1;
+        }
         now_theme = color_theme_n + 1;
     }
     now_theme--;
@@ -109,7 +119,7 @@ document.getElementById("color_theme_button").onclick = function()
   color_theme_n = 1 - color_theme_n;
   // console.log(theme_n);
   if (color_theme_n == 1 || color_theme_n == 0) {
-    setCookie('color_theme', color_theme_n + 1, 30);
+    setCookie('color_theme', color_theme_n + 1, 15);
     var root = document.querySelector(':root');
     window.color_theme = color_theme_n;
     reload_theme();

@@ -200,14 +200,24 @@
 <center>
 <div class="block scrollable">
   <br>
-  <table style="width: fit-content; float: center;">
+  <table style="width: fit-content; height: fit-content; float: center;">
     <tr>
+      <td style="width: fit-content">
+        <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:var(--bbutton-h);" id="view_theme_button"> <img src="src/icons/default_dark.png" height="100%" id="view_icon"/> </button>
+      </td>
+      <td style="width: var(--def-fontsz);">
+      </td>
       <td style="width: fit-content; float: center;">
-          <div id="title" style="width: fit-content"><h3>Letters reader</h3></div>
+          <div id="title" style="width: fit-content; font-size: var(--button-h);"><div style="font-size: var(--button-h);">Letters reader</div></div>
+      </td>
+      <td style="width: var(--def-fontsz);">
       </td>
       <td style="width: fit-content">
-        <button type="button" style="font-size: 1rem; width:4rem;" id="color_theme_button"> <img src="src/sun_moon2.jpg" width="100%" height="100%"/> </button>
+        <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:var(--bbutton-h);" id="color_theme_button"> <img src="src/sun_moon2.jpg" height="100%" id="theme_icon"/> </button>
       </td>
+<!--       <td style="width: fit-content">
+        <button type="button" style="font-size: 1rem; width:4rem;" id="color_theme_button"> <img src="src/sun_moon2.jpg" width="100%" height="100%"/> </button>
+      </td> -->
     </tr>
   </table>
 
@@ -217,12 +227,14 @@
       <br>
     </td></tr>
 
-    <tr><td style="width: 60%; float: right; font-size: 0.75rem;">
-      <div>
+    <tr><td style="width: 65%; float: right; font-size: var(--def-fontsz);">
+      <div style="font-size: 0.65em">
         «По-моему, достаточно собрать письма людей (слегка коснуться их опытной, осторожной и разумной рукой редактора) и опубликовать их — и получится новая литература мирового значения. Литература, конечно, выходит из наблюдения людей. Но где больше их можно наблюдать, как не в их письмах»
       </div>
-      <div style="float:right">
+      <div style="float:right; font-size: var(--def-fontsz);">
+        <div style="font-size: 0.65em">
         — Андрей Платонов
+        </div>
       </div>
     </td></tr>
 
@@ -258,7 +270,14 @@
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->
 
+<script>
+  window.color_theme = 1;
+  window.view_theme = 1;
+</script>
+
 <script src="src/letters_themes.js">
+</script>
+<script src="src/letters_views.js">
 </script>
 
 

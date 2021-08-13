@@ -20,7 +20,7 @@ function getCookie(name) {
 
 var themes = [
         [
-            ["block-width", "95vw"],
+            ["block-width", "100vw"],
             ["def-fontsz", "3.5vw"],
             ["small-fontsz", "2.5vw"],
             ["button-width", "11vw"],
@@ -77,10 +77,26 @@ function setTheme(theme_array) {
     setIcon();
 }
 
+var view_not_set = 1;
+
+window.fontsz_a = [
+    ["2.5vw", "3vw", "3.5vw", "4.5vw", "6vw"],
+    ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"]
+]
+
 async function reload_view() {
     var now_theme = parseInt(getCookie('view_theme'));
     
     if (!(0 < now_theme && now_theme <= 2)) {
+        if (view_not_set == 1) { 
+            var now_w = document.documentElement.clientWidth;
+            var now_h = document.documentElement.clientHeight;
+            // console.log(String(now_w) + ' ' + String(now_h));
+            if (now_h >= now_w * 1.5) {
+                theme_n = 0;
+            }
+            view_not_set = -1;
+        }
         now_theme = theme_n + 1;
     }
     now_theme--;
@@ -118,7 +134,7 @@ document.getElementById("view_theme_button").onclick = function()
   theme_n = 1 - theme_n;
   // console.log(theme_n);
   if (theme_n == 1 || theme_n == 0) {
-    setCookie('view_theme', theme_n + 1, 30);
+    setCookie('view_theme', theme_n + 1, 0.5);
     var root = document.querySelector(':root');
     window.view_theme = theme_n;
     reload_view();

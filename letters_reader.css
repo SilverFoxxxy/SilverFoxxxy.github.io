@@ -168,7 +168,7 @@ div {
 	font-size: var(--def-fontsz);
 	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
 	width: fit-content;
-	max-width: 
+	max-width: 80%;
 	text-align: center;
 	margin: auto;
 	padding-top: 5px;

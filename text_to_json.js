@@ -261,8 +261,10 @@ function parse(text) {
 
     console.log(letters);
 
+    // localStorage.setItem("json_edit__", myString);
+
     setCookie("json_edit", btoa(unescape(encodeURIComponent(myString))), 1000);
-    // setCookie("text_edit", btoa(unescape(encodeURIComponent(text))), 1000);
+    setCookie("text_edit", btoa(unescape(encodeURIComponent(text))), 1000);
 
 }
 

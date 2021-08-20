@@ -142,7 +142,8 @@ async function reload_page() {
 	if (ispartloaded == -1 || lastname != name) {
 
 		if (name == "test") {
-			data = decodeURIComponent(escape(window.atob(getCookie("json_edit"))));
+			// data = localStorage.getItem("json_edit__");
+			data = decodeURIComponent(escape(window.atob(getCookie("json_edit")))).json();
 		} else {
 		// if (name == null) {
 		// 	name = "letters_example";

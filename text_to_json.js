@@ -229,7 +229,7 @@ function parts2json(parts) {
     return p;
 }
 
-document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
+// document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
 
 function parse(text) {
     let both_ = parse_header_parts(text);
@@ -262,7 +262,7 @@ function parse(text) {
     console.log(letters);
 
     setCookie("json_edit", btoa(unescape(encodeURIComponent(myString))), 1000);
-    setCookie("text_edit", btoa(unescape(encodeURIComponent(text))), 1000);
+    // setCookie("text_edit", btoa(unescape(encodeURIComponent(text))), 1000);
 
 }
 
@@ -271,6 +271,7 @@ parse("header=    font= 5title= Скажешь мне..?description= Корот�
 document.getElementById("convert_button").onclick = function()
 {
   var texttt = document.getElementById("text_").value;
+  // console.log(texttt);
   parse(texttt);
 }
 

@@ -259,8 +259,8 @@ function parse(text) {
 
     console.log(letters);
 
-    setCookie("json_edit", letters, 1000);
-    getCookie("text_edit", text, 1000);
+    setCookie("json_edit", myString, 1000);
+    setCookie("text_edit", text, 1000);
 
 }
 

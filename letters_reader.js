@@ -140,19 +140,24 @@ function createPageSelect(page_, max_page_) {
 async function reload_page() {
 	// document.getElementById("title").innerHTML = title;
 	if (ispartloaded == -1 || lastname != name) {
+
+		if (name == "test") {
+			data = await(await (getCookie("json_edit")));
+		} else {
 		// if (name == null) {
 		// 	name = "letters_example";
 		// }
-		if (DEBUG) {
-			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
-			get_person_sides();
-			// data = await(JSON.parse(datastr));
-		} else {
-			data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
-			get_person_sides();
-			// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
-			// name = "letters_example";
-			// data = await fetch(url + name + ".json");
+			if (DEBUG) {
+				data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+				get_person_sides();
+				// data = await(JSON.parse(datastr));
+			} else {
+				data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+				get_person_sides();
+				// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
+				// name = "letters_example";
+				// data = await fetch(url + name + ".json");
+			}
 		}
 	}
 	if (data["parts"].length != 0) {

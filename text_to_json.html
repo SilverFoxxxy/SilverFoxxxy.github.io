@@ -1,0 +1,38 @@
+<html>
+<head>  
+
+<!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
+
+  <title id="page_title">Letters reader </title>
+
+  <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
+  <link rel="icon" href="src/icons/icon.png" type="image/icon type">
+
+</head>
+<body>
+<br>
+
+<table>
+  <tr>
+    <td style="width: fit-content; vertical-align: top;">
+      <textarea id="text_" style="min-height: 40rem;overflow-y: scroll;" cols="50"></textarea>
+      <!-- <input type="text" id="text" style="font-size: 1.5rem; width: 20rem; min-height: 20rem; line-height:20rem; text-align: top;"/> -->
+    </td>
+    <td>
+      <div id="text111" style="width: 30rem; min-height: 40rem; background: white; color: black; overflow: scroll;"><pre id="text1" style="tab-size: 2;"></pre></div>
+    </td>
+  </tr>
+</table>
+
+<button type="button" style="font-size: var(--def-fontsz); width:var(--bbutton-width);" id="convert_button"> Посмотреть на результат </button>
+
+<a href="https://silverfoxxxy.github.io/letters_reader?name=test"><big>Предпросмотр на сайте</big></a>
+
+<script src="./text_to_json.js" charset="utf-8"></script>
+
+<!-- </span>
+</div> -->
+
+</body>
+
+</html>

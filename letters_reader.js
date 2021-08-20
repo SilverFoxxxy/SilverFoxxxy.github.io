@@ -142,7 +142,7 @@ async function reload_page() {
 	if (ispartloaded == -1 || lastname != name) {
 
 		if (name == "test") {
-			data = getCookie("json_edit");
+			data = atob(getCookie("json_edit"));
 		} else {
 		// if (name == null) {
 		// 	name = "letters_example";
@@ -164,7 +164,6 @@ async function reload_page() {
 		lastname = name;
 		ispartloaded = true;
 	}
-	
 
 	var font_n = parseInt(data["header"]["font"]);
 	font_n--;

@@ -142,7 +142,7 @@ async function reload_page() {
 	if (ispartloaded == -1 || lastname != name) {
 
 		if (name == "test") {
-			data = atob(getCookie("json_edit"));
+			data = decodeURIComponent(escape(window.atob(getCookie("json_edit"))));
 		} else {
 		// if (name == null) {
 		// 	name = "letters_example";

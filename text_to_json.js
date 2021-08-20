@@ -261,8 +261,8 @@ function parse(text) {
 
     console.log(letters);
 
-    setCookie("json_edit", myString, 1000);
-    setCookie("text_edit", text, 1000);
+    setCookie("json_edit", "omnom", 1000);
+    setCookie("text_edit", "omnomnom", 1000);
 
 }
 

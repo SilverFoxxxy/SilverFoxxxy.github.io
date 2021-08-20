@@ -143,7 +143,7 @@ async function reload_page() {
 
 		if (name == "test") {
 			// data = localStorage.getItem("json_edit__");
-			data = decodeURIComponent(escape(window.atob(getCookie("json_edit")))).json();
+			data = JSON.parse(decodeURIComponent(escape(window.atob(getCookie("json_edit")))));
 		} else {
 		// if (name == null) {
 		// 	name = "letters_example";

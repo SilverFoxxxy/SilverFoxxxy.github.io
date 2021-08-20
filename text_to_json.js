@@ -229,6 +229,8 @@ function parts2json(parts) {
     return p;
 }
 
+document.getElementById("text_").value = getCookie("text_edit");
+
 function parse(text) {
     let both_ = parse_header_parts(text);
     let header = both_[0];

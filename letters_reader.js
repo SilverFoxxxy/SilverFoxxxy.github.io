@@ -144,6 +144,7 @@ async function reload_page() {
 		if (name == "test") {
 			// data = localStorage.getItem("json_edit__");
 			data = JSON.parse(decodeURIComponent(escape(window.atob(getCookie("json_edit")))));
+			get_person_sides();
 		} else {
 		// if (name == null) {
 		// 	name = "letters_example";

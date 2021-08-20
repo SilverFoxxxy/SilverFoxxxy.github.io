@@ -229,7 +229,9 @@ function parts2json(parts) {
     return p;
 }
 
-// document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
+if (getCookie("text_edit").length > 10) {
+    document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
+}
 
 function parse(text) {
     let both_ = parse_header_parts(text);

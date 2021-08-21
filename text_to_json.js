@@ -229,8 +229,18 @@ function parts2json(parts) {
     return p;
 }
 
-if (getCookie("text_edit").length > 10) {
-    document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
+let default_text = "header=\n    font= 5\n    title= Скажешь мне..?\n    description= Короткое стихотворение-диалог двух близких людей\n    person=\n        name=ааа\n        side=left\n        aka=1\n    person=\n        name=bbb\n        side=right\n        aka=2\npart=part\nname=page=\n    1= Cкaжeшь мнe 'дa'?\n        2= Дa.\n            0= <img src='src/textes/skazhesh_mne/fire_1.jpg' style='max-width: 100%; max-height: 100%;'>\n            0= <img src='src/textes/skazhesh_mne/fire_2.jpg' style='max-width: 100%; max-height: 100%;'>";
+let now_text_edit = getCookie("text_edit");
+if (typeof now_text_edit === 'string') {
+    if (getCookie("text_edit").length > 10) {
+        document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
+    } else {
+        document.getElementById("text_").value = default_text;
+        parse(default_text);
+    }
+} else {
+    document.getElementById("text_").value = default_text;
+    parse(default_text);
 }
 
 function parse(text) {
@@ -270,7 +280,7 @@ function parse(text) {
 
 }
 
-parse("header=    font= 5title= Скажешь мне..?description= Короткое стихотворение-диалог двух близких людейperson=    name=ааа    side=left    aka=1person=name=bbb    side=right   aka=2part=partname=page=    1= Cкaжeшь мнe 'дa'?        2= Дa.            0= <img src='src/textes/skazhesh_mne/fire_1.jpg' style='max-width: 100%; max-height: 100%;'>            0= <img src='src/textes/skazhesh_mne/fire_2.jpg' style='max-width: 100%; max-height: 100%;'>");
+// parse("header=    font= 5title= Скажешь мне..?description= Короткое стихотворение-диалог двух близких людейperson=    name=ааа    side=left    aka=1person=name=bbb    side=right   aka=2part=partname=page=    1= Cкaжeшь мнe 'дa'?        2= Дa.            0= <img src='src/textes/skazhesh_mne/fire_1.jpg' style='max-width: 100%; max-height: 100%;'>            0= <img src='src/textes/skazhesh_mne/fire_2.jpg' style='max-width: 100%; max-height: 100%;'>");
 
 document.getElementById("convert_button").onclick = function()
 {

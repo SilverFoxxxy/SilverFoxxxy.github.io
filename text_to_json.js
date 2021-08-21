@@ -53,7 +53,10 @@ var p_keywords = [
 function parse_header_parts(text) {
     let pref = "part=";
     let ind = text.search(pref, 0, text.length);
-    return [text.slice(0, ind), text.slice(ind, -1)];
+    if (!text.includes(pref)) {
+        return [text, ""];
+    }
+    return [text.slice(0, ind), text.slice(ind, text.length)];
 }
 
 function parse_header(header) {
@@ -205,7 +208,7 @@ function parse_page(page, persons) {
         let i = now_letters[i_];
         i[1] = clear_str(i[1]);
     }
-    return now_letters.slice(1, -1);
+    return now_letters.slice(1, now_letters.length);
 }
 
 function parts2json(parts) {

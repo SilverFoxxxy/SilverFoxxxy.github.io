@@ -106,6 +106,7 @@ function parse_txt(txt) {
 		suf = '</div></div>';
 	}
 	// console.log(txt);
+	// return (pref + "<pre>" + txt[1] + "</pre>" + suf);
 	return (pref + txt[1] + suf);
 }
 

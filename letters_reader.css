@@ -151,12 +151,12 @@ div {
 
 .author_block {
 	float:center;
-	width:80%;
+	width:90%;
 	margin: auto;
 	padding-left: 3%;
 	padding-right: 3%;
 	/*font-size:1.5vh;*/
-	text-align:center;
+	/*text-align:center;*/
 	/*border: 1px solid #00FFFF;*/
 }
 
@@ -186,6 +186,7 @@ div {
 }
 
 .right_msg {
+	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
 	width: fit-content;
@@ -201,6 +202,7 @@ div {
 }
 
 .left_msg {
+	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--left-bg);/*#272131;/*#35252C;/*#2C1B23;*//*#FFCCCC;*/
 	width: fit-content;
@@ -215,6 +217,7 @@ div {
 }
 
 .author_msg {
+	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
 	border: 2px dashed grey;
@@ -229,6 +232,7 @@ div {
 }
 
 .center_msg {
+	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
 	/*border: 2px dashed grey;*/

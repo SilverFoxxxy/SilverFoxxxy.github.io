@@ -139,7 +139,7 @@ function createPageSelect(page_, max_page_) {
 
 async function reload_page() {
 	// document.getElementById("title").innerHTML = title;
-	if (ispartloaded == -1 || lastname != name) {
+	if (ispartloaded == -1 || lastname != name || name == "test") {
 
 		if (name == "test") {
 			// data = localStorage.getItem("json_edit__");

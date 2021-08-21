@@ -280,6 +280,22 @@ document.getElementById("convert_button").onclick = function()
   parse(texttt);
 }
 
+document.getElementById('text_').addEventListener('keydown', function(e) {
+  if (e.key == 'Tab') {
+    e.preventDefault();
+    var start = this.selectionStart;
+    var end = this.selectionEnd;
+
+    // set textarea value to: text before caret + tab + text after caret
+    this.value = this.value.substring(0, start) +
+      "\t" + this.value.substring(end);
+
+    // put caret at right position again
+    this.selectionStart =
+      this.selectionEnd = start + 1;
+  }
+});
+
 let default_text = "header=\n    font= 5\n    title= Скажешь мне..?\n    description= Короткое стихотворение-диалог двух близких людей\n    person=\n        name=ааа\n        side=left\n        aka=1\n    person=\n        name=bbb\n        side=right\n        aka=2\npart=part\nname=page=\n    1= Cкaжeшь мнe 'дa'?\n        2= Дa.\n            0= <img src='src/textes/skazhesh_mne/fire_1.jpg' style='max-width: 100%; max-height: 100%;'>\n            0= <img src='src/textes/skazhesh_mne/fire_2.jpg' style='max-width: 100%; max-height: 100%;'>";
 let now_text_edit = getCookie("text_edit");
 if (typeof now_text_edit === 'string') {

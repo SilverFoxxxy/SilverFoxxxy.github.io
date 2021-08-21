@@ -282,6 +282,7 @@ let now_text_edit = getCookie("text_edit");
 if (typeof now_text_edit === 'string') {
     if (getCookie("text_edit").length > 10) {
         document.getElementById("text_").value = decodeURIComponent(escape(window.atob(getCookie("text_edit"))));
+        parse(document.getElementById("text_").value);
     } else {
         document.getElementById("text_").value = default_text;
         parse(default_text);

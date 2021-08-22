@@ -14,8 +14,10 @@
   <link rel="icon" href="src/icons/icon.png" type="image/icon type">
 
 </head>
-<body>
+<body style="background: var(--bg-bg);">
 <br>
+
+<div style="width: fit-content; background: var(--bg-bg);  float: center; margin: auto;">
 <center>
   <a href="https://silverfoxxxy.github.io/letters" style="font-size: var(--def-fontsz);">На главную</a>
 </center>
@@ -23,8 +25,10 @@
   <!-- здесь всё, что выше непосредственно текста -->
   <table style="float:center;">
     <tr>
-      <td style="width: fit-content">
+      <td style="width: fit-content;">
         <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:var(--bbutton-h);" id="view_theme_button"> <img src="src/icons/default_dark.png" style='height: 100%; object-fit: contain' id="view_icon"/> </button>
+      </td>
+      <td style="width: var(--def-fontsz);">
       </td>
       <td style="width: fit-content">
         <button type="button" style="font-size: var(--small-fontsz); width:var(--button-width);" id="prev_page_button1"> < </button>
@@ -51,6 +55,8 @@
       <td style="width: fit-content">
         <button type="button" style="font-size: var(--small-fontsz); width:var(--button-width);" id="next_page_button1"> > </button>
       </td>
+      <td style="width: var(--def-fontsz);">
+      </td>
       <td style="width: fit-content">
         <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:var(--bbutton-h);" id="color_theme_button"> <img src="src/sun_moon2.jpg" style='height: 100%; object-fit: contain' id="theme_icon"/> </button>
       </td>
@@ -65,7 +71,9 @@
 <center>
 <h3>
   <b>
-    <text id="title" style="font-size: var(--msg-fontsz);"></text>
+    <div  style="font-size: var(--msg-fontsz); max-width: calc(var(--block-width)*0.9)">
+      <text id="title"></text>
+    </div>
   </b>
 </h3>
 </center>
@@ -237,7 +245,7 @@
       </div>
     </div>
   </div>
-
+<div>
 <br><br><br><br>
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->

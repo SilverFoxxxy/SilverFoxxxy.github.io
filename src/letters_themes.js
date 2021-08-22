@@ -52,14 +52,19 @@ function setTheme(theme_array) {
 
 var color_themes = [
         [
-            ["main-bg", "#F1F1F1"],
+            // ["main-bg", "#F1F1F1"],
+            //["main-bg", "#FFFFFF"],
+            ["bg-bg", "#FFFFFF"],// B9BBC7// AFB4D7//9E9DC7
+            ["main-bg", "#FFFFFF"],
             ["main-color", "#000000"],
-            ["block-bg", "#74B5E0"],
-            ["right-bg", "#DEF1FD"],
-            ["left-bg", "#FDFDFD"],
-            ["author-bg", "#F1F1F1"]
+            //["block-bg", "#74B5E0"],
+            ["block-bg", "#CED6EF"],//%%DDECF7//DEF1FD//50A19A // C4F4FF
+            ["right-bg", "#DDECF7"],//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF
+            ["left-bg", "#FDFDFD"],//
+            ["author-bg", "#EAEEF9"]//DADEE9//#D1D1F1 // CADEE9
         ],
         [
+            ["bg-bg", "221E2A"],
             ["main-bg", "#221E2A"],
             ["main-color", "#D1CAE0"],
             ["block-bg", "#191520"],

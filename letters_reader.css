@@ -10,6 +10,7 @@
 */
 
 :root {
+	--bg-bg: #221E2A;
 	--main-bg: #221E2A;
 	--main-color: #D1CAE0;
 	--block-bg: #191520;
@@ -151,7 +152,7 @@ div {
 
 .author_block {
 	float:center;
-	width:90%;
+	width:80%;
 	margin: auto;
 	padding-left: 3%;
 	padding-right: 3%;
@@ -178,10 +179,10 @@ div {
 	max-width: 80%;
 	text-align: center;
 	margin: auto;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 15px;
-	padding-right: 15px;
+	/*padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 1em;
+	padding-right: 1em;*/
 	border-radius: var(--border-rad);
 }
 
@@ -193,10 +194,10 @@ div {
 	float: right;
 	margin:auto;
 	text-align: left;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-right: 15px;
-	padding-left: 15px;
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
 	border-radius: var(--border-rad);
 	/*border: 2px solid #00FF00;*/
 }
@@ -208,10 +209,10 @@ div {
 	width: fit-content;
 	/*float: left;*/
 	/*margin:auto;*/
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
 	border-radius: var(--border-rad);
 	/*border: 2px solid #00FF00;*/
 }
@@ -220,13 +221,13 @@ div {
 	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
-	border: 2px dashed grey;
+	border: 0.2rem dashed grey;
 	width: fit-content;
 	margin: auto;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
 	border-radius: var(--border-rad);
 	/*border: 2px solid #00FF00;*/
 }
@@ -238,10 +239,10 @@ div {
 	/*border: 2px dashed grey;*/
 	width: fit-content;
 	margin: auto;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
 	border-radius: var(--border-rad);
 	/*border: 2px solid #00FF00;*/
 }

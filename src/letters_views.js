@@ -89,10 +89,18 @@ async function reload_view() {
     
     if (!(0 < now_theme && now_theme <= 2)) {
         if (view_not_set == 1) {
-            var now_w = window.innerWidth;// document.documentElement.clientWidth;
-            var now_h = window.innerHeight; //document.documentElement.clientHeight;
+            var now_w = window.innerWidth && document.documentElement.clientWidth ? 
+Math.min(window.innerWidth, document.documentElement.clientWidth) : 
+window.innerWidth || 
+document.documentElement.clientWidth || 
+document.getElementsByTagName('body')[0].clientWidth;// window.innerWidth;// document.documentElement.clientWidth;
+            var now_h = window.innerHeight && document.documentElement.clientHeight ? 
+Math.min(window.innerHeight, document.documentElement.clientHeight) : 
+window.innerHeight || 
+document.documentElement.clientHeight || 
+document.getElementsByTagName('body')[0].clientHeight; // window.innerHeight; //document.documentElement.clientHeight;
             console.log(String(now_w) + ' ' + String(now_h));
-            if (now_h >= now_w * 1.5) {
+            if (now_h >= now_w * 1.3) {
                 theme_n = 0;
             } else {
                 theme_n = 1;

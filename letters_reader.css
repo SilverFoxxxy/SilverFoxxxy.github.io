@@ -73,7 +73,7 @@ a {
 	color: var(--main-color);
 }
 div {
-	/*border: 3px solid #00FFFF;*/
+	/*border: 1px solid #00FFFF;*/
 }
 #messages_block {
 	/*background-color: grey;*/
@@ -176,11 +176,17 @@ div {
 }
 
 .link_block {
-	font-size: var(--def-fontsz);
+	/*font-size: var(--def-fontsz);*/
 	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
-	width: fit-content;
+	/*width: fit-content;*/
+	display: flex;
+  	align-items: center;
+	justify-content: center;
 	max-width: 80%;
-	text-align: center;
+	width: 80%;
+	min-height: 6em;
+	height: fit-content;
+	/*text-align: center;*/
 	margin: auto;
 	padding-top: 0.35em;
 	padding-bottom: 0.35em;
@@ -250,10 +256,25 @@ div {
 	/*border: 2px solid #00FF00;*/
 }
 
+.link_msg {
+	font-size: calc(var(--def-fontsz) * 0.75);
+	background-color: var(--right-bg);
+	width: 100%;
+	text-align: center;
+	height: fit-content;
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	border-radius: var(--border-rad);
+}
+
 .outln {
 	/*outline: 3px solid #000;
 	border-radius: 0.2rem;*/
 }
+
+a { text-decoration: none; }
 
 table {
   /*border-collapse: collapse;*/

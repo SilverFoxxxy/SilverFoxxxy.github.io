@@ -152,6 +152,7 @@ div {
 }
 
 .author_block {
+	font-size: var(--def-fontsz);
 	float:center;
 	width:80%;
 	margin: auto;
@@ -163,6 +164,7 @@ div {
 }
 
 .center_block {
+	font-size: var(--def-fontsz);
 	float:center;
 	width:92%;
 	margin: auto;
@@ -222,7 +224,7 @@ div {
 	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
-	border: 0.2rem dashed grey;
+	border: calc(var(--def-fontsz) * 0.12) dashed grey;
 	width: fit-content;
 	margin: auto;
 	padding-top: 0.35em;

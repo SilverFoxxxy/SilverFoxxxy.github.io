@@ -57,11 +57,12 @@ var color_themes = [
             ["bg-bg", "#FFFFFF"],// B9BBC7// AFB4D7//9E9DC7
             ["main-bg", "#FFFFFF"],
             ["main-color", "#000000"],
-            //["block-bg", "#74B5E0"],
-            ["block-bg", "#CED6EF"],//%%DDECF7//DEF1FD//50A19A // C4F4FF
-            ["right-bg", "#DDECF7"],//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF
-            ["left-bg", "#FDFDFD"],//
-            ["author-bg", "#EAEEF9"]//DADEE9//#D1D1F1 // CADEE9
+            ["block-bg", "#8ACBF6"],//!74B5E0
+            //["block-bg", "#CED6EF"],//%%DDECF7//DEF1FD//50A19A // C4F4FF
+            ["right-bg", "#BAD9FF"],//C2DDFF"],//DDECF7//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF
+            ["left-bg", "#D6EFFF"],//
+            ["author-bg", "#B3E0FF"],//DADEE9//#D1D1F1 // CADEE9
+            ["center-bg", "#BFE6FF"]
         ],
         [
             ["bg-bg", "221E2A"],
@@ -70,7 +71,8 @@ var color_themes = [
             ["block-bg", "#191520"],
             ["right-bg", "#463865"],
             ["left-bg", "#322C3B"],
-            ["author-bg", "#555565"]
+            ["author-bg", "#555565"],
+            ["center-bg", "#555565"]
         ]
     ];
 // var is_color_theme_loaded = -1;

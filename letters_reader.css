@@ -17,6 +17,7 @@
 	--right-bg: #463865;
 	--left-bg: #322C3B;
 	--author-bg: #555565;
+	--center-bg: #555565;
 
 	--def-fontsz: 1.5rem;
 	--msg-fontsz: 1.5rem;
@@ -179,10 +180,10 @@ div {
 	max-width: 80%;
 	text-align: center;
 	margin: auto;
-	/*padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	padding-left: 1em;
-	padding-right: 1em;*/
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
 	border-radius: var(--border-rad);
 }
 
@@ -235,7 +236,7 @@ div {
 .center_msg {
 	white-space: pre-line;
 	font-size: var(--msg-fontsz);
-	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
+	background-color: var(--center-bg);/*#2C1B23;*//*#FFCCCC;*/
 	/*border: 2px dashed grey;*/
 	width: fit-content;
 	margin: auto;

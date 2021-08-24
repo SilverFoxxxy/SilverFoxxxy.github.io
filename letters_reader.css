@@ -8,19 +8,7 @@
    /*-khtml-border-radius: 10px; for old Konqueror browsers 
 }
 */
-[
-            // ["main-bg", "#F1F1F1"],
-            //["main-bg", "#FFFFFF"],
-            ["bg-bg", "#6B7078"],// B9BBC7// AFB4D7//9E9DC7
-            ["main-bg", "#FFFFFF"],
-            ["main-color", "#000000"],
-            ["block-bg", "#494D52"],//!74B5E0 //8ACBF6
-            //["block-bg", "#CFD7EE"],//%%DDECF7//DEF1FD//50A19A // C4F4FF
-            ["right-bg", "#D1F2F6"],//CFEEFF//C2DDFF"],//DDECF7//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF //BAD9FF
-            ["left-bg", "#E7E8EF"],//FDFDFD
-            ["author-bg", "#D5D5E5"],//DADEE9//#D1D1F1 // CADEE9
-            ["center-bg", "#DBF1FF"]
-        ]
+
 :root {
 	--bg-bg: #221E2A;
 	--main-bg: #221E2A;

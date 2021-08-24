@@ -72,6 +72,7 @@ select {
 a {
 	color: var(--main-color);
 }
+/*a { text-decoration: none; }*/
 div {
 	/*border: 1px solid #00FFFF;*/
 }
@@ -273,8 +274,6 @@ div {
 	/*outline: 3px solid #000;
 	border-radius: 0.2rem;*/
 }
-
-a { text-decoration: none; }
 
 table {
   /*border-collapse: collapse;*/

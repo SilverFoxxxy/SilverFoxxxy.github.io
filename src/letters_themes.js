@@ -20,19 +20,25 @@ function getCookie(name) {
 
 var view_icons = [["src/icons/width_light.png",
                   "src/icons/width_dark.png",
+                  "src/icons/width_light.png",
+                  "src/icons/width_dark.png",
                   "src/icons/width_light.png"],
                   ["src/icons/default_light.png",
+                  "src/icons/default_dark.png",
+                  "src/icons/default_light.png",
                   "src/icons/default_dark.png",
                   "src/icons/default_light.png"]];
 var theme_icons = ["src/icons/light_sun.png",
                    "src/icons/dark_moon.png",
-                   "src/icons/half.jpg"];
+                   "src/icons/half.jpg",
+                   "src/icons/dark_moon.png",
+                   "src/icons/light_sun.png"];
 function setIcon() {
     var root = document.querySelector(':root');
     var cth = window.color_theme;
     var vth = window.view_theme;
     // console.log(String(cth) + String(vth));
-    // console.log(view_icons[vth][cth]);
+    console.log(view_icons[vth][cth]);
     var nowimg = document.getElementById("view_icon");
     nowimg.src = view_icons[vth][cth];
     nowimg = document.getElementById("theme_icon");
@@ -65,7 +71,10 @@ var color_themes = [
             ["right-bg", "#CFEEFF"],//C2DDFF"],//DDECF7//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF //BAD9FF
             ["left-bg", "#FDFDFD"],//
             ["author-bg", "#D5D5E5"],//DADEE9//#D1D1F1 // CADEE9
-            ["center-bg", "#DBF1FF"]
+            ["center-bg", "#DBF1FF"],
+            ["outline-color", "#ffffff00"],
+            ["font-fam", "Georgia"],
+            ["border-radc", "1"]
         ],
         [
             ["bg-bg", "221E2A"],
@@ -75,7 +84,10 @@ var color_themes = [
             ["right-bg", "#463865"],
             ["left-bg", "#322C3B"],
             ["author-bg", "#555565"],
-            ["center-bg", "#555565"]
+            ["center-bg", "#555565"],
+            ["outline-color", "#ffffff00"],
+            ["font-fam", "Georgia"],
+            ["border-radc", "1"]
         ],
         [
             // ["main-bg", "#F1F1F1"],
@@ -88,8 +100,46 @@ var color_themes = [
             ["right-bg", "#D1F2F6"],//CFEEFF//C2DDFF"],//DDECF7//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF //BAD9FF
             ["left-bg", "#E7E8EF"],//FDFDFD
             ["author-bg", "#D5D5E5"],//DADEE9//#D1D1F1 // CADEE9
-            ["center-bg", "#DBF1FF"]
+            ["center-bg", "#DBF1FF"],
+            ["outline-color", "#ffffff00"],
+            ["font-fam", "Georgia"],
+            ["border-radc", "1"]
+        ],
+
+        [
+            // ["main-bg", "#F1F1F1"],
+            //["main-bg", "#FFFFFF"],
+            ["bg-bg", "#000000"],// B9BBC7// AFB4D7//9E9DC7
+            ["main-bg", "#000000"],
+            ["main-color", "#dddddd"],
+            ["block-bg", "#000000"],//!74B5E0 //8ACBF6
+            //["block-bg", "#CFD7EE"],//%%DDECF7//DEF1FD//50A19A // C4F4FF
+            ["right-bg", "#000000"],//CFEEFF//C2DDFF"],//DDECF7//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF //BAD9FF
+            ["left-bg", "#000000"],//FDFDFD
+            ["author-bg", "#000000"],//DADEE9//#D1D1F1 // CADEE9
+            ["center-bg", "#000000"],
+            ["outline-color", "#dddddd"],
+            ["font-fam", "Elementa"],
+            ["border-radc", "0"]
+        ],
+
+        [
+            // ["main-bg", "#F1F1F1"],
+            //["main-bg", "#FFFFFF"],
+            ["bg-bg", "#dddddd"],// B9BBC7// AFB4D7//9E9DC7
+            ["main-bg", "#dddddd"],
+            ["main-color", "#000000"],
+            ["block-bg", "#dddddd"],//!74B5E0 //8ACBF6
+            //["block-bg", "#CFD7EE"],//%%DDECF7//DEF1FD//50A19A // C4F4FF
+            ["right-bg", "#dddddd"],//CFEEFF//C2DDFF"],//DDECF7//%%C4D6EF//E2E6FF C2E7FF//B0DFFF //DEF1FD //94D4FF //A1D9FF //BAD9FF
+            ["left-bg", "#dddddd"],//FDFDFD
+            ["author-bg", "#dddddd"],//DADEE9//#D1D1F1 // CADEE9
+            ["center-bg", "#dddddd"],
+            ["outline-color", "#000000"],
+            ["font-fam", "Elementa"],
+            ["border-radc", "0"]
         ]
+
     ];
 // var is_color_theme_loaded = -1;
 var is_color_theme_loaded = 1;
@@ -140,9 +190,9 @@ reload_theme();
 
 document.getElementById("color_theme_button").onclick = function()
 {
-  color_theme_n = (color_theme_n + 1) % 3;
+  color_theme_n = (color_theme_n + 1) % color_themes.length;
   // console.log(theme_n);
-  if (color_theme_n == 1 || color_theme_n == 0 || color_theme_n == 2) {
+  if (color_theme_n == 1 || color_theme_n == 0 || color_theme_n == 2 || color_theme_n == 3 || color_theme_n == 4) {
     setCookie('color_theme', color_theme_n + 1, 1);
     var root = document.querySelector(':root');
     window.color_theme = color_theme_n;

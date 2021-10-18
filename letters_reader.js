@@ -71,6 +71,9 @@ var lastname = -1;
 
 var title = null;
 
+var EDIT_MODE = false;
+var edit_msg_num = -1;
+
 var textes;
 
 window.fontsz_a = [
@@ -140,7 +143,15 @@ function createPageSelect(page_, max_page_) {
 
 async function reload_page() {
 	// document.getElementById("title").innerHTML = title;
-	if (ispartloaded == -1 || lastname != name || name == "test") {
+	EDIT_MODE = false;
+	if (ispartloaded == -1 || lastname != name || name == "test" || name == "edit") {
+
+		if (name == "edit") {
+			EDIT_MODE = true;
+			// data = localStorage.getItem("json_edit__");
+			data = JSON.parse(localStorage.getItem('json_edit_ui'));
+			get_person_sides();
+		}
 
 		if (name == "test") {
 			// data = localStorage.getItem("json_edit__");
@@ -228,9 +239,6 @@ async function reload_page() {
 	// console.log(nowpage);
 
 	document.getElementById("messages_block").innerHTML = nowpage;
-
-
-
 
 	// TODO: scrollToTop
 	// (now is "won't fix" problem for browsers)

@@ -47,13 +47,19 @@ var theme_n = 1;
 
 var view_icons = [["src/icons/width_light.png",
                   "src/icons/width_dark.png",
+                  "src/icons/width_light.png",
+                  "src/icons/width_dark.png",
                   "src/icons/width_light.png"],
                   ["src/icons/default_light.png",
+                  "src/icons/default_dark.png",
+                  "src/icons/default_light.png",
                   "src/icons/default_dark.png",
                   "src/icons/default_light.png"]];
 var theme_icons = ["src/icons/light_sun.png",
                    "src/icons/dark_moon.png",
-                   "src/icons/half.jpg"];
+                   "src/icons/half.jpg",
+                   "src/icons/dark_moon.png",
+                   "src/icons/light_sun.png"];
 function setIcon() {
     var root = document.querySelector(':root');
     var cth = window.color_theme;

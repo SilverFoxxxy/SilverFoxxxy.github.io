@@ -18,6 +18,127 @@ function getCookie(name) {
     return null;
 }
 
+var person_side = {};
+
+function get_person_sides(data) {
+    if (data != null) {
+        for (a in data['header']['person']) {
+            var now_person = data['header']['person'][a];
+            // console.log(now_person['name'] + ' ' + now_person['side']);
+            person_side[now_person['name']] = now_person['side'];
+        }
+    }
+}
+
+function jsonTextToColl(txt) {
+    let nowtxt = "";
+    var from = txt[0];
+    if (from == '0') {
+        from = 'author';
+    }
+    // console.log(from);
+    // var now_side = person_side[from];
+    nowtxt += "<div><u><b>" + from + "</b></u></div>";
+    // console.log(now_side);
+    // var pref = '';
+    // var suf = '';
+    // if (now_side == 'author') {
+    //     pref = '<div class="author_block"><div class="author_msg">';
+    //     suf = '</div></div>';
+    // }
+    // if (now_side == 'left') {
+    //     pref = '<div class="left_block"><div class="left_msg">';
+    //     suf = '</div></div>';
+    // }
+    // if (now_side == 'right') {
+    //     pref = '<div class="right_block"><div class="right_msg">';
+    //     suf = '</div></div>';
+    // }
+    // if (now_side == 'center') {
+    //     // console.log("center_msg");
+    //     pref = '<div class="center_block"><div class="center_msg">';
+    //     suf = '</div></div>';
+    // }
+    // console.log(txt);
+    // return (pref + "<pre>" + txt[1] + "</pre>" + suf);
+    return (nowtxt + "<div>" + txt[1] + "</div>");
+}
+
+function jsonPageToColl(nowpage) {
+    // return "some+page";
+    // html = '<table>';
+    html = '';
+    for (txt in nowpage) {
+        console.log(nowpage[txt]);
+        nowtxt = jsonTextToColl(nowpage[txt]);
+        html = html + '<div>' + nowtxt + '</div>';
+        // html = html + '<tr><td>' + nowtxt + '</td></tr>';
+        html += '<br>';
+        // html += '<tr><td><div class="left_block"><br></div></td></tr>';
+    }
+    // html = html + '</table>';
+    return html;
+}
+
+function jsonPartToColl(nowpart) {
+    let nowcoll = "";
+    for (i in nowpart['pages']) {
+        let nowpage = nowpart['pages'][i];
+        // console.log(nowpart['pages'][i]);
+        nowcoll += "<button type='button' class='collapsible'>"+"Стр_" + String(parseInt(i) + 1) + "</button><div class='content'>";
+        nowcoll += jsonPageToColl(nowpage);
+        nowcoll += "</div>";
+    }
+    return nowcoll;
+}
+
+function jsonHeadToColl(nowheader) {
+    let nowcoll = "";
+    nowcoll += "<div><b>Title:</b> " + nowheader['title'] + "</div>";
+    nowcoll += "<div><b>Описание:</b> " + nowheader['description'] + "</div>";
+    nowcoll += "<div><b>Шрифт(1-5):</b> " + nowheader['font'] + "</div>";
+    return nowcoll;
+}
+
+function jsonToCollapsible() {
+    var nowjson = JSON.parse(localStorage.getItem('json_edit'));
+    get_person_sides(nowjson);
+    let nowcoll = "";
+    nowcoll += "<button type='button' class='collapsible'>Основная информация</button><div class='content'>";
+    nowcoll += jsonHeadToColl(nowjson['header']);
+    nowcoll += "</div>";
+    for (i in nowjson['parts']) {
+        let nowpart = nowjson['parts'][i];
+        // console.log("part2coll");
+        // let nowpart = nowjson['parts'][i];
+        nowcoll += "<button type='button' class='collapsible'>"+"Глава_" + String(i + 1) + "</button><div class='content'>";
+        nowcoll += jsonPartToColl(nowpart);
+        nowcoll += "</div>";
+    }
+    return nowcoll;
+}
+
+// function copyToClipboard(elementId) {
+//     if (elementId == "text_") {
+//         const temp = document.createElement("input");
+//         const text = document.getElementById("text_").value;
+//         temp.setAttribute("value", text);
+//         document.body.appendChild(temp);
+//         temp.select();
+//         document.execCommand("copy");
+//         document.body.removeChild(temp);
+//     }
+//     if (elementId == "text111") {
+//         const temp = document.createElement("input");
+//         const text = JSON.stringify(letters, null, '\t');
+//         temp.setAttribute("value", text);
+//         document.body.appendChild(temp);
+//         temp.select();
+//         document.execCommand("copy");
+//         document.body.removeChild(temp);
+//     }
+// }
+
 function syntaxHighlight(json) {
     json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
@@ -153,6 +274,7 @@ function header2json(header) {
     h['person'][0]['aka'] = [];
     h['person'][0]['aka'].push('автор');
     h['person'][0]['aka'].push('author');
+    h['shownm'] = 'false';
     for (let a of header) {
         // let a = header[a_i];
         if (a[0] == 'font') {
@@ -252,7 +374,6 @@ function parts2json(parts) {
 }
 
 
-
 function parse(text) {
     let both_ = parse_header_parts(text);
     let header = both_[0];
@@ -300,6 +421,8 @@ document.getElementById("convert_button").onclick = function()
   var texttt = document.getElementById("text_").value;
   // console.log(texttt);
   parse(texttt);
+  document.getElementById('text_collapse').innerHTML = jsonToCollapsible();
+  updCollapsible();
 }
 
 document.getElementById('text_').addEventListener('keydown', function(e) {
@@ -324,11 +447,36 @@ if (typeof now_text_edit === 'string') {
     if (now_text_edit.length > 10) {
         document.getElementById("text_").value = now_text_edit;
         parse(document.getElementById("text_").value);
+        document.getElementById('text_collapse').innerHTML = jsonToCollapsible();
+        updCollapsible();
     } else {
         document.getElementById("text_").value = default_text;
         parse(default_text);
+        document.getElementById('text_collapse').innerHTML = jsonToCollapsible();
+        updCollapsible();
     }
 } else {
     document.getElementById("text_").value = default_text;
     parse(default_text);
+    document.getElementById('text_collapse').innerHTML = jsonToCollapsible();
+    updCollapsible();
 }
+
+
+function updCollapsible() {
+    let coll = document.getElementsByClassName("collapsible");
+    let i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        let content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+}
+

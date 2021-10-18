@@ -9,11 +9,10 @@
   <link rel="icon" href="src/icons/icon.png" type="image/icon type">
 
 </head>
-<body>
+<body style="background: var(--bg-bg);">
 <br>
 <center>
   <a href="https://silverfoxxxy.github.io/letters">На главную</a>
-</center>
 
 <div>
   Примеры и документация:
@@ -26,22 +25,42 @@
 
 <br>
 
-<button type="button" style="width:12rem;" id="convert_button"> <div><small>Преобразовать в json <br> (после этого можно открыть предпросмотр)</small></div></button>
+<table style="width: moz-fit-content; width: fit-content;">
+  <tr>
+    <!-- <td>
+      <button onclick="copyToClipboard('text_')" style="width:12rem; height: 3rem;">Copy text</button>
+    </td> -->
+    <td>
+      <button type="button" style="width:12rem; height: 3rem;" id="convert_button"> <div><big>Преобразовать в json</big> <br> <small>(после этого можно открыть предпросмотр)</small></div></button>
+    </td>
+    <td style="width:12rem;">
+    </td>
+    <td>
+      <a href="https://silverfoxxxy.github.io/letters_reader?name=test" target="_blank"><big>Предпросмотр на сайте</big></a>
+    </td>
+    <!-- <td>
+      <button onclick="copyToClipboard('text111')" style="width:12rem; height: 3rem;">Copy json</button>
+    </td> -->
+  </tr>
+</table>
 
-<a href="https://silverfoxxxy.github.io/letters_reader?name=test" target="_blank"><big>Предпросмотр на сайте</big></a>
-
-<table>
+<table style="width: moz-fit-content; width: fit-content;">
   <tr>
     <td style="width: fit-content; vertical-align: top; tab-size: 2;">
       <textarea id="text_" style="min-height: 40rem;overflow-y: scroll;" cols="50"></textarea>
       <!-- <input type="text" id="text" style="font-size: 1.5rem; width: 20rem; min-height: 20rem; line-height:20rem; text-align: top;"/> -->
     </td>
-    <td>
+
+    <td style="vertical-align: top;">
+      <div id="text_collapse" style="width: 30rem; min-height: 40rem; background: white; color: black; overflow: scroll;">abra</div>
+    </td>
+
+    <td style="vertical-align: top;">
       <div id="text111" style="width: 30rem; min-height: 40rem; background: white; color: black; overflow: scroll;"><pre id="text1" style="tab-size: 2;"></pre></div>
     </td>
   </tr>
 </table>
-
+</center>
 <br><br><br>
 
 <script src="./text_to_json.js" charset="utf-8"></script>

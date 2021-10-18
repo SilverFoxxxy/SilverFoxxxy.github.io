@@ -10,14 +10,16 @@
 */
 
 :root {
-	--bg-bg: #221E2A;
-	--main-bg: #221E2A;
-	--main-color: #D1CAE0;
-	--block-bg: #191520;
-	--right-bg: #463865;
-	--left-bg: #322C3B;
-	--author-bg: #555565;
-	--center-bg: #555565;
+	--bg-bg: #A1AAB5;
+	--main-bg: #A1AAB5;
+	--main-color: #000000;
+	--block-bg: #747A82;
+	--right-bg: #D1F2F6;
+	--left-bg: #E7E8EF;
+	--author-bg: #D5D5E5;
+	--center-bg: #DBF1FF;
+	--outline-color: #ffffff00;/*00;*/
+	--border-radc: 1;
 
 	--def-fontsz: 1.5rem;
 	--msg-fontsz: 1.5rem;
@@ -28,16 +30,60 @@
 	--bbutton-width: 9rem;
 	--border-rad: 0.2rem;
 	--block-width: 35rem;
+
+	--font-fam: Georgia;
+}
+
+@font-face {
+    font-family: "Elementa";
+/*    file://Users/belkovanya/Coding/github/SilverFoxxxy.github.io/*/
+    src: url("src/fonts/Elementa/ElementaCyr-Bold.otf") format("opentype");
+}
+
+.harlow {
+    font-family: "myFirstFont";
 }
 
 html, body {
 	line-height: 2.5;
 	/*font-family: Tahoma;*/
 	/*font-size: var(--def-fontsz);*/
-	font-family: Georgia;
+	font-family: var(--font-fam);
 	color: var(--main-color);/*white;*/
 	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
 	overflow-y: auto;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  /*border: none;*/
+  text-align: left;
+  border: 1px solid #000;
+  border-radius: 0;
+  /*outline: none;*/
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-style: dashed;
+  border-color: var(--main-color);
+  border-width: 0px 1px 0px 1px;
+  border-radius: 0;
 }
 
 pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
@@ -53,20 +99,24 @@ button {
 	width: var(--button-width);
 	color: var(--main-color);/*white;*/
 	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+}
+
+table {
+	width: 100%;
 }
 
 table, th, td {
 	line-height: 1.7;
 	/*font-size: var(--def-fontsz);*/
-	width: 100%;
 	/*border: 1px solid red;*/
 }
+
 select {
 	border: 1px solid var(--main-color);
 	color: var(--main-color);
 	background-color: var(--main-bg);
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
 }
 
 a {
@@ -76,9 +126,11 @@ a {
 div {
 	/*border: 1px solid #00FFFF;*/
 }
+
 #messages_block {
 	/*background-color: grey;*/
 }
+
 .centered {
 	display: flex;
 	align-items: center;
@@ -99,15 +151,35 @@ div {
 	margin: auto;
 }
 
+.top {
+	width: var(--block-width);
+	max-width: 95%;
+	margin: auto;
+}
+
 .header {
+	/*width:var(--block-width);
+	max-width:95%;
+	margin: auto;*/
+	width:fit-content;
+	max-width:95%;
+	margin: auto;
 	/*font-size: 1.5rem;*/
 	height: fit-content;
 	background-color: var(--block-bg);
 	/*#1D1016;*/
-	width:fit-content;
-	max-width:95%;
-	margin: auto;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+}
+
+.wideline {
+	/*height: fit-content;
+	background-color: var(--block-bg);*/
+	/*#1D1016;*/
+	width:100%;
+	/*width:fit-content;
+	margin: auto;*/
+	/*border-radius: 0;
+	outline: 0.07em solid var(--outline-color);*/
 }
 
 .block {
@@ -117,7 +189,8 @@ div {
 	width:var(--block-width);
 	max-width:95%;
 	margin: auto;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	outline: 0.07em solid var(--outline-color);
 }
 
 .iblock {
@@ -128,7 +201,8 @@ div {
 	margin:auto;
 	margin-top: 0.5rem;
 	margin-bottom: 0.5rem;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	outline: 0.07em solid var(--outline-color);
 }
 
 .right_block {
@@ -193,7 +267,7 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
 }
 
 .right_msg {
@@ -208,7 +282,8 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }
 
@@ -223,7 +298,8 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }
 
@@ -238,7 +314,8 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	/*outline: 0.07em solid var(--outline-color);*/
 	/*border: 2px solid #00FF00;*/
 }
 
@@ -253,7 +330,8 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }
 
@@ -267,7 +345,8 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: var(--border-rad);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	outline: 0.07em solid var(--outline-color);
 }
 
 .outln {

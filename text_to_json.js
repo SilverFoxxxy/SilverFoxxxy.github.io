@@ -111,7 +111,7 @@ function jsonToCollapsible() {
         let nowpart = nowjson['parts'][i];
         // console.log("part2coll");
         // let nowpart = nowjson['parts'][i];
-        nowcoll += "<button type='button' class='collapsible'>"+"Глава_" + String(i + 1) + "</button><div class='content'>";
+        nowcoll += "<button type='button' class='collapsible'>"+"Глава_" + String(parseInt(i) + 1) + "</button><div class='content'>";
         nowcoll += jsonPartToColl(nowpart);
         nowcoll += "</div>";
     }
@@ -193,7 +193,12 @@ var p_keywords = [
 function parse_header_parts(text) {
     let pref = "part=";
     let ind = text.search(pref, 0, text.length);
-    if (!text.includes(pref)) {
+    let ind1 = text.search("глава=", 0, text.length);
+    console.log(ind + ' ' + ind1);
+    if (ind1 < ind || ind == -1) {
+        ind = ind1;
+    }
+    if (!text.includes(pref) && !text.includes("глава=")) {
         return [text, ""];
     }
     return [text.slice(0, ind), text.slice(ind, text.length)];
@@ -276,6 +281,8 @@ function header2json(header) {
     h['person'][0]['aka'].push('author');
     h['shownm'] = 'false';
     for (let a of header) {
+        a[0] = clear_str(a[0]);
+        a[2] = clear_str(a[2]);
         // let a = header[a_i];
         if (a[0] == 'font') {
             h['font'] = a[2];
@@ -299,6 +306,7 @@ function header2json(header) {
             h['person'][h['person'].length-1]['color'] = a[2];
         }
         if (a[0] == 'side') {
+            console.log(a[2]);
             h['person'][h['person'].length-1]['side'] = 'left';
             if (left_side.includes(a[2])) {
                 h['person'][h['person'].length-1]['side'] = 'left';
@@ -311,10 +319,16 @@ function header2json(header) {
             }
         }
         if (a[0] == 'aka') {
-            let aka = a[2].split(',');
-            for (let i in aka) {
-                aka[i] = clear_str(aka[i]);
+            let nowaka = a[2].split(',');
+            let aka = [];
+            // aka.push(h['person'][h['person'].length-1]['name']);
+            for (let i in nowaka) {
+                nowaka[i] = clear_str(nowaka[i]);
+                if (nowaka[i].length != 0) {
+                    aka.push(nowaka[i]);
+                }
             }
+            console.log(aka);
             h['person'][h['person'].length-1]['aka'] = aka;
         }
     }
@@ -327,9 +341,12 @@ function parse_page(page, persons) {
         // let i = persons[i_];
         let names = [];
         names.push(i['name']);
-        for (let j of i['aka']) {
-            // let j = i['aka'][j_];
-            names.push(j);
+        console.log(i['name']);
+        if ('aka' in i) {
+            for (let j of i['aka']) {
+                // let j = i['aka'][j_];
+                names.push(j);
+            }
         }
         for (let j_ in names) {
             let nowdiv = names[j_] + '=';
@@ -375,6 +392,7 @@ function parts2json(parts) {
 
 
 function parse(text) {
+    localStorage.setItem('text_edit', text);
     let both_ = parse_header_parts(text);
     let header = both_[0];
     let parts = both_[1];

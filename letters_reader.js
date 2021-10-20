@@ -145,7 +145,6 @@ async function reload_page() {
 	// document.getElementById("title").innerHTML = title;
 	EDIT_MODE = false;
 	if (ispartloaded == -1 || lastname != name || name == "test" || name == "edit") {
-
 		if (name == "edit") {
 			EDIT_MODE = true;
 			// data = localStorage.getItem("json_edit__");
@@ -161,19 +160,34 @@ async function reload_page() {
 		// if (name == null) {
 		// 	name = "letters_example";
 		// }
-			if (DEBUG) {
-				data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
-				get_person_sides();
-				// data = await(JSON.parse(datastr));
-			} else {
-				data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
-				get_person_sides();
-				// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
-				// name = "letters_example";
-				// data = await fetch(url + name + ".json");
+			try {
+				if (DEBUG) {
+					data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+					// get_person_sides();
+					// data = await(JSON.parse(datastr));
+				} else {
+					data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+					
+					// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
+					// name = "letters_example";
+					// data = await fetch(url + name + ".json");
+				}
 			}
+			catch {
+				console.log("failed json");
+				document.getElementById("title").innerHTML = "<big>404 Not Found</big>";
+				return;
+			}
+			get_person_sides();
 		}
 	}
+
+	// if (!("header" in data)) {
+	// 	console.log("no header");
+	// 	document.getElementById("title").innerHTML = "<big>404 Not Found</big>";
+	// 	return;
+	// }
+
 	if (data["parts"].length != 0) {
 		lastname = name;
 		ispartloaded = true;
@@ -184,15 +198,17 @@ async function reload_page() {
 	if (font_n == -1) {
 		font_n = 0;
 	}
+
 	if (font_n == window.font_sz.length) {
 		font_n = window.font_sz.length - 1;
 	}
+
 	if (!(font_n >= 0 && font_n < font_sz.length)) {
 		font_n = 2;
 	}
-	
+
 	// console.log(font_n);
-	
+
 	window.msg_font_n = font_n;
 	document.querySelector(':root').style.setProperty('--msg-fontsz', window.font_sz[window.msg_font_n]);
 	// document.getElementById("title").style = ("font-size:" + global_fontsz);

@@ -85,7 +85,7 @@ function jsonPartToColl(nowpart) {
     for (i in nowpart['pages']) {
         let nowpage = nowpart['pages'][i];
         // console.log(nowpart['pages'][i]);
-        nowcoll += "<button type='button' class='collapsible'>"+"Стр_" + String(parseInt(i) + 1) + "</button><div class='content'>";
+        nowcoll += "<button type='button' class='collapsible'><span>&#9660</span>"+" Стр_" + String(parseInt(i) + 1) + "</button><div class='content'>";
         nowcoll += jsonPageToColl(nowpage);
         nowcoll += "</div>";
     }
@@ -104,14 +104,14 @@ function jsonToCollapsible() {
     var nowjson = JSON.parse(localStorage.getItem('json_edit'));
     get_person_sides(nowjson);
     let nowcoll = "";
-    nowcoll += "<button type='button' class='collapsible'>Основная информация</button><div class='content'>";
+    nowcoll += "<button type='button' class='collapsible'><span>&#9660</span> Основная информация</button><div class='content'>";
     nowcoll += jsonHeadToColl(nowjson['header']);
     nowcoll += "</div>";
     for (i in nowjson['parts']) {
         let nowpart = nowjson['parts'][i];
         // console.log("part2coll");
         // let nowpart = nowjson['parts'][i];
-        nowcoll += "<button type='button' class='collapsible'>"+"Глава_" + String(parseInt(i) + 1) + "</button><div class='content'>";
+        nowcoll += "<button type='button' class='collapsible'><span>&#9660</span>"+" Глава_" + String(parseInt(i) + 1) + "</button><div class='content'>";
         nowcoll += jsonPartToColl(nowpart);
         nowcoll += "</div>";
     }
@@ -195,7 +195,7 @@ function parse_header_parts(text) {
     let ind = text.search(pref, 0, text.length);
     let ind1 = text.search("глава=", 0, text.length);
     console.log(ind + ' ' + ind1);
-    if (ind1 < ind || ind == -1) {
+    if ((ind1 != -1 && ind1 < ind) || ind == -1) {
         ind = ind1;
     }
     if (!text.includes(pref) && !text.includes("глава=")) {
@@ -459,7 +459,8 @@ document.getElementById('text_').addEventListener('keydown', function(e) {
   }
 });
 
-let default_text = "header=\n    font= 5\n    title= Скажешь мне..?\n    description= Короткое стихотворение-диалог двух близких людей\n    person=\n        name=ааа\n        side=left\n        aka=1\n    person=\n        name=bbb\n        side=right\n        aka=2\npart=part\nname=page=\n    1= Cкaжeшь мнe 'дa'?\n        2= Дa.\n            0= <img src='src/textes/skazhesh_mne/fire_1.jpg' style='max-width: 100%; max-height: 100%;'>\n            0= <img src='src/textes/skazhesh_mne/fire_2.jpg' style='max-width: 100%; max-height: 100%;'>";
+let default_text =  "header=\n\ttitle= Переписка\n\tdescription= Это переписка для примера\n\tperson=\n\t\tname= Ваня\n\t\tside= left\n\tperson=\n\t\tname= Настя\n\t\tside= right\npart=\n\tpage=\n\t\tВаня=\nДоброе утро)\n\t\tНастя=\nДоброе!\nСделал домашку на сегодня?";
+// let default_text = "header=\n    font= 5\n    title= Скажешь мне..?\n    description= Короткое стихотворение-диалог двух близких людей\n    person=\n        name=ааа\n        side=left\n        aka=1\n    person=\n        name=bbb\n        side=right\n        aka=2\npart=part\nname=page=\n    1= Cкaжeшь мнe 'дa'?\n        2= Дa.\n            0= <img src='src/textes/skazhesh_mne/fire_1.jpg' style='max-width: 100%; max-height: 100%;'>\n            0= <img src='src/textes/skazhesh_mne/fire_2.jpg' style='max-width: 100%; max-height: 100%;'>";
 let now_text_edit = localStorage.getItem('text_edit');
 if (typeof now_text_edit === 'string') {
     if (now_text_edit.length > 10) {
@@ -474,12 +475,15 @@ if (typeof now_text_edit === 'string') {
         updCollapsible();
     }
 } else {
+    showdef();
+}
+
+function showdef() {
     document.getElementById("text_").value = default_text;
     parse(default_text);
     document.getElementById('text_collapse').innerHTML = jsonToCollapsible();
     updCollapsible();
 }
-
 
 function updCollapsible() {
     let coll = document.getElementsByClassName("collapsible");
@@ -490,9 +494,11 @@ function updCollapsible() {
         this.classList.toggle("active");
         let content = this.nextElementSibling;
         if (content.style.display === "block") {
-          content.style.display = "none";
+            this.children[0].innerHTML = "&#9660";
+            content.style.display = "none";
         } else {
-          content.style.display = "block";
+            this.children[0].innerHTML = "&#9650";
+            content.style.display = "block";
         }
       });
     }

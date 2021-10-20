@@ -76,13 +76,13 @@ html, body {
 
 /* Style the collapsible content. Note: hidden by default */
 .content {
-  padding: 0 18px;
+  padding: 0 0 0 18px;
   display: none;
   overflow: hidden;
   background-color: #f1f1f1;
-  border-style: dashed;
-  border-color: var(--main-color);
-  border-width: 0px 1px 0px 1px;
+  border-style: solid;
+  border-color: 888888;
+  border-width: 0px 1px 1px 1px;
   border-radius: 0;
 }
 

@@ -74,7 +74,8 @@ var color_themes = [
             ["center-bg", "#DBF1FF"],
             ["outline-color", "#ffffff00"],
             ["font-fam", "Georgia"],
-            ["border-radc", "1"]
+            ["border-radc", "1"],
+            ["from-color", "#888888"]
         ],
         [
             ["bg-bg", "221E2A"],
@@ -87,7 +88,8 @@ var color_themes = [
             ["center-bg", "#555565"],
             ["outline-color", "#ffffff00"],
             ["font-fam", "Georgia"],
-            ["border-radc", "1"]
+            ["border-radc", "1"],
+            ["from-color", "#A895DD"]
         ],
         [
             // ["main-bg", "#F1F1F1"],
@@ -103,7 +105,8 @@ var color_themes = [
             ["center-bg", "#DBF1FF"],
             ["outline-color", "#ffffff00"],
             ["font-fam", "Georgia"],
-            ["border-radc", "1"]
+            ["border-radc", "1"],
+            ["from-color", "#555555"]
         ],
 
         [
@@ -120,7 +123,8 @@ var color_themes = [
             ["center-bg", "#000000"],
             ["outline-color", "#dddddd"],
             ["font-fam", "Elementa"],
-            ["border-radc", "0"]
+            ["border-radc", "0"],
+            ["from-color", "#DDAAAA"]
         ],
 
         [
@@ -137,7 +141,8 @@ var color_themes = [
             ["center-bg", "#dddddd"],
             ["outline-color", "#000000"],
             ["font-fam", "Elementa"],
-            ["border-radc", "0"]
+            ["border-radc", "0"],
+            ["from-color", "#885555"]
         ]
 
     ];

@@ -33,6 +33,28 @@ function getCookie(name) {
     return null;
 }
 
+/**
+ * http://stackoverflow.com/a/10997390/11236
+ */
+function updateURLParameter(url, param, paramVal){
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+    if (additionalURL) {
+        tempArray = additionalURL.split("&");
+        for (var i=0; i<tempArray.length; i++){
+            if(tempArray[i].split('=')[0] != param){
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }
+    }
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
 
 const DEBUG = true;
 
@@ -42,6 +64,8 @@ var urlParams = new URLSearchParams(window.location.search);
 var name = urlParams.get('name');
 
 var part_n = urlParams.get('part');
+
+var shownm = false;
 
 // if (part_n == null) {
 // 	console.log("default - null");
@@ -110,7 +134,11 @@ function parse_txt(txt) {
 	}
 	// console.log(txt);
 	// return (pref + "<pre>" + txt[1] + "</pre>" + suf);
-	return (pref + txt[1] + suf);
+	var nowname = "";
+	if (shownm) {
+		nowname = "<div class='msg_from'><b>" + from + "</b></div>";
+	}
+	return (pref + nowname + txt[1] + suf);
 }
 
 function parse_page(partjs) {
@@ -142,6 +170,9 @@ function createPageSelect(page_, max_page_) {
 }
 
 async function reload_page() {
+	// var urlParams = new URLSearchParams(window.location.search);
+	// console.log(window.location.search);
+
 	// document.getElementById("title").innerHTML = title;
 	EDIT_MODE = false;
 	if (ispartloaded == -1 || lastname != name || name == "test" || name == "edit") {
@@ -207,6 +238,10 @@ async function reload_page() {
 		font_n = 2;
 	}
 
+	if (data["header"]["shownm"] == "true") {
+		shownm = true;
+	}
+
 	// console.log(font_n);
 
 	window.msg_font_n = font_n;
@@ -214,6 +249,18 @@ async function reload_page() {
 	// document.getElementById("title").style = ("font-size:" + global_fontsz);
 	// document.getElementById("prev_page_button").style = ("font-size:" + global_fontsz);
 	// document.getElementById("next_page_button").style = ("font-size:" + global_fontsz);
+
+	name = urlParams.get('name');
+	part_n = urlParams.get('part');
+	page_n = urlParams.get('page');
+
+	if (!part_n) {
+		part_n = 0;
+	}
+
+	if (!page_n) {
+		page_n = 0;
+	}
 
 	nowpart = part_n;
 	nowpage = page_n;
@@ -243,6 +290,9 @@ async function reload_page() {
 		nowpage = 0;
 		page_n = 0;
 	}
+
+	updParams();
+
  	title = data["header"]["title"];
 	document.getElementById("title").innerHTML = title;
 	// document.getElementById("page_n").innerHTML = (page_n + 1);
@@ -286,29 +336,34 @@ async function reload_page() {
 
 reload_page();
 
-document.getElementById("prev_page_button").onclick = function()
-{
-  page_n--;
-  reload_page();
+function updParams() {
+	urlParams.set('name', name);
+	urlParams.set('part', part_n);
+	urlParams.set('page', page_n);
+	history.replaceState(null, null, window.location.pathname + '?' + urlParams.toString());
+	// var currentURL = window.location.protocol + "//" + window.location.host + window.location.pathname + urlParams.toString();
+	// window.history.pushState({ path: currentURL }, '', currentURL);
 }
 
-document.getElementById("next_page_button").onclick = function()
-{
-  page_n++;
-  reload_page();
+function goNextPage() {
+	page_n++;
+	updParams();
+	reload_page();
 }
 
-document.getElementById("prev_page_button1").onclick = function()
-{
-  page_n--;
-  reload_page();
+function goPrevPage() {
+	page_n++;
+	updParams();
+	reload_page();
 }
 
-document.getElementById("next_page_button1").onclick = function()
-{
-  page_n++;
-  reload_page();
-}
+document.getElementById("prev_page_button").onclick = function() {goPrevPage();}
+
+document.getElementById("next_page_button").onclick = function() {goNextPage();}
+
+document.getElementById("prev_page_button1").onclick = function() {goPrevPage();}
+
+document.getElementById("next_page_button1").onclick = function() {goNextPage();}
 
 var activities = document.getElementById("pages");
 
@@ -323,6 +378,7 @@ var activities = document.getElementById("pages");
 
 activities.addEventListener("change", function() {
     page_n = parseInt(activities.value) - 1;
+    updParams();
     reload_page();
 });
 

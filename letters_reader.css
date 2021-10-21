@@ -20,6 +20,7 @@
 	--center-bg: #DBF1FF;
 	--outline-color: #ffffff00;/*00;*/
 	--border-radc: 1;
+	--from-color: #888888;
 
 	--def-fontsz: 1.5rem;
 	--msg-fontsz: 1.5rem;
@@ -94,7 +95,8 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 .key { color: red; }
 
 button {
-	border: 1px solid var(--main-color);
+	/*border: 1px solid var(--main-color);*/
+	border: none;
 	height: fit-content;
 	width: var(--button-width);
 	color: var(--main-color);/*white;*/
@@ -203,6 +205,10 @@ div {
 	margin-bottom: 0.5rem;
 	border-radius: calc(var(--border-rad) * var(--border-radc));
 	outline: 0.07em solid var(--outline-color);
+}
+
+.msg_from {
+	color: var(--from-color);
 }
 
 .right_block {
@@ -364,9 +370,9 @@ tr {
 }
 
 div {
-/*border: solid;
-border-width: 1px 1px;
-border-color: green;*/
+	/*border: solid;
+	border-width: 3px 3px;
+	border-color: red;*/
 }
 /*overflow-y: scroll;*/
 /*max-height: 500px;*/

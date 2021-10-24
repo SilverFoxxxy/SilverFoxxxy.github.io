@@ -27,7 +27,8 @@ var themes = [
             ["button-h", "7.5vw"],
             ["bbutton-h", "8.75vw"],
             ["bbutton-width", "25vw"],
-            ["border-rad", "0.55vw"]
+            ["border-rad", "0.55vw"],
+            ["msg-border-rad", "2.2vw"]
         ],
         [
             ["block-width", "35rem"],
@@ -37,7 +38,8 @@ var themes = [
             ["button-h", "3rem"],
             ["bbutton-h", "3.5rem"],
             ["bbutton-width", "9rem"],
-            ["border-rad", "0.2rem"]
+            ["border-rad", "0.2rem"],
+            ["msg-border-rad", "0.8rem"]
         ]
     ];
 
@@ -45,19 +47,19 @@ var themes = [
 var isthemeloaded = 1;
 var theme_n = 1;
 
-var view_icons = [["src/icons/width_light.png",
+var view_icons = [[/*"src/icons/width_light.png",
                   "src/icons/width_dark.png",
-                  "src/icons/width_light.png",
+                  "src/icons/width_light.png",*/
                   "src/icons/width_dark.png",
                   "src/icons/width_light.png"],
-                  ["src/icons/default_light.png",
+                  [/*"src/icons/default_light.png",
                   "src/icons/default_dark.png",
-                  "src/icons/default_light.png",
+                  "src/icons/default_light.png",*/
                   "src/icons/default_dark.png",
                   "src/icons/default_light.png"]];
-var theme_icons = ["src/icons/light_sun.png",
+var theme_icons = [/*"src/icons/light_sun.png",
                    "src/icons/dark_moon.png",
-                   "src/icons/half.jpg",
+                   "src/icons/half.jpg",*/
                    "src/icons/dark_moon.png",
                    "src/icons/light_sun.png"];
 function setIcon() {
@@ -65,7 +67,7 @@ function setIcon() {
     var cth = window.color_theme;
     var vth = window.view_theme;
     // console.log(String(cth) + String(vth));
-    // console.log(view_icons[vth][cth]);
+    console.log(view_icons[vth][cth]);
     var nowimg = document.getElementById("view_icon");
     nowimg.src = view_icons[vth][cth];
     nowimg = document.getElementById("theme_icon");

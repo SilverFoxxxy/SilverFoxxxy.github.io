@@ -7,16 +7,17 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
 <!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-
+<!-- #AAFFFE -->
   <title id="page_title">Letters reader </title>
 
   <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
   <link rel="icon" href="src/icons/icon.png" type="image/icon type">
 
 </head>
-<body style="background: var(--bg-bg);">
+<body> 
+  <!-- style="background: var(--bg-bg);" -->
 
-<div style="width: fit-content; background: var(--bg-bg);  float: center; margin: auto;">
+<!-- <div style="width: fit-content; background: var(--bg-bg);  float: center; margin: auto;"> -->
 <center>
 
   <div class="block" style="background: var(--main-bg);  outline: none;">
@@ -34,11 +35,7 @@
         </center>
       </td>
 
-<!--       <td>
-        <div style="width: var(--button-width);">
 
-        </div>
-      </td> -->
 
       <td style="width: fit-content">
         <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" id="login_button"> <img src="src/icons/login.jpg" style='height: 100%; object-fit: contain;' id="login_icon"/> </button>
@@ -92,6 +89,7 @@
 </div>
 
 <br>
+</center>
 
   <!-- <div style="width: fit-content; float: center;">
     <div id="_title" style="width: fit-content; font-size: calc(var(--button-h)*1.25); line-height: 1">Letters reader</div>
@@ -112,7 +110,7 @@
 </h3>
 </center>
 
-</center>
+<center>
 <div class="block">
 <div class="header" id="header"><!-- style="max-width: var(--block-width);" -->
   <!-- здесь всё, что выше непосредственно текста -->
@@ -121,7 +119,7 @@
       <td style="width: var(--def-fontsz);">
       </td>
       <td style="width: fit-content">
-        <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 0.7);" id="prev_page_button1"> < </button>
+        <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 0.7);" id="prev_page_button" onclick="goPrevPage()"> < </button>
       </td>
       <td style="width: fit-content;">
         <div style="font-size: var(--def-fontsz);">
@@ -145,7 +143,7 @@
       <td style="width: var(--def-fontsz);">
       </td>
       <td style="width: fit-content">
-        <button type="button" style="font-size: var(--small-fontsz); width:calc(var(--button-width) * 0.7);" id="next_page_button1"> > </button>
+        <button type="button" style="font-size: var(--small-fontsz); width:calc(var(--button-width) * 0.7);" id="next_page_button" onclick="goNextPage()"> > </button>
       </td>
       <td style="width: var(--def-fontsz);">
       </td>
@@ -153,211 +151,53 @@
   </table>
 </div>
 </div>
+</center>
   <!-- style="height:700px;" -->
 <!-- <div class="d-flex justify-content-center align-items-center"><span> -->
 
 <!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
 
-
+<center>
 <div style="height: 0.5em"></div>
 
 <!-- messages block -->
-  <div class="scrollable outln block">
-    <br>
-    <div id="messages_block">
-<!--       <table>
-        <tr><td>
-          <div class="left_block">
-            <div class="left_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-        </td></tr>
-        <tr><td>
-          <div class="left_block"><br><br></div>
-        </td></tr>
-
-        <tr><td>
-          <div class="right_block">
-            <div class="right_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-          <div class="left_block">
-            <div class="left_msg">
-              Не очень много текста Не очень много текста Не очень много текста 
-            </div>
-          </div>
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="right_block">
-            <div class="right_msg">
-              Немного текста
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block">
-            <div class="left_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="center_block">
-            <div class="center_msg">
-              Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора Много-много слов автора 
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="right_block">
-            <div class="right_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block">
-            <div class="left_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="center_block">
-            <div class="center_msg">
-              Слова автора
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block">
-            <div class="left_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="right_block">
-            <div class="right_msg">
-              Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста Много-много текста
-            </div>
-          </div>
-
-        </td></tr>
-        <tr><td>
-
-          <div class="left_block"><br><br></div>
-
-        </td></tr>
-      </table> -->
-    </div>
+<div class="scrollable outln block">
+  <small><br></small>
+  <div id="messages_block">
   </div>
+</div>
 
-  <div style="height: 0.5em"></div>
+<div style="height: 0.5em"></div>
+</center>
 
   <!-- <div class="header" id="footer"> -->
-    <div class="block">
-      <!-- style="max-width: var(--block-width);" -->
-      <!-- здесь всё, что выше непосредственно текста -->
-      <center>
-        <table style="float:center; width: moz-fit-content; width: fit-content;">
-          <tr>
-            <td style="width: var(--def-fontsz);">
-            </td>
-            <td style="width: fit-content">
-              <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 1.7);" onclick="goPrevPage()"> < </button>
-            </td>
-            <td style="width: calc(var(--button-width) * 1.7); font-size: var(--def-fontsz);">
-              <center>
-                |
-              </center>
-            </td>
-            <td style="width: fit-content">
-              <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 1.7);" onclick="goNextPage()"> > </button>
-            </td>
-            <td style="width: var(--def-fontsz);">
-            </td>
-          </tr>
-        </table>
-      </center>
-    </div>
-  <!-- </div> -->
+<div class="block">
+  <center>
+    <table style="float:center; width: moz-fit-content; width: fit-content;">
+      <tr>
+        <td style="width: var(--def-fontsz);">
+        </td>
+        <td style="width: fit-content">
+          <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 1.7);" onclick="goPrevPage()"> < </button>
+        </td>
+        <td style="width: calc(var(--button-width) * 1.7); font-size: var(--def-fontsz);">
+          <center>
+            |
+          </center>
+        </td>
+        <td style="width: fit-content">
+          <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 1.7);" onclick="goNextPage()"> > </button>
+        </td>
+        <td style="width: var(--def-fontsz);">
+        </td>
+      </tr>
+    </table>
+  </center>
+</div>
 
-<!--   <div class="outln iblock" id="lrbuttons">
-    <div class="input-group mb-3 centered">
-      <div class="col-5">
-        <button type="button" style="font-size: var(--def-fontsz); width:var(--bbutton-width);" id="prev_page_button"> <b>< </b></button>
-      </div>
-      <div class="input-group-append">
-        <button type="button" style="font-size: var(--def-fontsz); width:var(--bbutton-width);" id="next_page_button"> <b> > </b></button>
-      </div>
-    </div>
-  </div> -->
 <div>
 <br><br><br><br>
+</div>
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->
 

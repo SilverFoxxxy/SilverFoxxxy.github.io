@@ -100,6 +100,7 @@ var edit_msg_num = -1;
 
 var textes;
 
+// window.fontsz_coef = [0.6, 0.75, 1, 1.3, 1.7];
 window.fontsz_a = [
 	["2.5vw", "3vw", "3.5vw", "4.5vw", "6vw"],
     ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"]
@@ -352,18 +353,18 @@ function goNextPage() {
 }
 
 function goPrevPage() {
-	page_n++;
+	page_n--;
 	updParams();
 	reload_page();
 }
 
-document.getElementById("prev_page_button").onclick = function() {goPrevPage();}
+// document.getElementById("prev_page_button").onclick = function() {goPrevPage();}
 
-document.getElementById("next_page_button").onclick = function() {goNextPage();}
+// document.getElementById("next_page_button").onclick = function() {goNextPage();}
 
-document.getElementById("prev_page_button1").onclick = function() {goPrevPage();}
+// document.getElementById("prev_page_button1").onclick = function() {goPrevPage();}
 
-document.getElementById("next_page_button1").onclick = function() {goNextPage();}
+// document.getElementById("next_page_button1").onclick = function() {goNextPage();}
 
 var activities = document.getElementById("pages");
 

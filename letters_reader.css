@@ -13,6 +13,7 @@
 	--bg-bg: #A1AAB5;
 	--main-bg: #A1AAB5;
 	--main-color: #000000;
+	--author-color: #000000;
 	--block-bg: #747A82;
 	--right-bg: #D1F2F6;
 	--left-bg: #E7E8EF;
@@ -30,9 +31,11 @@
 	--bbutton-h: 3rem;
 	--bbutton-width: 9rem;
 	--border-rad: 0.2rem;
+	--msg-border-rad: 1rem;
 	--block-width: 35rem;
 
 	--font-fam: Georgia;
+	--msg-font-fam: Tahoma;
 }
 
 @font-face {
@@ -46,13 +49,26 @@
 }
 
 html, body {
+	color: var(--main-color);/*white;*/
+	background-color: var(--bg-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
+}
+
+body {
 	line-height: 2.5;
 	/*font-family: Tahoma;*/
 	/*font-size: var(--def-fontsz);*/
+	font-size: var(--def-fontsz);
 	font-family: var(--font-fam);
-	color: var(--main-color);/*white;*/
-	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
 	overflow-y: auto;
+}
+
+input {
+	font-size: var(--def-fontsz);
+}
+
+input.checkbox {
+	width :  calc(var(--def-fontsz) * 0.7);
+    height : calc(var(--def-fontsz) * 0.7);
 }
 
 /* Style the button that is used to open and close the collapsible content */
@@ -130,6 +146,7 @@ div {
 }
 
 #messages_block {
+	font-family: var(--msg-font-fam);
 	/*background-color: grey;*/
 }
 
@@ -288,7 +305,7 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: calc(var(--border-rad) * var(--border-radc));
+	border-radius: calc(var(--msg-border-rad) * var(--border-radc));
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }
@@ -304,23 +321,28 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: calc(var(--border-rad) * var(--border-radc));
+	border-radius: calc(var(--msg-border-rad) * var(--border-radc));
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }
 
 .author_msg {
 	white-space: pre-line;
-	font-size: var(--msg-fontsz);
-	background-color: var(--author-bg);/*#2C1B23;*//*#FFCCCC;*/
-	border: calc(var(--def-fontsz) * 0.12) dashed grey;
+	font-size: calc(var(--msg-fontsz) * 0.85);
+	color: var(--author-color);
+	/*background-color: var(--author-bg);*/
+	/*#2C1B23;*//*#FFCCCC;*/
+	border: calc(var(--def-fontsz) * 0.12) solid #999999;
+	/*border-width: 0 0.1em 0 0.1em;*/
+	border-width: 0 0 0 0;
 	width: fit-content;
 	margin: auto;
 	padding-top: 0.35em;
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: calc(var(--border-rad) * var(--border-radc));
+	border-radius: 0;
+	/*calc(var(--msg-border-rad) * var(--border-radc));*/
 	/*outline: 0.07em solid var(--outline-color);*/
 	/*border: 2px solid #00FF00;*/
 }
@@ -336,7 +358,8 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: calc(var(--border-rad) * var(--border-radc));
+	border-radius: calc(var(--msg-border-rad) * var(--border-radc));
+	/*border-radius: calc(var(--border-rad) * var(--border-radc));*/
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }

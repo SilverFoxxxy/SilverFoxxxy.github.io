@@ -21,7 +21,7 @@ function getCookie(name) {
 var themes = [
         [
             ["block-width", "100vw"],
-            ["def-fontsz", "3.5vw"],
+            ["def-fontsz", "4vw"],
             ["small-fontsz", "2.5vw"],
             ["button-width", "11vw"],
             ["button-h", "7.5vw"],
@@ -91,8 +91,8 @@ function setTheme(theme_array) {
 var view_not_set = 1;
 
 window.fontsz_a = [
-    ["2.5vw", "3vw", "3.5vw", "4.5vw", "6vw"],
-    ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"]
+    ["2.5vw", "3vw", "3.4vw", "3.7vw", "4.1vw"],
+    ["0.9rem", "1.1rem", "1.25rem", "1.35rem", "1.5rem"]
 ]
 
 async function reload_view() {

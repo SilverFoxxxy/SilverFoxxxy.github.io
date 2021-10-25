@@ -102,8 +102,8 @@ var textes;
 
 // window.fontsz_coef = [0.6, 0.75, 1, 1.3, 1.7];
 window.fontsz_a = [
-	["2.5vw", "3vw", "3.5vw", "4.5vw", "6vw"],
-    ["0.75rem", "1rem", "1.25rem", "1.5rem", "2rem"]
+    ["2.5vw", "3vw", "3.4vw", "3.7vw", "4.1vw"],
+    ["0.9rem", "1.1rem", "1.25rem", "1.35rem", "1.5rem"]
 ]
 window.font_sz = fontsz_a[window.view_theme];
 window.msg_font_n = 2;
@@ -144,7 +144,7 @@ function parse_txt(txt) {
 
 function parse_page(partjs) {
 	// console.log(partjs);
-	html = '<table>';
+	html = '<table>' + '<tr><td><div class="left_block"><br></div></td></tr>';
 	for (txt in partjs) {
 		// console.log(txt);
 		nowtxt = parse_txt(partjs[txt]);

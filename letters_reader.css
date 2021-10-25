@@ -36,6 +36,8 @@
 
 	--font-fam: Georgia;
 	--msg-font-fam: Tahoma;
+
+	--msg-rad: calc(var(--msg-border-rad) * var(--border-radc));
 }
 
 @font-face {
@@ -230,10 +232,11 @@ div {
 
 .right_block {
 	/*background-color: #CCFFCC;*/
-	float: right;
+	/*float: right;*/
 	width:80%;
-	margin:auto;
+	margin: 0 0 0 20%;
 	padding-right: var(--def-fontsz);
+	align: right;
 	/*font-size:1.5vh;*/
 	/*text-align:right;*/
 	/*border: 1px solid #00FFFF;*/
@@ -242,9 +245,9 @@ div {
 .left_block {
 	/*block-size: fit-content;*/
 	/*background-color: #FFCCCC;*/
-	float: left;
+	/*float: left;*/
 	width:80%;
-	margin:auto;
+	margin: 0 20% 0 0;
 	padding-left: var(--def-fontsz);
 	/*border: 1px solid #00FFFF;*/
 }
@@ -294,23 +297,41 @@ div {
 }
 
 .right_msg {
+	position: relative;
+	/*display: block;*/
 	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
 	width: fit-content;
-	float: right;
-	margin:auto;
+	width: -moz-fit-content;
+	/*float: right;*/
+	/*margin:auto;*/
+	margin: auto 0px auto auto;
 	text-align: left;
 	padding-top: 0.35em;
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: calc(var(--msg-border-rad) * var(--border-radc));
+	border-radius: var(--msg-rad) var(--msg-rad) 0 var(--msg-rad);
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
 }
 
+.right_msg::after {
+	content: '';
+	width: 0;
+	height: 0;
+	font-size: 0;
+	position: absolute;
+	display: inline-block;
+    right: calc(-0.35 * (var(--def-fontsz))); bottom: 0;
+    border: calc(0.35 * (var(--def-fontsz))) solid transparent;
+    /*border-left: calc(0.5 * (var(--def-fontsz))) solid green;*/
+    border-bottom: calc(0.35 * (var(--def-fontsz))) solid var(--right-bg);
+}
+
 .left_msg {
+	position: relative;
 	white-space: pre-line;
 	font-size: var(--msg-fontsz);
 	background-color: var(--left-bg);/*#272131;/*#35252C;/*#2C1B23;*//*#FFCCCC;*/
@@ -321,9 +342,22 @@ div {
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
-	border-radius: calc(var(--msg-border-rad) * var(--border-radc));
+	border-radius: var(--msg-rad) var(--msg-rad) var(--msg-rad) 0;
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
+}
+
+.left_msg::after {
+	content: '';
+	width: 0;
+	height: 0;
+	font-size: 0;
+	position: absolute;
+	display: inline-block;
+    left: calc(-0.35 * (var(--def-fontsz))); bottom: 0;
+    border: calc(0.35 * (var(--def-fontsz))) solid transparent;
+    /*border-left: calc(0.5 * (var(--def-fontsz))) solid green;*/
+    border-bottom: calc(0.35 * (var(--def-fontsz))) solid var(--left-bg);
 }
 
 .author_msg {

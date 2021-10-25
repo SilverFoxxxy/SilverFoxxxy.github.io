@@ -169,7 +169,7 @@ var color_themes = [
             ["font-fam", "Georgia"],
             ["msg-font-fam", "Tahoma"],
             ["border-radc", "1"],
-            ["from-color", "#555555"]
+            ["from-color", "#DDAAAA"]
         ],
         [
             // ["main-bg", "#F1F1F1"],

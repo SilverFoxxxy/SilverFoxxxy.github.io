@@ -1,6 +1,6 @@
 <html>
 <head>  
-
+  <meta charset="UTF-8">
 <!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -162,7 +162,6 @@
 
 <!-- messages block -->
 <div class="scrollable outln block">
-  <small><br></small>
   <div id="messages_block">
   </div>
 </div>
@@ -178,15 +177,19 @@
         <td style="width: var(--def-fontsz);">
         </td>
         <td style="width: fit-content">
-          <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 1.7);" onclick="goPrevPage()"> < </button>
+          <center>
+            <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 2.5);" onclick="goPrevPage()"> < </button>
+          </center>
         </td>
-        <td style="width: calc(var(--button-width) * 1.7); font-size: var(--def-fontsz);">
+        <td style="width: calc(var(--button-width) * 1); font-size: var(--def-fontsz);">
           <center>
             |
           </center>
         </td>
         <td style="width: fit-content">
-          <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 1.7);" onclick="goNextPage()"> > </button>
+          <center>
+            <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 2.5);" onclick="goNextPage()"> > </button>
+          </center>
         </td>
         <td style="width: var(--def-fontsz);">
         </td>

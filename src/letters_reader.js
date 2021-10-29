@@ -136,8 +136,8 @@ function parse_txt(txt) {
 	// console.log(txt);
 	// return (pref + "<pre>" + txt[1] + "</pre>" + suf);
 	var nowname = "";
-	if (shownm) {
-		nowname = "<div class='msg_from'><b>" + from + "</b></div>";
+	if (shownm && from != "0") {
+		nowname = "<div class='msg_from'>" + from + "</div>";
 	}
 	return (pref + nowname + txt[1] + suf);
 }

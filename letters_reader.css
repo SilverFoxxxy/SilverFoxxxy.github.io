@@ -40,6 +40,11 @@
 	--msg-rad: calc(var(--msg-border-rad) * var(--border-radc));
 }
 
+a:link { /* unvisited link */ color: var(--main-color);}
+a:visited { /* visited link */ color: var(--main-color);}
+a:hover { /* mouse over link */ color: var(--from-color);}
+a:active { /* active link */ color: var(--main-color);}
+
 @font-face {
     font-family: "Elementa";
 /*    file://Users/belkovanya/Coding/github/SilverFoxxxy.github.io/*/
@@ -228,6 +233,8 @@ div {
 
 .msg_from {
 	color: var(--from-color);
+	font-size: calc(var(--msg-fontsz) * 0.9);
+	font-weight: bold;
 }
 
 .right_block {
@@ -326,7 +333,6 @@ div {
 	display: inline-block;
     right: calc(-0.35 * (var(--def-fontsz))); bottom: 0;
     border: calc(0.35 * (var(--def-fontsz))) solid transparent;
-    /*border-left: calc(0.5 * (var(--def-fontsz))) solid green;*/
     border-bottom: calc(0.35 * (var(--def-fontsz))) solid var(--right-bg);
 }
 
@@ -356,13 +362,12 @@ div {
 	display: inline-block;
     left: calc(-0.35 * (var(--def-fontsz))); bottom: 0;
     border: calc(0.35 * (var(--def-fontsz))) solid transparent;
-    /*border-left: calc(0.5 * (var(--def-fontsz))) solid green;*/
     border-bottom: calc(0.35 * (var(--def-fontsz))) solid var(--left-bg);
 }
 
 .author_msg {
 	white-space: pre-line;
-	font-size: calc(var(--msg-fontsz) * 0.85);
+	font-size: calc(var(--msg-fontsz) * 0.93);
 	color: var(--author-color);
 	/*background-color: var(--author-bg);*/
 	/*#2C1B23;*//*#FFCCCC;*/

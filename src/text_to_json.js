@@ -260,6 +260,15 @@ function clear_str(s) {
     return s.trimLeft(' \n\t').trimRight(' \n\t');//.strip(' \n\t');
 }
 
+function clear_msg_str(s) {
+    nows = s.trimRight(' \n\t');//.strip(' \n\t');
+    let endl_cnt = 0;
+    while (endl_cnt < nows.length & nows[endl_cnt] == '\n') {
+        endl_cnt++;
+    }
+    return nows.substring(endl_cnt);//.strip(' \n\t');
+}
+
 function clear_array(array) {
     for (let i in array) {
         array[i][2] = clear_str(array[i][2]);
@@ -364,7 +373,9 @@ function parse_page(page, persons) {
     }
     for (let i_ in now_letters) {
         let i = now_letters[i_];
-        i[1] = clear_str(i[1]);
+        // console.log("befor: '" + i[1] + "'\n");
+        i[1] = clear_msg_str(i[1]);
+        // console.log("after: '" + i[1] + "'\n");
     }
     return now_letters.slice(1, now_letters.length);
 }

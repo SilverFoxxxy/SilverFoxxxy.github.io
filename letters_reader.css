@@ -306,7 +306,7 @@ div {
 .right_msg {
 	position: relative;
 	/*display: block;*/
-	white-space: pre-line;
+	white-space:pre-wrap;
 	font-size: var(--msg-fontsz);
 	background-color: var(--right-bg);/*#693651;/*#CCFFCC;*/
 	width: fit-content;
@@ -338,7 +338,7 @@ div {
 
 .left_msg {
 	position: relative;
-	white-space: pre-line;
+	white-space:pre-wrap;
 	font-size: var(--msg-fontsz);
 	background-color: var(--left-bg);/*#272131;/*#35252C;/*#2C1B23;*//*#FFCCCC;*/
 	width: fit-content;
@@ -366,7 +366,7 @@ div {
 }
 
 .author_msg {
-	white-space: pre-line;
+	white-space: pre-wrap;
 	font-size: calc(var(--msg-fontsz) * 0.93);
 	color: var(--author-color);
 	/*background-color: var(--author-bg);*/
@@ -387,7 +387,7 @@ div {
 }
 
 .center_msg {
-	white-space: pre-line;
+	white-space: pre-wrap;
 	font-size: var(--msg-fontsz);
 	background-color: var(--center-bg);/*#2C1B23;*//*#FFCCCC;*/
 	/*border: 2px dashed grey;*/

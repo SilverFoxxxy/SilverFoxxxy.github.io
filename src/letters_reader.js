@@ -139,6 +139,7 @@ function parse_txt(txt) {
 	if (shownm && from != "0") {
 		nowname = "<div class='msg_from'>" + from + "</div>";
 	}
+	// return (pref + nowname + "<pre>" + txt[1] + "</pre>" + suf);
 	return (pref + nowname + txt[1] + suf);
 }
 

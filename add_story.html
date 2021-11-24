@@ -1,25 +1,22 @@
 <html>
-<head>  
-  <meta charset="UTF-8">
-<!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-<!-- #AAFFFE -->
-  <title id="page_title">Letters reader </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
-  <link rel="icon" href="src/icons/icon.png" type="image/icon type">
 
+    <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
+    <title> Letters reader </title>
+    <link rel="icon" href="src/icons/edit_icon.png" type="image/icon type">
 </head>
 <body>
 <script src="src/http_req.js"></script>
 <script src="src/letters_login.js"></script>
-  <!-- style="background: var(--bg-bg);" -->
-
-<!-- <div style="width: fit-content; background: var(--bg-bg);  float: center; margin: auto;"> -->
+<script src="src/text_edit_lib.js"></script>
 
 
 
@@ -173,136 +170,109 @@
 
 
 
-  <!-- <div style="width: fit-content; float: center;">
-    <div id="_title" style="width: fit-content; font-size: calc(var(--button-h)*1.25); line-height: 1">Letters reader</div>
-  </div> -->
-
-
-<!--   <div style="width:fit-content; height:calc(var(--button-width) * 1.2); min-width: calc(var(--button-width) * 1);">
-  <img src="src/icons/mbfox8.jpg" style='height: 100%; object-fit: contain;' id="fox_icon"/>
-  </div> -->
 <br>
+
+<div class="block">
+<center><div style="width:90%;">
 <center>
-<h3>
-  <b>
-    <div  style="font-size: var(--msg-fontsz); max-width: calc(var(--block-width)*0.9)">
-      <text id="title"></text>
+  <br>
+    <div style="font-size: calc(var(--def-fontsz) * 1.2);">| Публикуем историю |<br>***</div>
+    <div style="font-size: 0.5em;">
+    <!-- <br> -->
     </div>
-  </b>
-</h3>
+    <div style="font-size: calc(var(--def-fontsz) * 0.75); line-height: 1.2;">
+        <b>
+            Чтобы опубликовать историю,<br> необходимо авторизоваться<br><br>
+            Вы будете отмечены как редактор
+        </b>
+    </div>
 </center>
+<hr>
 
 <center>
-<div class="block">
-<div class="header" id="header"><!-- style="max-width: var(--block-width);" -->
-  <!-- здесь всё, что выше непосредственно текста -->
-  <table style="float:center;">
-    <tr>
-      <td style="width: var(--def-fontsz);">
-      </td>
-      <td style="width: fit-content">
-        <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 0.7);" id="prev_page_button" onclick="goPrevPage()"> < </button>
-      </td>
-      <td style="width: fit-content;">
-        <div style="font-size: var(--def-fontsz);">
-          &nbspстраница&nbsp
+    <div style='width: 100%; font-size: calc(0.85 * var(--def-fontsz));'>
+        <div style="text-align: left;">
+            <center><h2>Название</h2></center>
+            Полное название:<br>
+            <input class="input_text" type="text" id="story_fullnm"><br>
+            <small style="color: var(--from-color);">// так история будет называться на сайте</small>
+            <br>
+            <br>
+            Название для адресной строки:<br>
+            <input class="input_text" type="text" id="story_nm"><br>
+            <small style="color: var(--from-color);">// используйте только прописные a-z и нижнее подчёркивание<br>// например: adam_eve</small>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <center><h2>Автор</h2></center>
+            <!-- Использовать имя профиля на сайте:
+            <input type="checkbox" class= "checkbox input_text" id="onsite_author"><br> -->
+            Имя автора:<!--  (или его имя на сайте) --><br>
+            <input class="input_text" type="text" id="author_name">
+            <br>
+            <br>
+            Вы будете указаны в качестве редактора.
+            <br>
+            <br>
+            <hr>
+            <center><h2>Описание</h2></center>
+            Короткое описание или примечание к тексту:<br>
+            <small style="color: var(--from-color);">// его будет видно в карточке произведения, можете попробовать заинтересовать читателя</small><br>
+            <textarea class="input_text" id="story_description" style="font-size: calc(var(--def-fontsz) * 0.7); min-height: calc(5 * var(--def-fontsz));overflow-y: scroll;" cols="50"></textarea>
+            <br>
+            <br>
+            <hr>
+            <center><h2>Текст в специальном формате</h2></center>
+            Чтобы история выглядела как переписка, её нужно привести к определённому формату.<br>
+            <small style="color: var(--from-color);">Вы можете прочитать про формат здесь:<br>
+            <a href="https://obvious-broker-611.notion.site/1502aa7e698747b181cff3f3ca5ef9a8" target="_blank">Описание текстого формата</a><br>
+            Вы можете посмотреть, как переписка будет выглядеть, здесь:<br>
+            <a href="text_to_json.html">Предпросмотр</a><br></small>
+            <br>
+            <br>
+            Текст:<br>
+            <div>
+            <textarea class="input_text" id="story_text" style="font-size: calc(var(--def-fontsz) * 0.7); min-height: calc(25 * var(--def-fontsz));overflow-y: scroll;" cols="50"></textarea></div>
+            <!-- <input type="text" id="story_text"> -->
         </div>
-      </td>
-      <td style="width: fit-content">
-        <div id="page_n" style="font-size: var(--def-fontsz);">
-          <select name="pages" id="pages">
-          </select>
-        </div>
-      </td>
-      <td style="width: fit-content">
-        <div style="font-size: var(--def-fontsz);">
-          &nbspиз&nbsp
-        </div>
-      </td>
-      <td style="width: fit-content">
-        <div id="max_page_n" style="font-size: var(--def-fontsz);">1&nbsp</div>
-      </td>
-      <td style="width: var(--def-fontsz);">
-      </td>
-      <td style="width: fit-content">
-        <button type="button" style="font-size: var(--small-fontsz); width:calc(var(--button-width) * 0.7);" id="next_page_button" onclick="goNextPage()"> > </button>
-      </td>
-      <td style="width: var(--def-fontsz);">
-      </td>
-    </tr>
-  </table>
-</div>
-</div>
+    </div>
+    <br>
+    <br>
 </center>
-  <!-- style="height:700px;" -->
-<!-- <div class="d-flex justify-content-center align-items-center"><span> -->
+<br><br>
+<button style="width: 100%; font-size: calc(var(--def-fontsz) * 1.2);" id="show_story_button" onclick="show_text()">Проверить, что текст правильно разбивается на сообщения</button>
+<br><br><br>
+<div id="text_collapse" style="width: 80%; text-align: left; height: 40rem; background: white; color: black; overflow: scroll;">no text</div>
+<br><br><br>
+<button style="width: 100%; font-size: calc(var(--def-fontsz) * 1.2); height: calc(var(--def-fontsz) * 2.5);" id="add_story_button" onclick="add_story()">Добавить историю на сайт</button>
+<br><br>
+Если текст не появляется на сайте без явных причин - обратитесь в группу вк (ссылка есть на главной странице сайта). Например, текст может быть слишком большим.
+<br><br><br>
+<div id="add_story_status"></div>
+<br><br>
 
-<!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
 
-<center>
-<div style="height: 0.5em"></div>
+</div></center>
 
-<!-- messages block -->
-<div class="scrollable outln block">
-  <div id="messages_block">
-  </div>
 </div>
-
-<div style="height: 0.5em"></div>
-</center>
-
-  <!-- <div class="header" id="footer"> -->
-<div class="block">
-  <center>
-    <table style="float:center; width: moz-fit-content; width: fit-content;">
-      <tr>
-        <td style="width: var(--def-fontsz);">
-        </td>
-        <td style="width: fit-content">
-          <center>
-            <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 2.5);" onclick="goPrevPage()"> < </button>
-          </center>
-        </td>
-        <td style="width: calc(var(--button-width) * 1); font-size: var(--def-fontsz);">
-          <center>
-            |
-          </center>
-        </td>
-        <td style="width: fit-content">
-          <center>
-            <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 2.5);" onclick="goNextPage()"> > </button>
-          </center>
-        </td>
-        <td style="width: var(--def-fontsz);">
-        </td>
-      </tr>
-    </table>
-  </center>
-</div>
-
-<div>
-<br><br><br><br>
-</div>
-
-<!-- <script type="text/javascript" src="letters_example.json"></script> -->
-
+<br>
+<br>
+<br>
+<br>
+<div></div>
 <script>
   window.color_theme = 1;
   window.view_theme = 1;
-</script>
-
-<script src="src/letters_reader.js">
+  tryRelogin();
 </script>
 
 <script src="src/letters_themes.js">
 </script>
-
 <script src="src/letters_views.js">
 </script>
-
-<!-- </span>
-</div> -->
+<script src="src/letters_add_story.js">
+</script>
 
 </body>
-
 </html>

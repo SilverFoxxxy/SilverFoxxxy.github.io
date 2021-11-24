@@ -1,0 +1,65 @@
+<html>
+<head>  
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
+  <link rel="icon" href="src/icons/icon.png" type="image/icon type">
+  <title id="page_title">Letters reader </title>
+</head>
+<body>
+
+<script src="src/http_req.js">
+</script>
+
+<script src="src/letters_registr.js">
+</script>
+
+<center>
+    <h1>Letters reader</h1>
+    <h2>Регистрация</h2>
+</center>
+
+<center>
+    <div class="block" id="login_block" style="font-size:calc(var(--def-fontsz) * 0.7);">
+    <center>
+      <div style="text-align: left; padding: 1em;">
+        Почта:<br>
+        <input type="text" name="user_mail" id="user_mail" style="font-size:calc(var(--def-fontsz) * 0.7);">
+        <br>
+        <small>перепроверьте почту - с её помощью можно будет восстановить аккаунт</small>
+        <br>
+        <hr>
+        Логин:<br>
+        <input type="text" name="user_nm" id="user_nm" style="font-size:calc(var(--def-fontsz) * 0.7);">
+        <br>
+        <hr>
+        Пароль:<br>
+        <input type="password" name="user_passwd" id="user_passwd" style="font-size:calc(var(--def-fontsz) * 0.7);">
+        <br>
+        <hr>
+        Пароль ещё раз:<br>
+        <input type="password" name="user_passwd2" id="user_passwd2" style="font-size:calc(var(--def-fontsz) * 0.7);">
+        <br>
+        <hr>
+        <button type="button" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);" id="login_button" onclick="tryReg()"> Зарегистрироваться </button>
+        <br>
+        <hr>
+        <br>
+        <div id="reg_errors" style="color: red; background: white;"></div>
+      </div>
+    </center>
+  </div>
+</center>
+
+<br><br><br>
+
+<script>
+  window.color_theme = 1;
+  window.view_theme = 1;
+</script>
+
+<!-- <script src="src/letters_themes.js">
+</script>
+
+<script src="src/letters_views.js">
+</script> -->
+</body>

@@ -1,0 +1,105 @@
+
+<div class="wideline">
+<center>
+    <div class="block" style="background: var(--main-bg); outline: none;">
+    <table>
+      <tr>
+        <td style="width: fit-content">
+          <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" id="login_button" onclick="showLoginForm()"> <img src="src/icons/login.jpg" style='height: 100%; object-fit: contain;' id="login_icon"/> </button>
+        </td>
+
+        <td style="width: fit-content">
+          <a href="letters_bookmarks.html">
+            <div style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" >
+              <img src="src/icons/bookmark.png" style='height: 100%; object-fit: contain;' id="favs_icon"/>
+            </div>
+          </a>
+        </td>
+
+        <td style="width:100%; float: center;">
+          <center>
+            <a href="letters.html" style="font-size: var(--def-fontsz);">На главную</a>
+          </center>
+        </td>
+
+        <td style="width: fit-content">
+          <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" id="color_theme_button"> <img src="src/sun_moon2.jpg" style='height: 100%; object-fit: contain;' id="theme_icon"/> </button>
+        </td>
+
+        <td style="width: fit-content;">
+          <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" id="view_theme_button"> <img src="src/icons/default_dark.png" style='height: 100%; object-fit: contain; margin: auto;' id="view_icon"/> </button>
+        </td>
+      </tr>
+    </table>
+    <div id="username" style="display: none; text-align:left; padding-left: 0.5em; font-size: calc(var(--def-fontsz) * 0.85); color: var(--from-color);">
+        silverfox123546576
+    </div>
+  </div>
+
+  <div class="block" id="login_block" style="display:none; font-size:calc(var(--def-fontsz) * 0.5);">
+    <br>
+    <center>
+      <div style="width: 92%;">
+      <table>
+        <tr>
+          <td style="width: 30%; font-size:calc(var(--def-fontsz) * 0.7);">
+            <center>
+            Логин / почта:
+            </center>
+            <!-- <input type="text" name="user_nm" id="user_nm" style="font-size:calc(var(--def-fontsz) * 0.5);"> -->
+          </td>
+
+          <td style="width: 5%;"></td>
+
+          <td style="width: 30%; font-size:calc(var(--def-fontsz) * 0.7);">
+            <center>
+            Пароль:
+          </center>
+            <!-- <input type="password" name="user_passwd" id="user_pswd" style="font-size:calc(var(--def-fontsz) * 0.5);"> -->
+          </td>
+
+          <td style="width: 5%;"></td>
+
+          <td style="width: 30%; font-size: 0.7em;">
+            <!-- <button type="button" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);" id="login_button" onclick="tryLogin()"> Войти </button> -->
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" class="input_text" name="user_nm" id="user_nm" style="font-size:calc(var(--def-fontsz) * 0.7); width: 100%;">
+          </td>
+
+          <td></td>
+
+          <td style="font-size: 0.7em;">
+            <input type="password" class="input_text" name="user_passwd" id="user_pswd" style="font-size:calc(var(--def-fontsz) * 0.7);  width: 100%;">
+          </td>
+
+          <td></td>
+
+          <td style="font-size: 0.7em;">
+            <button type="button" style="font-size:calc(var(--def-fontsz) * 0.9); width:100%;" id="login_button" onclick="tryLogin()"> Войти </button>
+          </td>
+        </tr>
+        <!-- <tr>
+          <td></td> <td></td> <td></td> <td></td>
+          <td>
+            <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
+              или
+              <a href="registration.html" target="_blank" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">зарегистрироваться</a>
+            </div>
+          </td>
+        </tr> -->
+      </table>
+      <br>
+      <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
+        или
+        <a href="registration.html" target="_blank" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">зарегистрироваться</a>
+      </div>
+      <div id="login_errors"></div>
+      </div>
+      <br>
+    </center>
+  </div>
+</center>
+</div>

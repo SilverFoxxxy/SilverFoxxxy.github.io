@@ -194,17 +194,24 @@ async function reload_page() {
 		// 	name = "letters_example";
 		// }
 			try {
-				if (DEBUG) {
-					data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+				/// if (DEBUG) {
+					//// data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
 					// get_person_sides();
 					// data = await(JSON.parse(datastr));
-				} else {
-					data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
-					
+				/// } else {
+					//// data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
+					let now_text_info = await get_text(name);
+					if (now_text_info.hasOwnProperty("story")) {
+						data = JSON.parse(now_text_info["story"]);
+					} else {
+						console.log("failed json");
+						document.getElementById("title").innerHTML = "<big>404 Not Found</big>";
+						return;
+					}
 					// url = "https://github.com/SilverFoxxxy/SilverFoxxxy.github.io";
 					// name = "letters_example";
 					// data = await fetch(url + name + ".json");
-				}
+				/// }
 			}
 			catch {
 				console.log("failed json");
@@ -428,4 +435,5 @@ activities.addEventListener("change", function() {
 // 		} else {}
 // 	}
 // }
+
 

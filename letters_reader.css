@@ -22,6 +22,7 @@
 	--outline-color: #ffffff00;/*00;*/
 	--border-radc: 1;
 	--from-color: #888888;
+	--darker-color: #111111;
 
 	--def-fontsz: 1.5rem;
 	--msg-fontsz: 1.5rem;
@@ -61,7 +62,8 @@ html, body {
 }
 
 body {
-	line-height: 2.5;
+	/*line-height: 2.5;*/
+	line-height: 1.7;
 	/*font-family: Tahoma;*/
 	/*font-size: var(--def-fontsz);*/
 	font-size: var(--def-fontsz);
@@ -78,36 +80,11 @@ input.checkbox {
     height : calc(var(--def-fontsz) * 0.7);
 }
 
-/* Style the button that is used to open and close the collapsible content */
-.collapsible {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  /*border: none;*/
-  text-align: left;
-  border: 1px solid #000;
-  border-radius: 0;
-  /*outline: none;*/
-  font-size: 15px;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active, .collapsible:hover {
-  background-color: #ccc;
-}
-
-/* Style the collapsible content. Note: hidden by default */
-.content {
-  padding: 0 0 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-  border-style: solid;
-  border-color: 888888;
-  border-width: 0px 1px 1px 1px;
-  border-radius: 0;
+.input_text {
+	background: var(--main-bg);
+	color: var(--main-color);
+	border: 1px solid var(--main-color);
+	border-radius: calc(var(--border-rad) * var(--border-radc));
 }
 
 pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
@@ -118,7 +95,9 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 .key { color: red; }
 
 button {
+	font-family: var(--font-fam);
 	/*border: 1px solid var(--main-color);*/
+	cursor: pointer;
 	border: none;
 	height: fit-content;
 	width: var(--button-width);
@@ -129,6 +108,7 @@ button {
 
 table {
 	width: 100%;
+	font-size: calc(var(--def-fontsz) * 0.7);
 }
 
 table, th, td {
@@ -209,6 +189,7 @@ div {
 }
 
 .block {
+	font-size: calc(var(--def-fontsz) * 0.6);
 	height: fit-content;
 	background-color: var(--block-bg);
 	/*#1D1016;*/
@@ -235,6 +216,30 @@ div {
 	color: var(--from-color);
 	font-size: calc(var(--msg-fontsz) * 0.9);
 	font-weight: bold;
+}
+
+.comment {
+	width: fit-content;
+	width: -moz-fit-content;
+	position: relative;
+	font-size: calc(var(--def-fontsz) * 0.7);
+	padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+	border-radius: calc(var(--border-rad) * var(--border-radc));
+	background: var(--left-bg);
+}
+.comment::after {
+	content: '';
+	width: 0;
+	height: 0;
+	font-size: 0;
+	position: absolute;
+	display: inline-block;
+    left: calc(-0.35 * (var(--def-fontsz))); bottom: 0;
+    border: calc(0.35 * (var(--def-fontsz))) solid transparent;
+    border-bottom: calc(0.35 * (var(--def-fontsz))) solid var(--main-bg);
 }
 
 .right_block {
@@ -292,15 +297,20 @@ div {
 	justify-content: center;
 	max-width: 80%;
 	width: 80%;
-	min-height: 6em;
+	min-height: calc(var(--def-fontsz) * 4);
 	height: fit-content;
 	/*text-align: center;*/
 	margin: auto;
+	/*padding-top: calc(var(--def-fontsz) * 0.35);
+	padding-bottom: calc(var(--def-fontsz) * 0.35);
+	padding-left: calc(var(--def-fontsz) * 0.75);
+	padding-right: calc(var(--def-fontsz) * 0.75);*/
 	padding-top: 0.35em;
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
 	border-radius: calc(var(--border-rad) * var(--border-radc));
+	/*background-color: transparent;*/
 }
 
 .right_msg {
@@ -315,10 +325,14 @@ div {
 	/*margin:auto;*/
 	margin: auto 0px auto auto;
 	text-align: left;
-	padding-top: 0.35em;
+	padding-top: calc(var(--def-fontsz) * 0.35);
+	padding-bottom: calc(var(--def-fontsz) * 0.35);
+	padding-left: calc(var(--def-fontsz) * 0.75);
+	padding-right: calc(var(--def-fontsz) * 0.75);
+	/*padding-top: 0.35em;
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
-	padding-right: 0.75em;
+	padding-right: 0.75em;*/
 	border-radius: var(--msg-rad) var(--msg-rad) 0 var(--msg-rad);
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
@@ -344,10 +358,14 @@ div {
 	width: fit-content;
 	/*float: left;*/
 	/*margin:auto;*/
-	padding-top: 0.35em;
+	padding-top: calc(var(--def-fontsz) * 0.35);
+	padding-bottom: calc(var(--def-fontsz) * 0.35);
+	padding-left: calc(var(--def-fontsz) * 0.75);
+	padding-right: calc(var(--def-fontsz) * 0.75);
+	/*padding-top: 0.35em;
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
-	padding-right: 0.75em;
+	padding-right: 0.75em;*/
 	border-radius: var(--msg-rad) var(--msg-rad) var(--msg-rad) 0;
 	outline: 0.07em solid var(--outline-color);
 	/*border: 2px solid #00FF00;*/
@@ -376,10 +394,14 @@ div {
 	border-width: 0 0 0 0;
 	width: fit-content;
 	margin: auto;
-	padding-top: 0.35em;
+	/*padding-top: 0.35em;
 	padding-bottom: 0.35em;
 	padding-left: 0.75em;
-	padding-right: 0.75em;
+	padding-right: 0.75em;*/
+	padding-top: calc(var(--def-fontsz) * 0.35);
+	padding-bottom: calc(var(--def-fontsz) * 0.35);
+	padding-left: calc(var(--def-fontsz) * 0.75);
+	padding-right: calc(var(--def-fontsz) * 0.75);
 	border-radius: 0;
 	/*calc(var(--msg-border-rad) * var(--border-radc));*/
 	/*outline: 0.07em solid var(--outline-color);*/
@@ -393,10 +415,10 @@ div {
 	/*border: 2px dashed grey;*/
 	width: fit-content;
 	margin: auto;
-	padding-top: 0.35em;
-	padding-bottom: 0.35em;
-	padding-left: 0.75em;
-	padding-right: 0.75em;
+	padding-top: calc(var(--def-fontsz) * 0.35);
+	padding-bottom: calc(var(--def-fontsz) * 0.35);
+	padding-left: calc(var(--def-fontsz) * 0.75);
+	padding-right: calc(var(--def-fontsz) * 0.75);
 	border-radius: calc(var(--msg-border-rad) * var(--border-radc));
 	/*border-radius: calc(var(--border-rad) * var(--border-radc));*/
 	outline: 0.07em solid var(--outline-color);
@@ -415,6 +437,21 @@ div {
 	padding-right: 0.75em;
 	border-radius: calc(var(--border-rad) * var(--border-radc));
 	outline: 0.07em solid var(--outline-color);
+	/*background-color: transparent;
+	border-radius: 0px;
+	border: 1px solid var(--main-color);
+	border-width: 0px 1px 0px 1px;*/
+}
+
+.link_msg_v1 {
+	background-color: transparent;
+}
+
+.link_msg_v2 {
+	background-color: transparent;
+	border-radius: 0px;
+	border: 1px solid var(--main-color);
+	border-width: 0px 1px 0px 1px;
 }
 
 .outln {
@@ -448,5 +485,122 @@ h1 {
 p {
 /*    background-color: maroon;  Цвет фона под текстом параграфа 
 color: white; /* Цвет текста */
+}
+
+/*<button type='button' class='collapsible'><span>&#9660</span> Основная информация</button><div class='content'></div>*/
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  /*border: none;*/
+  text-align: left;
+  border: 1px solid #000;
+  border-radius: 0;
+  /*outline: none;*/
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+	white-space: pre-wrap;
+	padding: 0 0 0 18px;
+	display: none;
+	overflow: hidden;
+	background-color: #f1f1f1;
+	border-style: solid;
+	border-color: 888888;
+	border-width: 0px 1px 1px 1px;
+	border-radius: 0;
+}
+
+.just_div {
+  background-color: var(--main-bg);
+  color: var(--main-color);
+  padding-top: 0.35em;
+	padding-bottom: 0.35em;
+	padding-left: 0.75em;
+	padding-right: 0.75em;
+  width: 100%;
+  /*border: none;*/
+  text-align: left;
+  font-size: var(--def-fontsz);
+  border: none;
+  border-radius: calc(var(--border-rad) * var(--border-radc));
+  /*border: 1px solid #000;
+  border-radius: 0;*/
+  /*outline: none;*/
+  font-size: calc(var(--def-fontsz) * 0.7);
+}
+
+/* Стиль вкладки */
+.tab {
+  position: relative;
+  overflow-y: hidden;
+  white-space: nowrap;
+  /*height: calc(var(--def-fontsz) * 2.5);*/
+  /*height: fit-content;
+  height: -moz-fit-content;*/
+  width: 100%;
+  overflow-x: scroll;
+  /*overflow-y: auto;*/
+  /*border: 1px solid #ccc;*/
+  /*border: 0.2em solid var(--block-bg);*/
+  /*border: 0.2em solid green;*/
+  background-color: var(--main-bg);
+}
+.tab::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+/* Стиль кнопок, которые используются для открытия содержимого вкладки */
+.tab button {
+  width: calc(var(--block-width) * 0.45);
+  max-width: calc(95vw * 0.45);
+  font-size: calc(var(--def-fontsz) * 0.9);
+  height: calc(var(--def-fontsz) * 2.5);
+  border-radius: calc(var(--border-rad) * var(--border-radc)) calc(var(--border-rad) * var(--border-radc)) 0 0;
+  background-color: var(--block-bg);
+  /*float: left;*/
+  /*border: none;
+  outline: none;*/
+  /*border-radius: 0.5em;*/
+  border: 0.2em solid var(--main-bg);
+  /*border-width: 0 0.15em 0 0.15em;*/
+  cursor: pointer;
+  /*padding: 0 1em;*/
+  /*transition: 0.3s;*/
+}
+
+/* Изменение цвета фона кнопок при наведении курсора */
+/*.tab button:hover {
+  background-color: #ddd;
+}*/
+
+/* Создание активного/текущего класса связи вкладки */
+.tab button.active {
+	/*border: 0.2em solid var(--main-bg);
+    border-width: 0.15em 0 0 0;*/
+    /*padding-bottom: 0.5em;*/
+	border: none;
+  background-color: var(--block-bg);
+}
+
+/* Стиль содержимого вкладки */
+.tabcontent {
+  display: none;
+  /*padding: 6px 12px;*/
+  /*border: 1px solid #ccc;*/
+  /*border-top: none;*/
 }
 

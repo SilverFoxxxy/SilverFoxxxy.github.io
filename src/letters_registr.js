@@ -24,10 +24,10 @@ function is_valid_email (emailAdress) {
 }
 
 async function tryReg() {
-    let mail = document.getElementById("user_mail").value;
-    let name = document.getElementById("user_nm").value;
-    let pswd = document.getElementById("user_passwd").value;
-    let pswd2 = document.getElementById("user_passwd2").value;
+    let mail = document.getElementById("user_mail1").value;
+    let name = document.getElementById("user_nm1").value;
+    let pswd = document.getElementById("user_passwd2").value;
+    let pswd2 = document.getElementById("user_passwd3").value;
     let error_msg = "";
     let now_error = false;
 

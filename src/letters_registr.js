@@ -53,7 +53,7 @@ async function tryReg() {
     }
 
     if (pswd.length < 4) {
-        error_msg += "Пароль слишком короткий<br>";
+        error_msg += "Пароль слишком короткий (пароль должен состоять хотя бы из 4-х символов)<br>";
         now_error = true;
     }
 

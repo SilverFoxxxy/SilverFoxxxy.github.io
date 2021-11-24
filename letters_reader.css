@@ -137,6 +137,10 @@ div {
 	/*background-color: grey;*/
 }
 
+#login_errors {
+	color: red;
+}
+
 .centered {
 	display: flex;
 	align-items: center;

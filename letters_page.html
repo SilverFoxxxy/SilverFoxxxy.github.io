@@ -88,7 +88,6 @@
             <center>
             Логин / почта:
             </center>
-            <!-- <input type="text" name="user_nm" id="user_nm" style="font-size:calc(var(--def-fontsz) * 0.5);"> -->
           </td>
 
           <td style="width: 5%;"></td>
@@ -97,24 +96,22 @@
             <center>
             Пароль:
           </center>
-            <!-- <input type="password" name="user_passwd" id="user_pswd" style="font-size:calc(var(--def-fontsz) * 0.5);"> -->
           </td>
 
           <td style="width: 5%;"></td>
 
           <td style="width: 30%; font-size: 0.7em;">
-            <!-- <button type="button" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);" id="login_button" onclick="tryLogin()"> Войти </button> -->
           </td>
         </tr>
         <tr>
           <td>
-            <input type="text" class="input_text" name="user_nm" id="user_nm" style="font-size:calc(var(--def-fontsz) * 0.7); width: 100%;">
+            <input type="text" autocomplete="username" class="input_text" name="user_nm" id="user_nm" style="font-size:calc(var(--def-fontsz) * 0.7); width: 100%;">
           </td>
 
           <td></td>
 
           <td style="font-size: 0.7em;">
-            <input type="password" class="input_text" name="user_passwd" id="user_pswd" style="font-size:calc(var(--def-fontsz) * 0.7);  width: 100%;">
+            <input type="password" autocomplete="current-password" class="input_text" name="user_passwd" id="user_pswd" style="font-size:calc(var(--def-fontsz) * 0.7);  width: 100%;">
           </td>
 
           <td></td>
@@ -123,15 +120,6 @@
             <button type="button" style="font-size:calc(var(--def-fontsz) * 0.9); width:100%;" id="login_button" onclick="tryLogin()"> Войти </button>
           </td>
         </tr>
-        <!-- <tr>
-          <td></td> <td></td> <td></td> <td></td>
-          <td>
-            <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
-              или
-              <a href="registration.html" target="_blank" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">зарегистрироваться</a>
-            </div>
-          </td>
-        </tr> -->
       </table>
       <br>
       <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">

@@ -55,8 +55,8 @@ async function tryRelogin() {
 }
 
 async function tryLogin() {
-    document.getElementById('username').style.display = 'none';
-    document.getElementById('login_block').style.display = 'none';
+    // document.getElementById('username').style.display = 'none';
+    // document.getElementById('login_block').style.display = 'none';
     let name = document.getElementById("user_nm").value;
     let pswd = document.getElementById("user_pswd").value;
     let user_json = await request_login(name, pswd);
@@ -70,9 +70,13 @@ async function tryLogin() {
         document.getElementById('username').innerHTML = nowname;
         document.getElementById('username').style.display = 'block';
         document.getElementById('login_block').style.display = 'none';
+        document.getElementById('login_errors').innerHTML = '';
+        document.getElementById("user_nm").value = "";
+        document.getElementById("user_pswd").value = "";
         reload_page_usr_info();
         // document.getElementById('username').innerHTML = name;
     } else {
+        document.getElementById('username').style.display = 'none';
         document.getElementById('login_block').style.display = 'block';
         document.getElementById('login_errors').innerHTML = 'Не получилось залогиниться<br>Проверьте имя и пароль';
         // TO DO

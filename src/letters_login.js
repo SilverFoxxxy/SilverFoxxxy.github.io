@@ -76,3 +76,5 @@ async function tryLogin() {
         // TO DO
     }
 }
+
+tryRelogin();

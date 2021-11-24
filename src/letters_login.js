@@ -49,6 +49,7 @@ async function tryRelogin() {
         let nowname = getCookie('user_nm');
         document.getElementById('username').innerHTML = nowname;
         document.getElementById('username').style.display = 'block';
+        reload_page_usr_info();
     }
 }
 
@@ -78,3 +79,4 @@ async function tryLogin() {
 }
 
 tryRelogin();
+

@@ -183,6 +183,18 @@ async function get_favs() {
     return login_res;
 }
 
+async function get_edits() {
+    if (getToken() == false) {
+        return "bad_token";
+    }
+    let req_json = {
+        type: 'get_edits',
+        token: window.token
+    }
+    let login_res = send_req(req_json);
+    return login_res;
+}
+
 async function get_top() {
     // if (!window.token) {
     //     return "bad_token";

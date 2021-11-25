@@ -224,15 +224,16 @@
 
   <div class="tab" id="tabs_top">
     <button class="tablinks" id="main_tab_button" onclick="openTab(event, 'main_tab')">Все</button>
-    <button class="tablinks" id="top_tab_button" onclick="openTab(event, 'top_tab')">Топ рейтинга</button>
     <button class="tablinks" id="favs_tab_button" onclick="openTab(event, 'favs_tab')">Избранное</button>
+    <button class="tablinks" id="edit_tab_button" onclick="openTab(event, 'edit_tab')">Редактируемое</button>
+    
   </div>
 
   <div id="main_tab" class="tabcontent">
 
   <table style="font-size: calc(var(--def-fontsz) * 0.7)";>
 
-    <tr><td>
+<!--     <tr><td>
       <div style="font-size: 0.5em">
         <br><br><br>
       </div>
@@ -267,7 +268,7 @@
 
     <tr><td>
       <br><br><br>
-    </td></tr>
+    </td></tr> -->
 <!-- 
     <tr><td>
       <div class="link_block">
@@ -303,7 +304,7 @@
       <br><br><br>
     </td></tr> -->
 
-    <tr><td>
+<!--     <tr><td>
       <div class="link_block">
         <div class="link_msg">
           <a href="letters_page.html?name=lesbiiskiy_chat" style="text-decoration: none;">
@@ -318,7 +319,7 @@
 
     <tr><td>
       <br><br><br>
-    </td></tr>
+    </td></tr> -->
 <!-- 
     <tr><td>
       <div class="link_block">
@@ -371,9 +372,6 @@
 
   </div>
 
-  <div id="top_tab" class="tabcontent">
-  </div>
-
   <div id="favs_tab" class="tabcontent">
     <table>
 
@@ -384,10 +382,41 @@
     </td></tr>
 
     <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
+      <div class="link_block link_msg_v1">
+        <div class="link_msg link_msg_v2">
           <div style="text-decoration: none;">
-            <big>Чтобы сохранять любимые произведения нужно авторизоваться</big>
+            <big>Здесь будут ваши избранные истории<br></big><hr>
+            <div style="font-style: italic;">Чтобы сохранять любимые произведения нужно авторизоваться</div>
+          </div>
+        </div>
+      </div>
+    </td></tr>
+
+    <tr><td>
+      <div style="font-size: 0.5em">
+        <br><br><br>
+      </div>
+    </td></tr>
+    <tr><td>
+      <br><br><br>
+    </td></tr>
+  </table>
+  </div>
+
+  <div id="edit_tab" class="tabcontent">
+    <table>
+
+    <tr><td>
+      <div style="font-size: 0.5em">
+        <br><br><br>
+      </div>
+    </td></tr>
+
+    <tr><td>
+      <div class="link_block link_msg_v1">
+        <div class="link_msg link_msg_v2">
+          <div style="text-decoration: none;">
+            <big>Здесь будут выложенные вами истории</big>
           </div>
         </div>
       </div>
@@ -532,21 +561,28 @@
 </script>
 
 <script>
-    async function showTop() {
-        console.log('showTop');
+    async function showFavs() {
+        // console.log('showTop');
+        if (getToken() == false) {
+            return;
+        }
         let res = await get_favs();
         console.log(res);
         if (!res.hasOwnProperty('story_list')) {
             return;
         }
         let story_list = res['story_list'];
-        document.getElementById('favs_tab').innerHTML = await story_list_to_cards(story_list);
+        if (story_list.length > 0) {
+          document.getElementById('favs_tab').innerHTML = await story_list_to_cards(story_list);
+        }
     }
 
-    showTop();
+    showFavs();
 
     async function reload_page_usr_info() {
         showTop();
+        showFavs();
+        showEdits();
     }
 </script>
 <!-- <script src="src/letters_bookmarks.js">

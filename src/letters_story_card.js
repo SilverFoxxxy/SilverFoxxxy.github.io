@@ -2,7 +2,7 @@
 async function story_list_to_cards(story_list) {
     let text = '<table>';
     for (let i = 0; i < story_list.length; i++) {
-        text += '<tr><td><div style="font-size: 1em;"><br><br><br></div></td></tr>';
+        text += '<tr><td><center><div style="font-size: 1em; width:90%;"><br><br><br></div></center></td></tr>';
         let now_story = story_list[i];
         let story_nm = now_story['story_nm'];
         let story_fullnm = now_story['story_fullnm'];

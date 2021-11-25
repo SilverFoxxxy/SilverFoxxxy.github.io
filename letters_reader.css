@@ -569,8 +569,8 @@ color: white; /* Цвет текста */
 
 /* Стиль кнопок, которые используются для открытия содержимого вкладки */
 .tab button {
-  width: calc(var(--block-width) * 0.45);
-  max-width: calc(95vw * 0.45);
+  width: calc(var(--block-width) * 0.42);
+  max-width: calc(95vw * 0.42);
   font-size: calc(var(--def-fontsz) * 0.9);
   height: calc(var(--def-fontsz) * 2.5);
   border-radius: calc(var(--border-rad) * var(--border-radc)) calc(var(--border-rad) * var(--border-radc)) 0 0;

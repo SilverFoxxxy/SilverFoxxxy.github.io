@@ -299,9 +299,9 @@ div {
 	display: flex;
   	align-items: center;
 	justify-content: center;
-	max-width: 80%;
-	width: 80%;
-	min-height: calc(var(--def-fontsz) * 4);
+	max-width: 85%;
+	width: 85%;
+	min-height: calc(var(--def-fontsz) * 4.25);
 	height: fit-content;
 	/*text-align: center;*/
 	margin: auto;
@@ -435,8 +435,8 @@ div {
 	width: 100%;
 	text-align: center;
 	height: fit-content;
-	padding-top: 0.35em;
-	padding-bottom: 0.35em;
+	padding-top: 0.75em;
+	padding-bottom: 0.75em;
 	padding-left: 0.75em;
 	padding-right: 0.75em;
 	border-radius: calc(var(--border-rad) * var(--border-radc));
@@ -455,7 +455,8 @@ div {
 	background-color: transparent;
 	border-radius: 0px;
 	border: 1px solid var(--main-color);
-	border-width: 0px 1px 0px 1px;
+	border-width: /*0px 1px 0px 1px;*/ 1px;
+	border-color: var(--from-color);
 }
 
 .outln {

@@ -2,6 +2,8 @@
 var urlParams = new URLSearchParams(window.location.search);
 
 async function showTextInfo() {
+    window.rate_num = 0;
+    window.is_fav = false;
     let title = urlParams.get('name');
     let text_info = await get_text_info(title);
     console.log(text_info);
@@ -44,6 +46,7 @@ async function showTextInfo() {
 
     if (text_info.hasOwnProperty('is_fav')) {
         if (text_info['is_fav'] == true) {
+            window.is_fav = true;
             document.getElementById('is_fav1').style.display = 'block';
             document.getElementById('is_fav2').style.display = 'block';
             document.getElementById('not_fav').style.display = 'none';
@@ -59,6 +62,7 @@ async function showTextInfo() {
     if (text_info.hasOwnProperty('user_rating')) {
         let rate = text_info['user_rating'];
         if (rate == -1 || rate == 1) {
+            window.rate_num = rate;
             let ename = 'plus_rate_button_inside';
             if (rate == -1) {
                 ename = 'minus_rate_button_inside';
@@ -70,7 +74,14 @@ async function showTextInfo() {
 }
 
 async function change_rating(num) {
+    if (!getToken()) {
+        alert("Чтобы менять рейтинг нужно залогиниться");
+        return;
+    }
     if (num == -1 || num == 1) {
+        if (window.rate_num == num) {
+            num = 0;
+        }
         let resp = await request_rating(num, urlParams.get('name'));
         showTextInfo();
     } else {
@@ -79,8 +90,16 @@ async function change_rating(num) {
 }
 
 async function add_fav_title() {
+    if (!getToken()) {
+        alert("Чтобы сохранять произведения нужно залогиниться");
+        return;
+    }
     let title = urlParams.get('name');
-    await add_fav(title);
+    if (window.is_fav == true) {
+        await del_fav(title);
+    } else {
+        await add_fav(title);
+    }
     showTextInfo();
 }
 

@@ -132,7 +132,7 @@ async function get_text_info(title) {
 }
 
 async function request_rating(num, title) {
-    if (!window.token) {
+    if (getToken() == false) {
         return "bad_token";
     }
     let req_json = {
@@ -146,7 +146,7 @@ async function request_rating(num, title) {
 }
 
 async function add_fav(title) {
-    if (!window.token) {
+    if (getToken() == false) {
         return "bad_token";
     }
     let req_json = {
@@ -158,8 +158,21 @@ async function add_fav(title) {
     return login_res;
 }
 
+async function del_fav(title) {
+    if (getToken() == false) {
+        return "bad_token";
+    }
+    let req_json = {
+        type: 'del_fav',
+        title: title,
+        token: window.token
+    }
+    let login_res = send_req(req_json);
+    return login_res;
+}
+
 async function get_favs() {
-    if (!window.token) {
+    if (getToken() == false) {
         return "bad_token";
     }
     let req_json = {

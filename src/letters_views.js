@@ -32,7 +32,7 @@ var themes = [
         ],
         [
             ["block-width", "35rem"],
-            ["def-fontsz", "1.5rem"],
+            ["def-fontsz", "1.4rem"],
             ["small-fontsz", "1rem"],
             ["button-width", "4rem"],
             ["button-h", "3rem"],

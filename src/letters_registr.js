@@ -52,6 +52,21 @@ async function tryReg() {
         now_error = true;
     }
 
+    if (name.length > 40) {
+        error_msg += "Логин слишком длинный (более 40 символов)<br>";
+        now_error = true;
+    }
+
+    if (mail.length > 40) {
+        error_msg += "Почта слишком длинная (более 40 символов)<br>";
+        now_error = true;
+    }
+
+    if (pswd.length > 40) {
+        error_msg += "Пароль слишком длинный (более 40 символов)<br>";
+        now_error = true;
+    }
+
     if (pswd.length < 4) {
         error_msg += "Пароль слишком короткий (пароль должен состоять хотя бы из 4-х символов)<br>";
         now_error = true;

@@ -9,6 +9,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+  <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+
   <!-- <div style="font-size: calc(var(--def-fontsz) * 0.5)"> Letters reader </div> -->
 
 <title id="page_title">Letters reader </title>
@@ -122,6 +124,12 @@
           </td>
         </tr>
       </table>
+      <br>
+      <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
+        Если ваш аккаунт привязан к ВК:
+        <!-- VK Widget -->
+        <div id="vk_auth"></div>
+      </div>
       <br>
       <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
         или
@@ -586,6 +594,16 @@
         showFavs();
         showEdits();
     }
+</script>
+<script type="text/javascript">
+  VK.init({
+    apiId: 8014472
+  });
+</script>
+<script type="text/javascript">
+  // VK.UI.button("vk_auth");
+  // VK.Widgets.Auth("vk_auth", {"authUrl":"dev_login"});
+  VK.Widgets.Auth("vk_auth", {"onAuth":tryVKAuth()});
 </script>
 <!-- <script src="src/letters_bookmarks.js">
 </script> -->

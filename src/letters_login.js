@@ -40,6 +40,7 @@ function showLoginForm() {
 }
 
 async function tryRelogin() {
+    // TODO: rewrite to try login by token
     document.getElementById('username').style.display = 'none';
     let nowtoken = getCookie('user_token');
     if (!nowtoken) {
@@ -81,6 +82,16 @@ async function tryLogin() {
         document.getElementById('login_errors').innerHTML = 'Не получилось залогиниться<br>Проверьте имя и пароль';
         // TO DO
     }
+}
+
+async function tryVKData(data) {
+    console.log(data);
+}
+
+async function tryVKAuth() {
+    VK.Auth.login(function(data) {
+      tryVKData(data);
+    });
 }
 
 tryRelogin();

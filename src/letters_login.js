@@ -127,16 +127,18 @@ async function tryRelogin() {
     //     window.token = nowtoken;
     //     reload_page_usr_info();
     // }
-    if (!getToken()) {
-        return;
-    }
+    // if (!getToken()) {
+    //     return;
+    // }
     let user_json = await request_token_login();
     doLogin(user_json, "by_token");
 }
 
 async function addVKData(data) {
     if (window.logged_in) {
-        let res_json = request_add_vk_data(data["uid"], data["hash"]);
+        let res_json = await request_add_vk_data(data["uid"], data["hash"]);
+        // console.log("here\n");
+        console.log(res_json);
     }
 }
 

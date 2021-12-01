@@ -140,6 +140,16 @@
       <br>
     </center>
   </div>
+
+  <div class="block" id="logged_in_block" style="display:none; font-size:calc(var(--def-fontsz) * 0.7);">
+    <center>
+      <br>
+      <button type="button" style="font-size:calc(var(--def-fontsz) * 0.9); width:9em;" id="logout_button" onclick="tryLogout()"> Выйти </button><br><br>
+      Войдите через ВК, чтобы привязать аккаунт:
+      <div id="vk_auth2"></div>
+      <br>
+    </center>
+  </div>
 </center>
 </div>
 
@@ -599,11 +609,16 @@
   VK.init({
     apiId: 8014472
   });
+  console.log(window.location.hostname);
+  // window.location.hostname
 </script>
 <script type="text/javascript">
   // VK.UI.button("vk_auth");
   // VK.Widgets.Auth("vk_auth", {"authUrl":"dev_login"});
-  VK.Widgets.Auth("vk_auth", {"onAuth":tryVKAuth()});
+  VK.Widgets.Auth("vk_auth", {"onAuth":function(data) {tryVKData(data);}});
+</script>
+<script type="text/javascript">
+  VK.Widgets.Auth("vk_auth2", {"onAuth":function(data) {addVKData(data);}});
 </script>
 <!-- <script src="src/letters_bookmarks.js">
 </script> -->

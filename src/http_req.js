@@ -100,12 +100,52 @@ async function request_registr(mail, name, pswd) {
     return reg_res;
 }
 
+async function request_add_vk_data(uid, hash) {
+    if (getToken() == false) {
+        return "bad_token";
+    }
+    let req_json = {
+        type: 'token_add_vk',
+        token: window.token,
+        uid: uid,
+        hash: hash
+    }
+    // пробрасываем промис без await
+    let res_json = send_req(req_json);
+    return res_json;
+}
+
+async function request_vk_login(uid, hash) {
+    let req_json = {
+        type: 'vk_login',
+        uid: uid,
+        hash: hash
+    }
+    // пробрасываем промис без await
+    let login_res = send_req(req_json);
+    return login_res;
+}
+
 async function request_login(name, pswd) {
     let pswd_h = await calc_hash(pswd);
     let req_json = {
         type: 'login',
         name_mail: name,
         pswd: pswd_h
+    }
+    // пробрасываем промис без await
+    let login_res = send_req(req_json);
+    return login_res;
+}
+
+async function request_token_login() {
+    if (getToken() == false) {
+        return "bad_token";
+    }
+    let pswd_h = await calc_hash(pswd);
+    let req_json = {
+        type: 'token_login',
+        token: window.token
     }
     // пробрасываем промис без await
     let login_res = send_req(req_json);

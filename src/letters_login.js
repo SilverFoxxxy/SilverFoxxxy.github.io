@@ -32,39 +32,43 @@ function getToken() {
 }
 
 function showLoginForm() {
-    if (document.getElementById("login_block").style.display == "block") {
-        document.getElementById("login_block").style.display = "none";
+    if (!window.logged_in) {
+        if (document.getElementById("login_block").style.display == "block") {
+            document.getElementById("login_block").style.display = "none";
+            document.getElementById('logged_in_block').style.display = 'none';
+        } else {
+            document.getElementById('logged_in_block').style.display = 'none';
+            document.getElementById("login_block").style.display = "block";
+        }
     } else {
-        document.getElementById("login_block").style.display = "block";
+        if (document.getElementById("logged_in_block").style.display == "block") {
+            document.getElementById("login_block").style.display = "none";
+            document.getElementById("logged_in_block").style.display = "none";
+        } else {
+            document.getElementById("login_block").style.display = "none";
+            document.getElementById("logged_in_block").style.display = "block";
+        }
     }
 }
 
-async function tryRelogin() {
-    // TODO: rewrite to try login by token
+async function tryLogout() {
+    window.token = null;
+    window.logged_in = false;
+    setCookie('user_token', "", 15);
+    setCookie('user_nm', "", 15);
     document.getElementById('username').style.display = 'none';
-    let nowtoken = getCookie('user_token');
-    if (!nowtoken) {
-        return;
-    }
-    if (nowtoken.length > 5) {
-        let nowname = getCookie('user_nm');
-        document.getElementById('username').innerHTML = nowname;
-        document.getElementById('username').style.display = 'block';
-        window.token = nowtoken;
-        reload_page_usr_info();
-    }
+    document.getElementById('login_block').style.display = 'none';
+    document.getElementById('logged_in_block').style.display = 'none';
+    document.getElementById('login_errors').innerHTML = '';
 }
 
-async function tryLogin() {
-    // document.getElementById('username').style.display = 'none';
-    // document.getElementById('login_block').style.display = 'none';
-    let name = document.getElementById("user_nm").value;
-    let pswd = document.getElementById("user_pswd").value;
-    let user_json = await request_login(name, pswd);
+async function doLogin(user_json, act_type) {
     console.log(user_json);
     if (user_json.hasOwnProperty('user_token') && user_json.hasOwnProperty('user') && String(user_json['user_token']).length > 10) {
+        window.logged_in = true;
+
         setCookie('user_token', user_json['user_token'], 15);
-        setCookie('user_nm', user_json['user']['user_nm']);
+        setCookie('user_nm', user_json['user']['user_nm'], 15);
         let nowname = user_json['user']['user_nm'];
         window.token = user_json['user_token'];
 
@@ -77,22 +81,76 @@ async function tryLogin() {
         reload_page_usr_info();
         // document.getElementById('username').innerHTML = name;
     } else {
-        document.getElementById('username').style.display = 'none';
-        document.getElementById('login_block').style.display = 'block';
-        document.getElementById('login_errors').innerHTML = 'Не получилось залогиниться<br>Проверьте имя и пароль';
-        // TO DO
+        window.logged_in = false;
+
+        if (act_type == "by_token") {
+            document.getElementById('username').style.display = 'none';
+            document.getElementById('login_errors').innerHTML = '';
+            tryLogout();
+        }
+
+        if (act_type == "by_pswd") {
+            document.getElementById('username').style.display = 'none';
+            document.getElementById('login_block').style.display = 'block';
+            document.getElementById('login_errors').innerHTML = 'Не получилось залогиниться<br>Проверьте имя и пароль';
+            // TO DO
+        }
+
+        if (act_type == "by_vk") {
+            document.getElementById('username').style.display = 'none';
+            document.getElementById('login_errors').innerHTML = 'Не получилось залогиниться<br>Возможно, аккаунт не привязан к ВК';
+        }
+    }
+}
+
+async function tryLogin() {
+    // document.getElementById('username').style.display = 'none';
+    // document.getElementById('login_block').style.display = 'none';
+    let name = document.getElementById("user_nm").value;
+    let pswd = document.getElementById("user_pswd").value;
+    let user_json = await request_login(name, pswd);
+    doLogin(user_json, "by_pswd");
+}
+
+async function tryRelogin() {
+    
+    // // TODO: rewrite to try login by token
+    // document.getElementById('username').style.display = 'none';
+    // let nowtoken = getCookie('user_token');
+    // if (!nowtoken) {
+    //     return;
+    // }
+    // if (nowtoken.length > 5) {
+    //     let nowname = getCookie('user_nm');
+    //     document.getElementById('username').innerHTML = nowname;
+    //     document.getElementById('username').style.display = 'block';
+    //     window.token = nowtoken;
+    //     reload_page_usr_info();
+    // }
+    if (!getToken()) {
+        return;
+    }
+    let user_json = await request_token_login();
+    doLogin(user_json, "by_token");
+}
+
+async function addVKData(data) {
+    if (window.logged_in) {
+        let res_json = request_add_vk_data(data["uid"], data["hash"]);
     }
 }
 
 async function tryVKData(data) {
     console.log(data);
+    let user_json = await request_vk_login(data["uid"], data["hash"]);
+    doLogin(user_json, "by_vk");
 }
 
-async function tryVKAuth() {
-    VK.Auth.login(function(data) {
-      tryVKData(data);
-    });
-}
+// async function tryVKAuth() {
+//     VK.Auth.login(function(data) {
+//       tryVKData(data);
+//     });
+// }
 
 tryRelogin();
 

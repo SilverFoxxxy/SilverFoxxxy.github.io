@@ -113,7 +113,6 @@ async function tryLogin() {
 }
 
 async function tryRelogin() {
-    
     // // TODO: rewrite to try login by token
     // document.getElementById('username').style.display = 'none';
     // let nowtoken = getCookie('user_token');

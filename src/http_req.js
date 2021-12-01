@@ -139,13 +139,16 @@ async function request_login(name, pswd) {
 }
 
 async function request_token_login() {
-    if (getToken() == false) {
-        return "bad_token";
+    // if (getToken() == false) {
+    //     return "bad_token";
+    // }
+    let nowtoken = getCookie('user_token');
+    if (!nowtoken) {
+        return {status: "failed", error: "token"};
     }
-    let pswd_h = await calc_hash(pswd);
     let req_json = {
         type: 'token_login',
-        token: window.token
+        token: nowtoken
     }
     // пробрасываем промис без await
     let login_res = send_req(req_json);

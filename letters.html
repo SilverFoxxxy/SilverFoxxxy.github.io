@@ -472,7 +472,7 @@
             Группа вк:<br>
             <a href="https://vk.com/letters_reader" target="_blank" style="font-size: var(--small-fontsz);">vk.com/letters_reader</a>
             <br>
-<!-- 
+            <!-- 
             ---
             <br>
             <div style="font-size: var(--small-fontsz);">
@@ -606,9 +606,18 @@
     }
 </script>
 <script type="text/javascript">
-  VK.init({
-    apiId: 8014472
-  });
+  let nowApiId = null;
+  if (window.location.hostname == "silverfoxxxy.github.io") {
+    nowApiId = 8015693;
+  }
+  if (window.location.hostname == "letters-reader2.tk") {
+    nowApiId = 8014472;
+  }
+  if (nowApiId != null) {
+    VK.init({
+      apiId: nowApiId
+    });
+  }
   console.log(window.location.hostname);
   // window.location.hostname
 </script>

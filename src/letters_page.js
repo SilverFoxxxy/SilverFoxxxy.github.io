@@ -39,17 +39,19 @@ async function showTextInfo() {
         document.getElementById('plus_rating').innerHTML = String(rating);
     }
 
-    document.getElementById('is_fav1').style.display = 'none';
-    document.getElementById('is_fav2').style.display = 'none';
-    document.getElementById('not_fav').style.display = 'block';
+    document.getElementById('is_fav').style.display = 'none';
+    // document.getElementById('is_fav1').style.display = 'none';
+    // document.getElementById('is_fav2').style.display = 'none';
+    // document.getElementById('not_fav').style.display = 'block';
     document.getElementById('favs_text').innerHTML = 'в избранное';
 
     if (text_info.hasOwnProperty('is_fav')) {
         if (text_info['is_fav'] == true) {
             window.is_fav = true;
-            document.getElementById('is_fav1').style.display = 'block';
-            document.getElementById('is_fav2').style.display = 'block';
-            document.getElementById('not_fav').style.display = 'none';
+            document.getElementById('is_fav').style.display = 'block';
+            // document.getElementById('is_fav1').style.display = 'block';
+            // document.getElementById('is_fav2').style.display = 'block';
+            // document.getElementById('not_fav').style.display = 'none';
             document.getElementById('favs_text').innerHTML = 'уже в избранном';
         }
     }

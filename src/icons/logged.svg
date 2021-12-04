@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="100mm" height="100mm" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+ <g fill="none" stroke="#000">
+  <path d="m5 95c0-22.427 18.838-38.136 45-38.127 12.528 0.0045 23.376 3.6044 31.28 9.8179m10.065 12.264c2.3681 4.7816 3.6549 10.183 3.6549 16.045" stroke-width="7"/>
+  <circle cx="50" cy="27.5" r="22.5" stroke-width="7"/>
+  <path d="m50 5v45" stroke-width=".26458px"/>
+  <path d="m61.859 74.392 11.118 10.916 22.023-21.226" stroke-width="7"/>
+ </g>
+</svg>

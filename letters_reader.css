@@ -96,7 +96,6 @@ pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 
 button {
 	font-family: var(--font-fam);
-	/*border: 1px solid var(--main-color);*/
 	cursor: pointer;
 	border: none;
 	height: fit-content;
@@ -104,6 +103,7 @@ button {
 	color: var(--main-color);/*white;*/
 	background-color: var(--main-bg);/*#35252C;/*#25181F;*//*#C6E6F0;*/
 	border-radius: calc(var(--border-rad) * var(--border-radc));
+	/*border: 1px solid var(--main-color);*/
 }
 
 table {

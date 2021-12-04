@@ -42,13 +42,31 @@
     <table>
       <tr>
         <td style="width: fit-content">
-          <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" id="login_button" onclick="showLoginForm()"> <img src="src/icons/login.jpg" style='height: 100%; object-fit: contain;' id="login_icon"/> </button>
+          <button type="button" style="font-size: var(--def-fontsz); width: calc(var(--button-width) * 1); height:calc(var(--button-width) * 0.7);" id="login_button" onclick="showLoginForm()">
+            <svg width="100%" height="100%">
+              <svg id="login_icon" width="100%" height="100%" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+               <g fill="none" style="stroke: var(--main-color)">
+                <path d="m5 95c0-22.427 18.838-38.136 45-38.127 26.162 0.0093 45 15.7 45 38.127" stroke-width="7"/>
+                <circle cx="50" cy="27.5" r="22.5" stroke-width="7"/>
+               </g>
+              </svg>
+              <!-- <use xlink:href="src/icons/login.svg#login_icon"></use> -->
+            </svg>
+            <!-- <img src="src/icons/login.svg" style='height: 100%; object-fit: contain;' id="login_icon"/>  -->
+              
+            </button>
         </td>
 
-        <td style="width: fit-content">
+        <td style="width: fit-content; min-width: calc(var(--button-width) * 1);">
           <a href="letters_bookmarks.html">
             <div style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" >
-              <img src="src/icons/bookmark.png" style='height: 100%; object-fit: contain;' id="favs_icon"/>
+              <svg width="100%" height="100%">
+                <svg width="100%" height="100%" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                 <path d="m24.06 5.3046v77.296l25.94-24.06 25.94 24.06v-77.296" fill="none" stroke="var(--main-color)" stroke-width="7"/>
+                </svg>
+                <!-- <use xlink:href="src/icons/login.svg#login_icon"></use> -->
+              </svg>
+              <!-- <img src="src/icons/bookmark.png" style='height: 100%; object-fit: contain;' id="favs_icon"/> -->
             </div>
           </a>
         </td>
@@ -118,11 +136,27 @@
       </table>
       <br>
       <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
+        Если ваш аккаунт привязан к ВК:
+        <!-- VK Widget -->
+        <div id="vk_auth"></div>
+      </div>
+      <br>
+      <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
         или
         <a href="registration.html" target="_blank" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">зарегистрироваться</a>
       </div>
       <div id="login_errors" style="font-size:calc(var(--def-fontsz) * 0.7);"></div>
       </div>
+      <br>
+    </center>
+  </div>
+
+  <div class="block" id="logged_in_block" style="display:none; font-size:calc(var(--def-fontsz) * 0.7);">
+    <center>
+      <br>
+      <button type="button" style="font-size:calc(var(--def-fontsz) * 0.9); width:9em;" id="logout_button" onclick="tryLogout()"> Выйти </button><br><br>
+      Войдите через ВК, чтобы привязать аккаунт:
+      <div id="vk_auth2"></div>
       <br>
     </center>
   </div>

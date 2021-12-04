@@ -47,13 +47,31 @@
     <table>
       <tr>
         <td style="width: fit-content">
-          <button type="button" style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" id="login_button" onclick="showLoginForm()"> <img src="src/icons/login.jpg" style='height: 100%; object-fit: contain;' id="login_icon"/> </button>
+          <button type="button" style="font-size: var(--def-fontsz); width: calc(var(--button-width) * 1); height:calc(var(--button-width) * 0.7);" id="login_button" onclick="showLoginForm()">
+            <svg width="100%" height="100%">
+              <svg id="login_icon" width="100%" height="100%" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+               <g fill="none" style="stroke: var(--main-color)">
+                <path d="m5 95c0-22.427 18.838-38.136 45-38.127 26.162 0.0093 45 15.7 45 38.127" stroke-width="7"/>
+                <circle cx="50" cy="27.5" r="22.5" stroke-width="7"/>
+               </g>
+              </svg>
+              <!-- <use xlink:href="src/icons/login.svg#login_icon"></use> -->
+            </svg>
+            <!-- <img src="src/icons/login.svg" style='height: 100%; object-fit: contain;' id="login_icon"/>  -->
+              
+            </button>
         </td>
 
-        <td style="width: fit-content">
+        <td style="width: fit-content; min-width: calc(var(--button-width) * 1);">
           <a href="letters_bookmarks.html">
             <div style="font-size: var(--def-fontsz); width:fit-content; height:calc(var(--button-width) * 0.7); min-width: calc(var(--button-width) * 1);" >
-              <img src="src/icons/bookmark.png" style='height: 100%; object-fit: contain;' id="favs_icon"/>
+              <svg width="100%" height="100%">
+                <svg width="100%" height="100%" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                 <path d="m24.06 5.3046v77.296l25.94-24.06 25.94 24.06v-77.296" fill="none" stroke="var(--main-color)" stroke-width="7"/>
+                </svg>
+                <!-- <use xlink:href="src/icons/login.svg#login_icon"></use> -->
+              </svg>
+              <!-- <img src="src/icons/bookmark.png" style='height: 100%; object-fit: contain;' id="favs_icon"/> -->
             </div>
           </a>
         </td>
@@ -123,11 +141,27 @@
       </table>
       <br>
       <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
+        Если ваш аккаунт привязан к ВК:
+        <!-- VK Widget -->
+        <div id="vk_auth"></div>
+      </div>
+      <br>
+      <div style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">
         или
         <a href="registration.html" target="_blank" style="font-size:calc(var(--def-fontsz) * 0.7); width:fit-content; min-width: calc(var(--button-width) * 1);">зарегистрироваться</a>
       </div>
       <div id="login_errors" style="font-size:calc(var(--def-fontsz) * 0.7);"></div>
       </div>
+      <br>
+    </center>
+  </div>
+
+  <div class="block" id="logged_in_block" style="display:none; font-size:calc(var(--def-fontsz) * 0.7);">
+    <center>
+      <br>
+      <button type="button" style="font-size:calc(var(--def-fontsz) * 0.9); width:9em;" id="logout_button" onclick="tryLogout()"> Выйти </button><br><br>
+      Войдите через ВК, чтобы привязать аккаунт:
+      <div id="vk_auth2"></div>
       <br>
     </center>
   </div>
@@ -249,7 +283,7 @@
               <tr>
                 <td style="width: 10%;">
                   <center>
-                    <button id="plus_rate_button" onclick="change_rating(1)" style="width: 100%; font-size: calc(var(--def-fontsz) * 1);">
+                    <button id="plus_rate_button" onclick="change_rating(1)" style="width: 100%; font-size: calc(var(--def-fontsz) * 1);  height: calc(var(--def-fontsz) * 2);">
                       <b>
                       <div id="plus_rate_button_inside1" style="display: block; font-size: calc(var(--def-fontsz) * 1);">+</div>
                       <div id="plus_rate_button_inside2" style="display: none; font-size: calc(var(--def-fontsz) * 1); color: var(--from-color);">+</div></b>
@@ -263,7 +297,7 @@
                 </td>
                 <td style="width: 10%;">
                   <center>
-                  <button id="minus_rate_button" onclick="change_rating(-1)" style="width: 100%; font-size: calc(var(--def-fontsz) * 1);">
+                  <button id="minus_rate_button" onclick="change_rating(-1)" style="width: 100%; font-size: calc(var(--def-fontsz) * 1);  height: calc(var(--def-fontsz) * 2);">
                     <b><div id="minus_rate_button_inside1" style="display: block; font-size: calc(var(--def-fontsz) * 1);">-</div>
                       <div id="minus_rate_button_inside2" style="display: none; font-size: calc(var(--def-fontsz) * 1); color: var(--from-color);">-</div></b>
                   </button>
@@ -283,9 +317,26 @@
                 </td>
                 <td style="width: 46%;">
                   <center>
-                    <button id="favs_button" onclick="add_fav_title()" style="width: 100%; font-size: calc(var(--def-fontsz) * 1);">
+                    <button id="favs_button" onclick="add_fav_title()" style="width: 100%; font-size: calc(var(--def-fontsz) * 1); height: calc(var(--def-fontsz) * 2);">
                       <center>
-                      <span id="show_fav" style="display: block; width: 2em; font-family: Arial sans-serif; font-weight: normal; font-style: normal; color: transparent; position: relative;">
+                        <!-- Created with Inkscape (http://www.inkscape.org/) -->
+                        <div style="height: calc(var(--def-fontsz) * 0.3);"></div>
+                        <div style="display: block; width: 100%; height: calc(var(--def-fontsz) * 1.7); position: relative;">
+                          <svg width="100%" height="70%" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                           <g>
+                            <path d="m4.2002 27.937c1.3874-12.681 12.871-23.156 25.349-22.087 12.478 1.0693 18.074 7.7814 20.451 22.087 2.3765-14.305 7.9723-21.017 20.451-22.087 12.478-1.0693 23.962 9.4058 25.349 22.087 0.91298 21.209-15.919 41.452-45.8 66.239-29.881-24.787-46.713-45.031-45.8-66.239z" fill="none" stroke="var(--main-color)" stroke-width="7"/>
+                           </g>
+                          </svg>
+                          <div id="is_fav" style="display: none; width: 100%; height: calc(var(--def-fontsz) * 1.7); position: absolute; top: 0; left: 0;">
+                            <svg width="100%" height="70%" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                             <g>
+                              <path d="m4.2002 27.937c1.3874-12.681 12.871-23.156 25.349-22.087 12.478 1.0693 18.074 7.7814 20.451 22.087 2.3765-14.305 7.9723-21.017 20.451-22.087 12.478-1.0693 23.962 9.4058 25.349 22.087 0.91298 21.209-15.919 41.452-45.8 66.239-29.881-24.787-46.713-45.031-45.8-66.239z" fill="var(--block-bg)" stroke="var(--from-color)" stroke-width="7"/>
+                             </g>
+                            </svg>
+                          </div>
+                        </div>
+
+                      <!-- <span id="show_fav" style="display: block; width: 2em; font-family: Arial sans-serif; font-weight: normal; font-style: normal; color: transparent; position: relative;">
                         &#9825;
                         <span id="not_fav" style="display: block; width: 2em; color: var(--main-color); font-family: Arial sans-serif; font-weight: normal; font-style: normal; position: absolute; top: 0; left: 0;">
                           &#9825;
@@ -296,7 +347,7 @@
                         <span id="is_fav2" style="display: none; width: 2em; color: var(--from-color); font-family: Arial sans-serif; font-weight: normal; font-style: normal; position: absolute; top: 0; left: 0;">
                           &#9825;
                         </span>
-                      </span>
+                      </span> -->
                     </center>
                     </button>
                     <!-- + в избранное &#9829; -->

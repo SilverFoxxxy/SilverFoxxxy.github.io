@@ -9,17 +9,24 @@ async function showTextInfo() {
     console.log(text_info);
 
     document.getElementById("read").href=('letters_reader.html?name=' + title);
+    document.getElementById("edit").href=('letters_edit.html?name=' + title);
 
     if (!text_info.hasOwnProperty('story_fullnm')) {
         document.getElementById('story_nm').innerHTML = "404 Not Found";
         return;
     }
 
-    author_nm = text_info.author_nm;
-    editor_nm = text_info.editor_nm;
-    story_description = text_info.story_description;
-    rating = text_info.rating;
-    story_fullnm = text_info.story_fullnm;
+    let author_nm = text_info.author_nm;
+    let editor_nm = text_info.editor_nm;
+    let story_description = text_info.story_description;
+    let rating = text_info.rating;
+    let story_fullnm = text_info.story_fullnm;
+
+    if (editor_nm == window.user_nm) {
+        document.getElementById("edit_block").style.display = "block";
+    } else {
+        document.getElementById("edit_block").style.display = "none";
+    }
 
     document.getElementById('story_nm').innerHTML = story_fullnm;
     document.getElementById('description').innerHTML = story_description;

@@ -76,8 +76,8 @@ input {
 }
 
 input.checkbox {
-	width :  calc(var(--def-fontsz) * 0.7);
-    height : calc(var(--def-fontsz) * 0.7);
+	width :  1em;
+    height : 1em;
 }
 
 .input_text {
@@ -219,6 +219,12 @@ div {
 .msg_from {
 	color: var(--from-color);
 	font-size: calc(var(--msg-fontsz) * 0.9);
+	font-weight: bold;
+}
+
+.red {
+	color: var(--from-color);
+	font-size: 0.9em;
 	font-weight: bold;
 }
 
@@ -506,7 +512,7 @@ color: white; /* Цвет текста */
   border: 1px solid #000;
   border-radius: 0;
   /*outline: none;*/
-  font-size: 15px;
+  font-size: 1em;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -548,6 +554,7 @@ color: white; /* Цвет текста */
 
 /* Стиль вкладки */
 .tab {
+  text-align: left;
   position: relative;
   overflow-y: hidden;
   white-space: nowrap;

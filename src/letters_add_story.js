@@ -26,6 +26,7 @@ async function add_story() {
     let alert_msg = 'Ошибка:\n';
     let alert_flag = false;
 
+    // story_fullnm
     if (story_fullnm.length < 2) {
         alert_msg += 'Введите название\n';
         alert_flag = true;
@@ -35,11 +36,12 @@ async function add_story() {
         alert_flag = true;
     }
 
+    // story_nm
     if (story_nm.length < 2) {
         alert_msg += 'Введите название для адресной строки\n';
         alert_flag = true;
     }
-    if (story_fullnm.length > 50) {
+    if (story_nm.length > 50) {
         alert_msg += 'Название для адресной строки слишком длинное\n';
         alert_flag = true;
     }
@@ -48,19 +50,29 @@ async function add_story() {
         alert_flag = true;
     }
 
-    if (story_description > 200) {
+    // story_description
+    if (story_description.length > 200) {
         alert_msg += 'Описание слишком длинное\n';
         alert_flag = true;
     }
 
+    // author_name
+    if (author_name.length > 50) {
+        alert_msg += 'Имя автора слишком длинное\n';
+        alert_flag = true;
+    }
+
+    // story_text
     if (story_text.length < 2) {
         alert_msg += 'Введите текст в специальном формате\n';
         alert_flag = true;
     }
-     if (story_text.length > 1000000) {
+    if (story_text.length > 1000000) {
         alert_msg += 'Текст слишком длинный - обратитесь к админу, чтобы получить возможность загрузить его на сайт\n';
         alert_flag = true;
     }
+
+
     if (alert_flag) {
         alert(alert_msg);
         return;

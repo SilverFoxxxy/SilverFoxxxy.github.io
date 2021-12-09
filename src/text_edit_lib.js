@@ -52,7 +52,7 @@ function jsonPageToColl(nowpage) {
     // html = '<table>';
     html = '';
     for (txt in nowpage) {
-        console.log(nowpage[txt]);
+        // console.log(nowpage[txt]);
         nowtxt = jsonTextToColl(nowpage[txt]);
         html = html + '<div>' + nowtxt + '</div>';
         // html = html + '<tr><td>' + nowtxt + '</td></tr>';
@@ -80,6 +80,12 @@ function jsonHeadToColl(nowheader) {
     nowcoll += "<div><b>Title:</b> " + nowheader['title'] + "</div>";
     nowcoll += "<div><b>Описание:</b> " + nowheader['description'] + "</div>";
     nowcoll += "<div><b>Шрифт(1-5):</b> " + nowheader['font'] + "</div>";
+    nowcoll += "<div><u><b>Персонажи:</b></u> " + "</div>";
+    let persons = nowheader['person'];
+    for (let i = 0; i < persons.length; i++) {
+        let nowp = persons[i];
+        nowcoll += "<div><b>" + nowp["name"] + ":</b> " + nowp["side"] + "</div>";
+    }
     return nowcoll;
 }
 
@@ -101,7 +107,6 @@ function jsonToCollapsible(nowjson) {
     return nowcoll;
 }
 
-
 function updCollapsible() {
     let coll = document.getElementsByClassName("collapsible");
     let i;
@@ -120,6 +125,118 @@ function updCollapsible() {
       });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function jsonTextToText(txt) {
+//     let nowtxt = "";
+//     var from = txt[0];
+//     if (from == '0') {
+//         from = 'author';
+//     }
+//     // console.log(from);
+//     // var now_side = person_side[from];
+//     nowtxt += "<div><u><b>" + from + "</b></u></div>";
+//     // console.log(now_side);
+//     // var pref = '';
+//     // var suf = '';
+//     // if (now_side == 'author') {
+//     //     pref = '<div class="author_block"><div class="author_msg">';
+//     //     suf = '</div></div>';
+//     // }
+//     // if (now_side == 'left') {
+//     //     pref = '<div class="left_block"><div class="left_msg">';
+//     //     suf = '</div></div>';
+//     // }
+//     // if (now_side == 'right') {
+//     //     pref = '<div class="right_block"><div class="right_msg">';
+//     //     suf = '</div></div>';
+//     // }
+//     // if (now_side == 'center') {
+//     //     // console.log("center_msg");
+//     //     pref = '<div class="center_block"><div class="center_msg">';
+//     //     suf = '</div></div>';
+//     // }
+//     // console.log(txt);
+//     // return (pref + "<pre>" + txt[1] + "</pre>" + suf);
+//     return (nowtxt + "<div>" + txt[1] + "</div>");
+// }
+
+// function jsonPageToText(nowpage) {
+//     // return "some+page";
+//     // html = '<table>';
+//     html = '';
+//     for (txt in nowpage) {
+//         // console.log(nowpage[txt]);
+//         nowtxt = jsonTextToColl(nowpage[txt]);
+//         html = html + '<div>' + nowtxt + '</div>';
+//         // html = html + '<tr><td>' + nowtxt + '</td></tr>';
+//         html += '<br>';
+//         // html += '<tr><td><div class="left_block"><br></div></td></tr>';
+//     }
+//     // html = html + '</table>';
+//     return html;
+// }
+
+// function jsonPartToText(nowpart) {
+//     let nowcoll = "";
+//     for (i in nowpart['pages']) {
+//         let nowpage = nowpart['pages'][i];
+//         // console.log(nowpart['pages'][i]);
+//         nowcoll += "<button type='button' class='collapsible'><span>&#9660</span>"+" Стр_" + String(parseInt(i) + 1) + "</button><div class='content'>";
+//         nowcoll += jsonPageToColl(nowpage);
+//         nowcoll += "</div>";
+//     }
+//     return nowcoll;
+// }
+
+// function jsonHeadToText(nowheader) {
+//     let nowcoll = "";
+//     nowcoll += "<div><b>Title:</b> " + nowheader['title'] + "</div>";
+//     nowcoll += "<div><b>Описание:</b> " + nowheader['description'] + "</div>";
+//     nowcoll += "<div><b>Шрифт(1-5):</b> " + nowheader['font'] + "</div>";
+//     nowcoll += "<div><u><b>Персонажи:</b></u> " + "</div>";
+//     let persons = nowheader['person'];
+//     for (let i = 0; i < persons.length; i++) {
+//         let nowp = persons[i];
+//         nowcoll += "<div><b>" + nowp["name"] + ":</b> " + nowp["side"] + "</div>";
+//     }
+//     return nowcoll;
+// }
+
+// function jsonToText(nowjson) {
+//     // var nowjson = JSON.parse(localStorage.getItem('json_edit'));
+//     // get_person_sides(nowjson);
+//     let nowcoll = "";
+//     // nowcoll += "<button type='button' class='collapsible'><span>&#9660</span> Основная информация</button><div class='content'>";
+//     nowcoll += jsonHeadToText(nowjson['header']);
+//     // nowcoll += "</div>";
+//     for (i in nowjson['parts']) {
+//         let nowpart = nowjson['parts'][i];
+//         // console.log("part2coll");
+//         // let nowpart = nowjson['parts'][i];
+//         nowcoll += "part=";
+//         nowcoll += jsonPartToColl(nowpart);
+//     }
+//     return nowcoll;
+// }
+
+
 
 
 

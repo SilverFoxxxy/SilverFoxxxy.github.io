@@ -9,6 +9,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+  <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+
   <!-- <div style="font-size: calc(var(--def-fontsz) * 0.5)"> Letters reader </div> -->
 
 <title id="page_title">Letters reader </title>
@@ -259,6 +261,18 @@
       <center><a id="read"><div style="width:80%">
       <div class="link_msg" style="width: 100%; font-size: calc(var(--def-fontsz) * 1.2); background: var(--main-bg);">Читать</div>
       </div></a>
+      </center>
+    </td></tr>
+
+    <tr><td>
+      <center>
+      <div id="edit_block" style="display: none; width: 80%;">
+      <hr>
+      <a id="edit"><div style="width:100%">
+      <div class="link_msg" style="width: 100%; font-size: calc(var(--def-fontsz) * 1.2); background: var(--main-bg);">Редактировать</div>
+      </div></a>
+      <hr>
+      </div>
       </center>
     </td></tr>
 
@@ -528,6 +542,8 @@
 <script src="src/letters_views.js">
 </script>
 <script src="src/letters_page.js"></script>
+<script src="src/vk_auth.js"></script>
+
 
 </body>
 

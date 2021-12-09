@@ -52,14 +52,16 @@ function showLoginForm() {
 }
 
 async function tryLogout() {
-    window.token = null;
     window.logged_in = false;
+    window.token = "";
+    window.user_nm = "";
     setCookie('user_token', "", 15);
     setCookie('user_nm', "", 15);
     document.getElementById('username').style.display = 'none';
     document.getElementById('login_block').style.display = 'none';
     document.getElementById('logged_in_block').style.display = 'none';
     document.getElementById('login_errors').innerHTML = '';
+    reload_page_usr_info();
 }
 
 async function doLogin(user_json, act_type) {
@@ -71,6 +73,7 @@ async function doLogin(user_json, act_type) {
         setCookie('user_nm', user_json['user']['user_nm'], 15);
         let nowname = user_json['user']['user_nm'];
         window.token = user_json['user_token'];
+        window.user_nm = user_json['user']['user_nm'];
 
         document.getElementById('username').innerHTML = nowname;
         document.getElementById('username').style.display = 'block';
@@ -82,11 +85,15 @@ async function doLogin(user_json, act_type) {
         // document.getElementById('username').innerHTML = name;
     } else {
         window.logged_in = false;
+        window.token = "";
+        window.user_nm = "";
+        setCookie('user_token', "", 15);
+        setCookie('user_nm', "", 15);
 
         if (act_type == "by_token") {
             document.getElementById('username').style.display = 'none';
             document.getElementById('login_errors').innerHTML = '';
-            tryLogout();
+            // tryLogout();
         }
 
         if (act_type == "by_pswd") {
@@ -108,6 +115,24 @@ async function tryLogin() {
     // document.getElementById('login_block').style.display = 'none';
     let name = document.getElementById("user_nm").value;
     let pswd = document.getElementById("user_pswd").value;
+
+    let now_error = false;
+    let error_msg = "";
+
+    if (name.length > 40) {
+        error_msg += "Почта слишком длинная (более 40 символов)\n";
+        now_error = true;
+    }
+
+    if (pswd.length > 40) {
+        error_msg += "Пароль слишком длинный (более 40 символов)\n";
+        now_error = true;
+    }
+
+    if (now_error) {
+        alert(error_msg);
+        return;
+    }
     let user_json = await request_login(name, pswd);
     doLogin(user_json, "by_pswd");
 }

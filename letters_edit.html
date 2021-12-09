@@ -1,27 +1,29 @@
 <html>
 <head>  
+
   <meta charset="UTF-8">
 <!-- The Head tag is used to create a title of web page, CSS syntax for a web page, and helps in written a JavaScript code. -->  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-<!--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
   <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 
-<!-- #AAFFFE -->
-  <title id="page_title">Letters reader </title>
+  <!-- <div style="font-size: calc(var(--def-fontsz) * 0.5)"> Letters reader </div> -->
 
-  <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
-  <link rel="icon" href="src/icons/icon.png" type="image/icon type">
+<title id="page_title">Letters reader </title>
+<link rel="stylesheet" type="text/css" href="letters_reader.css">
+<link rel="icon" href="src/icons/edit_icon.png" type="image/icon type">
 
 </head>
 <body>
-<script src="src/http_req.js"></script>
-  <!-- style="background: var(--bg-bg);" -->
 
-<!-- <div style="width: fit-content; background: var(--bg-bg);  float: center; margin: auto;"> -->
+<script src="src/letters_tabs.js"></script>
+<script src="src/text_edit_lib.js"></script>
+<script src="src/http_req.js"></script>
+  <!-- style="height:700px;" -->
 
 
 
@@ -197,135 +199,107 @@
 
 
 
-  <!-- <div style="width: fit-content; float: center;">
-    <div id="_title" style="width: fit-content; font-size: calc(var(--button-h)*1.25); line-height: 1">Letters reader</div>
-  </div> -->
-
-
-<!--   <div style="width:fit-content; height:calc(var(--button-width) * 1.2); min-width: calc(var(--button-width) * 1);">
-  <img src="src/icons/mbfox8.jpg" style='height: 100%; object-fit: contain;' id="fox_icon"/>
-  </div> -->
 <br>
+<div class="wideline">
 <center>
-<h3>
-  <b>
-    <div  style="font-size: var(--msg-fontsz); max-width: calc(var(--block-width)*0.9)">
-      <text id="title"></text>
-    </div>
-  </b>
-</h3>
-</center>
+<div class="block scrollable">
 
-<center>
-<div class="block">
-<div class="header" id="header"><!-- style="max-width: var(--block-width);" -->
-  <!-- здесь всё, что выше непосредственно текста -->
-  <table style="float:center;">
-    <tr>
-      <td style="width: var(--def-fontsz);">
-      </td>
-      <td style="width: fit-content">
-        <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 0.7);" id="prev_page_button" onclick="goPrevPage()"> < </button>
-      </td>
-      <td style="width: fit-content;">
-        <div style="font-size: var(--def-fontsz);">
-          &nbspстраница&nbsp
-        </div>
-      </td>
-      <td style="width: fit-content">
-        <div id="page_n" style="font-size: var(--def-fontsz);">
-          <select name="pages" id="pages">
-          </select>
-        </div>
-      </td>
-      <td style="width: fit-content">
-        <div style="font-size: var(--def-fontsz);">
-          &nbspиз&nbsp
-        </div>
-      </td>
-      <td style="width: fit-content">
-        <div id="max_page_n" style="font-size: var(--def-fontsz);">1&nbsp</div>
-      </td>
-      <td style="width: var(--def-fontsz);">
-      </td>
-      <td style="width: fit-content">
-        <button type="button" style="font-size: var(--small-fontsz); width:calc(var(--button-width) * 0.7);" id="next_page_button" onclick="goNextPage()"> > </button>
-      </td>
-      <td style="width: var(--def-fontsz);">
-      </td>
-    </tr>
-  </table>
-</div>
-</div>
-</center>
-  <!-- style="height:700px;" -->
-<!-- <div class="d-flex justify-content-center align-items-center"><span> -->
-
-<!-- The Body tag is used to display the content on a web page. In this example we do not specify any content or any tag, so in output nothing will display on the web page. -->
-
-<center>
-<div style="height: 0.5em"></div>
-
-<!-- messages block -->
-<div class="scrollable outln block">
-  <div id="messages_block">
-  </div>
-</div>
-
-<div style="height: 0.5em"></div>
-</center>
-
-  <!-- <div class="header" id="footer"> -->
-<div class="block">
+  <!-- <div id='page_title' style="font-size: calc(var(--def-fontsz) * 1.25);">Какое-то название</div> -->
   <center>
-    <table style="float:center; width: moz-fit-content; width: fit-content;">
-      <tr>
-        <td style="width: var(--def-fontsz);">
-        </td>
-        <td style="width: fit-content">
-          <center>
-            <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 2.5);" onclick="goPrevPage()"> < </button>
-          </center>
-        </td>
-        <td style="width: calc(var(--button-width) * 1); font-size: var(--def-fontsz);">
-          <center>
-            |
-          </center>
-        </td>
-        <td style="width: fit-content">
-          <center>
-            <button type="button" style="font-size: var(--small-fontsz); width: calc(var(--button-width) * 2.5);" onclick="goNextPage()"> > </button>
-          </center>
-        </td>
-        <td style="width: var(--def-fontsz);">
-        </td>
-      </tr>
-    </table>
+  <div style="width: 90%">
+  <table style="font-size: calc(var(--def-fontsz) * 1);">
+    <tr><td>
+      <div style="height: 0.5em;"></div>
+      <center>
+        <div style="font-size: calc(var(--def-fontsz) * 1.2);">| Страница редактирования |<br>***</div>
+      </center>
+      <div style="font-size: 0.5em;">
+      <br>
+    </td></tr>
+
+    <tr><td>
+      <center>Чтобы менять историю, нужно быть её редактором и залогиниться.</center>
+      <hr>
+      <br>
+      <center><big> Название </big></center><br>
+      <div class="red">Нажмите, чтобы поменять название:<br></div><input type="checkbox" class= "checkbox input_text" id="change_title">
+      <div class="red"> Название сейчас:</div>
+      <div id="now_title">Какое-то название</div>
+      <div class="red"> Введите новое название:</div>
+      <input class="input_text" type="text" id="new_title">
+      <br><br>
+      <hr>
+      <br>
+      <center><big> Автор </big></center><br>
+      <div class="red">Нажмите, чтобы поменять автора:<br></div><input type="checkbox" class= "checkbox input_text" id="change_author">
+      <div class="red"> Автор сейчас:</div>
+      <div id="now_author">Какой-то автор</div>
+      <div class="red"> Введите новое имя автора:</div>
+      <input class="input_text" type="text" id="new_author">
+      <br><br>
+      <hr>
+      <br>
+      <center><big> Описание </big></center><br>
+      <div class="red">Нажмите, чтобы поменять описание:<br></div><input type="checkbox" class= "checkbox input_text" id="change_description">
+      <div class="red"> Описание сейчас:</div>
+      <div id="now_description">Какое-то описание</div>
+      <div class="red"> Введите новое описание:</div>
+      <textarea class="input_text" id="new_description" style="font-size: calc(var(--def-fontsz) * 0.7); min-height: calc(5 * var(--def-fontsz));overflow-y: scroll;" cols="50"></textarea>
+      <br><br>
+      <hr>
+      <br>
+      <center><big> Текст </big></center><br>
+      <div class="red">Нажмите, чтобы поменять текст:<br></div><input type="checkbox" class= "checkbox input_text" id="change_text">
+      <br><br>
+      <a href="https://obvious-broker-611.notion.site/1502aa7e698747b181cff3f3ca5ef9a8" target="_blank">Описание текстого формата</a><br>
+      <a href="text_to_json.html">Предпросмотр</a><br></small>
+      <!-- <div class="red"> Текст сейчас:</div>
+      <textarea class="input_text" id="now_text" style="font-size: calc(var(--def-fontsz) * 0.7); min-height: calc(15 * var(--def-fontsz));overflow-y: scroll;" cols="50"></textarea></div>
+      <br><br> -->
+      <div class="red"> Введите отредактированный текст:</div>
+      <textarea class="input_text" id="story_text" style="font-size: calc(var(--def-fontsz) * 0.7); min-height: calc(15 * var(--def-fontsz));overflow-y: scroll;" cols="50"></textarea></div>
+      <br><br>
+      Нажмите, чтобы проверить, что текст правильно разбивается на сообщения:
+      <button style="width: 80%; font-size: calc(var(--def-fontsz) * 1.2);" id="show_story_button" onclick="show_text()">Проверить текст</button>
+      <br><br><br>
+      <div id="text_collapse" style="width: 80%; font-size: calc(0.7 * var(--def-fontsz)); text-align: left; height: 30em; background: white; color: black; overflow: scroll;">no text</div>
+      <br><br><br>
+      <br><br>
+      <hr>
+      <br>
+      Нажмите, чтобы загрузить изменения на сайт:<br><br>
+      <button style="width: 80%; font-size: calc(var(--def-fontsz) * 1.2); height: calc(var(--def-fontsz) * 2.5);" id="edit_story_button" onclick="edit_story()">Сохранить изменения</button>
+      <br><br>
+    </td></tr>
+  </table>
+  </div>
   </center>
+  <br>
+</div>
+</center>
 </div>
 
-<div>
-<br><br><br><br>
-</div>
+<br><br>
+
+<br>
+<br><br><br>
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->
+<script src="src/letters_login.js"></script>
+<script src="./src/collapsible.js" charset="utf-8"></script>
 
 <script>
   window.color_theme = 1;
   window.view_theme = 1;
-</script>
-<script src="src/letters_login.js"></script>
-<script src="src/letters_reader.js">
+  window.msg_font_n = 2;
 </script>
 
 <script src="src/letters_themes.js">
 </script>
-
 <script src="src/letters_views.js">
 </script>
+<script src="src/letters_edit.js"></script>
 <script src="src/vk_auth.js"></script>
-<!-- </span>
-</div> -->
 
 </body>
 

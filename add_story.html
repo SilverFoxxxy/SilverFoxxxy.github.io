@@ -8,6 +8,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+  <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="letters_reader.css"/>
     <title> Letters reader </title>
@@ -213,6 +214,12 @@
 <center>
     <div style='width: 100%; font-size: calc(0.85 * var(--def-fontsz));'>
         <div style="text-align: left;">
+            Пишите группу вк - <a href="https://vk.com/letters_reader" target="_blank">Letters reader</a><br>
+            <small style="color: var(--from-color);">Там есть редакторы, которые добавят вашу историю или помогут вам.</small>
+            <br>
+            Или можете добавить её сами на этой странице:
+            <br>
+            <hr>
             <center><h2>Название</h2></center>
             Полное название:<br>
             <input class="input_text" type="text" id="story_fullnm"><br>
@@ -256,18 +263,21 @@
             <div>
             <textarea class="input_text" id="story_text" style="font-size: calc(var(--def-fontsz) * 0.7); min-height: calc(25 * var(--def-fontsz));overflow-y: scroll;" cols="50"></textarea></div>
             <!-- <input type="text" id="story_text"> -->
+            <br><br>
+            Нажмите, чтобы проверить, что текст правильно разбивается на сообщения:
+            <button style="width: 80%; font-size: calc(var(--def-fontsz) * 1.2);" id="show_story_button" onclick="show_text()">Проверить текст</button>
+            <br><br><br>
+            <div id="text_collapse" style="width: 80%; text-align: left; height: 25rem; background: white; color: black; overflow: scroll;">no text</div>
+            <br><br><br>
+            Нажмите, чтобы добавить историю на сайт:
+            <button style="width: 80%; font-size: calc(var(--def-fontsz) * 1.2); height: calc(var(--def-fontsz) * 2.5);" id="add_story_button" onclick="add_story()">Загрузить</button>
+            <br><br>
         </div>
     </div>
     <br>
     <br>
 </center>
-<br><br>
-<button style="width: 100%; font-size: calc(var(--def-fontsz) * 1.2);" id="show_story_button" onclick="show_text()">Проверить, что текст правильно разбивается на сообщения</button>
-<br><br><br>
-<div id="text_collapse" style="width: 80%; text-align: left; height: 40rem; background: white; color: black; overflow: scroll;">no text</div>
-<br><br><br>
-<button style="width: 100%; font-size: calc(var(--def-fontsz) * 1.2); height: calc(var(--def-fontsz) * 2.5);" id="add_story_button" onclick="add_story()">Добавить историю на сайт</button>
-<br><br>
+
 Если текст не появляется на сайте без явных причин - обратитесь в группу вк (ссылка есть на главной странице сайта). Например, текст может быть слишком большим.
 <br><br><br>
 <div id="add_story_status"></div>
@@ -294,7 +304,7 @@
 </script>
 <script src="src/letters_add_story.js">
 </script>
-
+<script src="src/vk_auth.js"></script>
 
 </body>
 </html>

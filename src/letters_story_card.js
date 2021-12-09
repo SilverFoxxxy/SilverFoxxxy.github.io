@@ -25,6 +25,7 @@ async function story_list_to_cards(story_list) {
         } else {
             rate_str += rating;
         }
+        
         text += rate_str + '</center></td>';
 
         text += '<td style="width: 40%; font-size: calc(var(--def-fontsz) * 0.8);"><center>';

@@ -41,7 +41,7 @@ async function digestMessage(message) {
   return hashHex;
 }
 
-function calc_hash(str) {
+async function calc_hash(str) {
     /*jshint bitwise:false */
     let n = str.length;
     let salt = "my_magic_salt_4_great_soup";
@@ -62,7 +62,7 @@ function calc_hash(str) {
     // }
     // return hval >>> 0;
     // return hval.toString(16);
-    return digestMessage(str + salt);
+    return await digestMessage(str + salt);
 }
 
 // function calc_hash(pswd) {
@@ -82,6 +82,16 @@ async function request_add_story(token, info, text) {
         token: token,
         info: info,
         text: text
+    }
+    let req_res = send_req(req_json);
+    return req_res;
+}
+
+async function request_edit_story(token, info) {
+    let req_json = {
+        type: 'edit_story',
+        token: token,
+        info: info
     }
     let req_res = send_req(req_json);
     return req_res;

@@ -9,6 +9,8 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+  <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+
   <!-- <div style="font-size: calc(var(--def-fontsz) * 0.5)"> Letters reader </div> -->
 
 <title id="page_title">Letters reader </title>
@@ -216,26 +218,113 @@
 <div class="wideline">
 
 <center>
-<div id="favs_block" class="block scrollable">
+<div class="block scrollable">
 
-  <table>
+  <!-- <div class="tab">
+    sdfglhfdfghjkjhgkfjdghj.kl'j;lhkgfxbcnvmb,jcnxbcnvmbn,mvncbxnjjhgfhghjlxcnvbjhgfjdhsfcgv jhvhcgcmnbvhjcj
+  </div> -->
 
-    <tr><td>
-      <div style="font-size: 0.5em">
-        <br><br><br>
-      </div>
-    </td></tr>
+  <div class="tab" id="tabs_top">
+    <button class="tablinks" id="favs_tab_button" onclick="openTab(event, 'favs_tab')">Избранное</button>
+    <button class="tablinks" id="edit_tab_button" onclick="openTab(event, 'edit_tab')">Мои произведения</button>
+  </div>
 
-    <tr><td>
-      <div class="link_block link_msg_v1">
-        <div class="link_msg link_msg_v2">
-          <div style="text-decoration: none;">
-            <big>Здесь будут ваши избранные истории<br></big><hr>
-            <div style="font-style: italic;">Чтобы сохранять любимые произведения нужно авторизоваться</div>
+  
+  <div id="favs_tab" class="tabcontent">
+    <div id="favs_pretab" style="display:block;">
+      <table>
+        <tr><td>
+          <div style="font-size: 0.5em">
+            <br><br><br>
           </div>
-        </div>
-      </div>
-    </td></tr>
+        </td></tr>
+
+        <tr><td>
+          <div class="link_block link_msg_v1">
+            <div class="link_msg link_msg_v2">
+              <div style="text-decoration: none;">
+                <big>Здесь будут ваши избранные истории<br></big><hr>
+                <div style="font-style: italic;">Чтобы сохранять любимые произведения нужно авторизоваться</div>
+              </div>
+            </div>
+          </div>
+        </td></tr>
+
+        <tr><td>
+          <div style="font-size: 0.5em">
+            <br><br><br>
+          </div>
+        </td></tr>
+        <tr><td>
+          <br><br><br>
+        </td></tr>
+      </table>
+    </div>
+    <div id="favs_table">
+    </div>
+  </div>
+
+  <div id="edit_tab" class="tabcontent">
+    <div id="edit_pretab">
+      <table>
+
+        <tr><td>
+          <div style="font-size: 0.5em">
+            <br><br><br>
+          </div>
+        </td></tr>
+
+        <tr><td>
+          
+          <div class="link_block link_msg_v1">
+            <div class="link_msg link_msg_v2">
+              <hr>
+              <div style="text-decoration: none;">
+                Добавить свою историю / произведение на сайт<br>
+                можно на этой страничке:
+                <a href="add_story.html" target="_blank" style="font-size: var(--small-fontsz);">add_story</a>
+              </div>
+              <hr>
+            </div>
+          </div>
+
+        </td></tr>
+      </table>
+    </div>
+
+    <div id="edit_table">
+      <!-- <table>
+        <tr><td>
+          <div style="font-size: 0.5em">
+            <br><br><br>
+          </div>
+        </td></tr>
+
+        <tr><td>
+          <div class="link_block link_msg_v1">
+            <div class="link_msg link_msg_v2">
+              <div style="text-decoration: none;">
+                <big>Здесь будут добавленные вами истории</big>
+              </div>
+            </div>
+          </div>
+        </td></tr>
+
+        <tr><td>
+          <div style="font-size: 0.5em">
+            <br><br><br>
+          </div>
+        </td></tr>
+        <tr><td>
+          <br><br><br>
+        </td></tr>
+      </table> -->
+    </div>
+  </div>
+
+</div>
+</center>
+</div>
 
    <!--  <tr><td>
       <div class="link_block">
@@ -283,188 +372,18 @@
         </div>
       </div>
     </td></tr> -->
-
-    <tr><td>
-      <div style="font-size: 0.5em">
-        <br><br><br>
-      </div>
-    </td></tr>
-
-<!--     <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=nezhnost_barbyus" style="text-decoration: none;">
-            <big>Анри Барбюс. Нежность</big>
-          </a>
-        </div>
-      </div>
-    </td></tr>
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=fabiana_gromkiy_shopot" style="text-decoration: none;">
-            <big>Громкий шёпот, тихий крик</big>
-          </a>
-          <br>
-          <hr>
-          <small><div style="font-style: italic;">Автор: Fabiana; <a href="https://ficbook.net/readfic/591958/1934567#part_content" target="_blank">Ссылка на оригинал.</a></div></small>
-        </div>
-      </div>
-    </td></tr>
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=nablyudatel_rasskaz_v_pismah" style="text-decoration: none;">
-            <big>Короткий рассказ в письмах</big>
-          </a>
-          <br>
-          <hr>
-          <small><div style="font-style: italic;">Наблюдатель</div></small>
-        </div>
-      </div>
-    </td></tr>
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=mayakovsky_lilya" style="text-decoration: none;">
-            <big>Переписка Маяковского с Лилей Брик.</big>
-          </a>
-          <br>
-          <hr>
-          <small><div style="font-style: italic;">источник: silverage.ru/mabrik/</div></small>
-        </div>
-      </div>
-    </td></tr>
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=lesbiiskiy_chat" style="text-decoration: none;">
-            <big>Чат на американском сервере</big>
-          </a>
-          <br>
-          <hr>
-          <small><div style="font-style: italic;">Старый анекдот про лесбийский чат на далеком американском сервере..</div></small>
-        </div>
-      </div>
-    </td></tr>
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=twain_adam" style="text-decoration: none;">
-            <big>Дневник Адама. Марк Твен.</big>
-          </a>
-      </div>
-      </div>
-    </td></tr>  
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=twain_adam_eve" style="text-decoration: none;">
-            <big>Дневники Адама и Евы. Марк Твен.</big>
-          </a>
-          <hr>
-          <small><div style="font-style: italic;">Записи двух дневников собраны в "переписку". <br>(в оригинале дневник Евы и дневник Адама это два самостоятельных произведения)</div></small>
-      </div>
-      </div>
-    </td></tr>  
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-
-    <tr><td>
-      <div class="link_block">
-        <div class="link_msg">
-          <a href="https://silverfoxxxy.github.io/letters_reader?name=skazhesh_mne" style="text-decoration: none;">
-            <big>Скажешь мне..?</big>
-          </a>
-          <br>
-          <hr>
-          <small><div style="font-style: italic;">Стихотворение, Гуфельд Зэев, 1997</div></small>
-        </div>
-      </div>
-    </td></tr> -->
-
-    <tr><td>
-      <br><br><br>
-    </td></tr>
-  </table>
-
-</div>
-</center>
-</div>
-
 <br><br>
 
 <br>
-<!-- <center>
-  <div style="font-size: var(--small-fontsz); text-align: left; width: fit-content; width: -moz-fit-content;">
-Информация про развитие сайта:
-    <a href="https://obvious-broker-611.notion.site/Letters-Reader-b3a9b8c2b63f49398f3995ff0016622a" target="_blank" style="font-size: var(--small-fontsz);">site_info</a>
-    <br>---
-    <br>
-    Информация для авторов и редакторов:
-    <a href="https://obvious-broker-611.notion.site/457dab4386014237a0c30078b9fb29d3" target="_blank" style="font-size: var(--small-fontsz);">_docs_</a>
-    <br>
-    ---
-    <br>
-    Редактор ваших историй<br>(страничка с удобным текстовым редактором)<br>
-    <a href="https://silverfoxxxy.github.io/text_to_json" target="_blank" style="font-size: var(--small-fontsz);">Редактор текстов</a>
-    <br>---
-    <br>
-    <div style="font-size: var(--small-fontsz);">
-      Вопросы и предложения писать сюда:
-      ivan-belkov2@ya.ru
-    </div>
-    ---
-    <br>
-    Похожее:
-    <div>
-      <a href="https://bash.im/byrating" target="_blank">Bash.im</a> - цитатник рунета
-      <br>
-      <a href="http://www.bash.org/" target="_blank">bash.org</a>
-    </div>
-  </div>
-</center> -->
 <br><br><br>
 
 <!-- <script type="text/javascript" src="letters_example.json"></script> -->
 
-<!-- <script>
-  var button = document.getElementById("main_tab_button");
+<script>
+  var button = document.getElementById("favs_tab_button");
   button.click();
   // openTab(event, 'main_tab');
-</script> -->
+</script>
 
 <script>
   window.color_theme = 1;
@@ -478,6 +397,19 @@
 <script src="src/letters_story_card.js">
 </script>
 <script src="src/letters_bookmarks.js">
+</script>
+<script src="src/vk_auth.js"></script>
+<script src="src/show_tab.js">
+</script>
+
+<script>
+  showFavs();
+  showEdits();
+
+  async function reload_page_usr_info() {
+      showFavs();
+      showEdits();
+  }
 </script>
 
 </body>

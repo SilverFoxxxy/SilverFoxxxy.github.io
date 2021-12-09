@@ -48,7 +48,7 @@ async function showFavs() {
     document.getElementById('favs_pretab').style.display = "none";
     let story_list = res['story_list'];
     if (story_list.length > 0) {
-      document.getElementById('favs_tab').innerHTML = await story_list_to_cards(story_list);
+      document.getElementById('favs_table').innerHTML = await story_list_to_cards(story_list);
     }
 }
 

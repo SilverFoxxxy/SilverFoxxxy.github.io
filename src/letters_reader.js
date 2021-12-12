@@ -73,6 +73,8 @@ var shownm = false;
 
 var data;
 
+var story_fullnm;
+
 var person_side = {};
 
 function get_person_sides() {
@@ -201,6 +203,11 @@ async function reload_page() {
 				/// } else {
 					//// data = await (await fetch("https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/src/textes/" + name + ".json")).json();
 					let now_text_info = await get_text(name);
+					if (now_text_info.hasOwnProperty("story_fullnm")) {
+						document.getElementById("title_link").href = "letters_page.html?name=" + name; 
+						document.getElementById("title").innerHTML = now_text_info["story_fullnm"];
+						story_fullnm = now_text_info["story_fullnm"];
+					}
 					if (now_text_info.hasOwnProperty("story")) {
 						data = JSON.parse(now_text_info["story"]);
 					} else {
@@ -303,7 +310,8 @@ async function reload_page() {
 	updParams();
 
  	title = data["header"]["title"];
-	document.getElementById("title").innerHTML = title;
+
+	// document.getElementById("title").innerHTML = title;
 	// document.getElementById("page_n").innerHTML = (page_n + 1);
 	document.getElementById("max_page_n").innerHTML = data["parts"][nowpart]["pages"].length;
 	document.getElementById("pages").innerHTML = createPageSelect(page_n, max_page_n);

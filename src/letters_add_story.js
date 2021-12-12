@@ -45,6 +45,10 @@ async function add_story() {
         alert_msg += 'Название для адресной строки слишком длинное\n';
         alert_flag = true;
     }
+    if (story_nm == "test" || story_nm == "edit") {
+        alert_msg += 'Используйте другое название для адресной строки\n';
+        alert_flag = true;
+    }
     if (!check_symbols_(story_nm)) {
         alert_msg += 'Название для адресной строки содержит некорректные символы\n';
         alert_flag = true;

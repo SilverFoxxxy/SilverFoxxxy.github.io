@@ -91,7 +91,7 @@ async function doLogin(user_json, act_type) {
         setCookie('user_nm', "", 15);
 
         if (act_type == "by_token") {
-            document.getElementById('username').style.display = 'none';
+            // document.getElementById('username').style.display = 'none';
             document.getElementById('login_errors').innerHTML = '';
             // tryLogout();
         }

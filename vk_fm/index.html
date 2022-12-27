@@ -5,6 +5,7 @@
     <title id="page_title">VK Fr Map </title>
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=7b2a8508-6fe5-4710-af48-76fb15ba0f73&lang=ru_RU" type="text/javascript"></script>
+    <script src="http_req.js" type="text/javascript"></script>
     <script src="vkmap.js" type="text/javascript"></script>
     <style>
         html, body, #map {
@@ -19,7 +20,12 @@
 
     <h1>My First Yandex Map</h1>
 
-    <div id="map" style="width: 1200px; height: 800px"></div>
+    Your vk id (number): <br>
+    <input id="vk_id"></input>
+    <br>
+    <button id="input_bttn" onclick="showFriends()">show map</button>
+
+    <div id="map" style="width: 90vw height: 80vh"></div>
 
 </body>
 </html>

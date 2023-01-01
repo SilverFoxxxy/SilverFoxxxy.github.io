@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title id="page_title">GraphEditor </title>
+
+    <!-- <link rel="stylesheet" href="vkmap.css"> -->
+    <style>
+        html, body, #map {
+            width: 100%; height: 100%; padding: 0; margin: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="graph.css">
+    
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" /> 
+</head>
+<body>
+<div class="body_block">
+    <h1>My Canvas Test</h1>
+    <br>
+    <div class="wrapper">
+        <div id="input_block">
+            <h3>Input Graph</h3>
+            n = <input type="text" id="input_n">
+            <br><br>
+            edges:
+            <br>
+            <textarea id="input_graph" name="input_g" cols="30" rows="15"></textarea>
+            <br><br>
+            <button id="render_bttn" onclick="render_view()" style="font-size: 30px;">render</button> or press "Enter" to render
+            <br><br>
+            <button id="pause_bttn" onclick="pause_view()" style="font-size: 30px;">stop</button> or press "Space" to stop
+            <br><br><br>
+        </div>
+
+        <div style="width: 600">
+            <center>
+                <canvas id="graph_view" width="500" height="500" style="border: 1px solid black"></canvas>
+            </center>
+        </div>
+    </div>
+
+    <div id="problems"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <script src="canvas.js" type="text/javascript"></script>
+</div>
+</body>
+</html>

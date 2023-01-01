@@ -1,0 +1,40 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: fit-content;
+  width: -moz-fit-content;
+}
+
+#input_block {
+  width: 25rem;
+}
+
+body {
+  background: black;
+  color: white;
+}
+
+button {
+  background: black;
+  color: white;
+}
+
+div {
+    /*border: 1px solid red;*/
+}
+
+input {
+  background: black;
+  color: white;
+}
+
+textarea {
+  background: black;
+  color: white;
+}
+
+.body_block {
+  margin: 4%;
+}
+
+

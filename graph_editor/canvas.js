@@ -58,7 +58,7 @@ function main() {
         // update();
         //if (!on_pause) {
         normalizeGraph();
-        for (var j = 0; j < 10; j++) {
+        for (var j = 0; j < 20; j++) {
             shakeGraph();
         }
         render();
@@ -139,22 +139,23 @@ function render() {
 
 function renderVertex(i) {
     var v = vertex[i];
-    nx = v.pos[0];
-    ny = v.pos[1];
-    var rad = 20;
+    var nx = v.pos[0];
+    var ny = v.pos[1];
+    var nowk = Math.floor(Math.sqrt(vertex.length));
+    var rad = Math.floor(45 / nowk);
     ctx.beginPath();
     ctx.moveTo(nx + rad, ny);
-    ctx.lineWidth = 5;
+    ctx.lineWidth = Math.floor(12 / nowk);
     ctx.strokeStyle = "white";
     ctx.fillStyle = "black";
     ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
     ctx.stroke();
     ctx.fill();
 
-    ctx.font = "30px Arial";
+    ctx.font = Math.floor(55 / nowk) + "px Arial";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
-    ctx.fillText(v.text, nx, ny + 10);
+    ctx.fillText(v.text, nx, ny + Math.floor(rad * 2 / 4));
     /*ctx.moveTo(110, 75);
     ctx.arc(75, 75, 35, 0, Math.PI, false); // Mouth (clockwise)
     ctx.moveTo(65, 65);
@@ -197,15 +198,15 @@ function renderEdge(u, v) {
 
 
 function graphRate() {
-    var base = 100;
-    var base_sq = base * base;
     var rate = 0;
     var n = vertex.length;
+    var base = 300 / Math.sqrt(n);
+    var base_sq = base * base;
     for (var i = 0; i < vertex.length; i++) {
         for (var j = i + 1; j < vertex.length; j++) {
             var nowds = distanceSquare(vertex[i].pos, vertex[j].pos) / base_sq;
             rate += Math.sqrt(nowds);
-            rate += 2 * n / (nowds * nowds * nowds + 0.00000001);
+            rate += 1 / (nowds + 0.00000001);
         }
     }
     // console.log(graph);
@@ -270,7 +271,7 @@ function shakeGraph() {
             }
             failShakeCnt++;
         }
-        if (failShakeCnt >= 5) {
+        if (failShakeCnt >= 20) {
             nowDelta *= 0.95;
             nowDelta = Math.floor(nowDelta);
             failShakeCnt = 0;

@@ -332,7 +332,7 @@ function graphRate() {
                 continue;
             }
             var nowdist = distancePointToLineSquared(vertex[i].pos[0], vertex[i].pos[1], vertex[u].pos[0], vertex[u].pos[1], vertex[v].pos[0], vertex[v].pos[1]);
-            rate += base_sq / (nowdist * nowdist + 0.00000000001);
+            rate += base_sq / (nowdist + 0.00000000001);
             // console.log(nowdist);
         }
     }

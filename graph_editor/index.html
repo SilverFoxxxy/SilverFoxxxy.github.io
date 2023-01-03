@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="body_block">
-    <h1>My Canvas Test</h1>
+    <h1>Graph Editor</h1>
     <br>
     <div class="wrapper">
         <div id="input_block">
@@ -25,20 +25,49 @@
             <br><br>
             edges:
             <br>
-            <textarea id="input_graph" name="input_g" cols="30" rows="15"></textarea>
+            <textarea id="input_graph" name="input_g" cols="10" rows="7"></textarea>
             <br><br>
-            <button id="render_bttn" onclick="render_view()" style="font-size: 30px;">render</button> or press "Enter" to render
+            <button id="render_bttn" onclick="render_view()" style="font-size: 30px;">render</button>
+            <br>or press "Enter"
             <br><br>
-            <button id="pause_bttn" onclick="pause_view()" style="font-size: 30px;">stop</button> or press "Space" to stop
+            <button id="pause_bttn" onclick="pause_view()" style="font-size: 30px;">stop</button>
+            <br>or press "Space"
+            <br><br><br><br>
+            try this:
+
+            <h3>Random Graph</h3>
+            n = <input type="text" id="input_rand_n">
+            <br><br>
+            p = <input type="text" id="input_rand_p">
+            <br>
+            <br><br>
+            <button id="render_random_bttn" onclick="render_random_view()" style="font-size: 30px;">render</button>
+            <br><br><br>
+            <button id="print_random_bttn" onclick="print_random_view()" style="font-size: 30px;">print this graph</button>
+            <br><br>
+            <pre id="random_graph" style="width: 10rem; height: 20rem;"></pre>
+            <br><br><br>
+            <br><br><br>
+            <br><br><br>
             <br><br><br>
         </div>
 
         <div style="width: 600">
+            
             <center>
                 <canvas id="graph_view" width="500" height="500" style="border: 1px solid black"></canvas>
             </center>
+            <br>
+            <div id="progress_block" style="width:100%">
+                    <!-- <div id="percents" style="text-align: center; font-size: 3rem;"></div> -->
+                    <div id="progress_bar" style="width: 100%; height: 0.2rem;"><div id="white_bar" style="width: 0%; height: 100%;"></div></div>
+            </div>
+            <br><br><br>
+            <br><br><br>
+            <br><br><br>
         </div>
     </div>
+
 
     <div id="problems"></div>
     <br>

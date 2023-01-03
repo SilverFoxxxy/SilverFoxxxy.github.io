@@ -9,6 +9,14 @@
   width: 25rem;
 }
 
+#progress_bar {
+  border: 1px solid gray;
+}
+
+#white_bar {
+   background: gray;
+}
+
 body {
   background: black;
   color: white;

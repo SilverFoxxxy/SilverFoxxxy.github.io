@@ -1,48 +1,262 @@
+:root {
+  --main-font-size: 20px;
+  --button-font-size: 25px;
+  --input-font-size: 20px;
+
+  --border-width: 2px;
+
+  --tab-width: 300px;
+  /*--magic-red: #88171E;#035241 #02463C #470352;*/
+
+  /*
+  #370101
+
+
+
+  */
+  --magic-color: #555;
+  /*--magic-red: #370101;*/ /*#01372F; #013726; #220137; #2E3701; #01372A*/
+  --magic-red: #600A0A; /*#555;/* #4A0160;*//* #3F0152;*/
+  --magic-violet: #480341;/*#5D0279*/
+  --magic-gray: #555;
+  --main-color: #CCC;
+}
+
+:root.gray {
+  --magic-color: #555;
+}
+
+:root.red {
+  --magic-color: #600A0A;
+}
+
+:root.violet {
+  --magic-color: #480341;
+}
+
 .wrapper {
+  /**/
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto auto auto;
   width: fit-content;
   width: -moz-fit-content;
 }
 
 #input_block {
-  width: 25rem;
+  width: var(--tab-width);
+  /*width: 200px;*/
 }
 
 #progress_bar {
-  border: 1px solid gray;
+  background: black;
+  border: var(--border-width) solid var(--magic-color);
 }
 
 #white_bar {
-   background: gray;
+   background: var(--magic-color);
 }
 
 body {
+  font-size: var(--main-font-size);
   background: black;
   color: white;
 }
 
 button {
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+  font-size: var(--button-font-size);
+  border: var(--border-width) solid var(--magic-color);
   background: black;
   color: white;
+  text-align: center;
+  width:100%;
+  padding: 5px 0px;
+  border-radius: 5px;
 }
 
 div {
+  border-radius: 5px;
     /*border: 1px solid red;*/
 }
 
 input {
+  font-size: var(--input-font-size);
   background: black;
   color: white;
+  border: var(--border-width) solid var(--magic-color);
+  border-radius: 5px;
 }
 
 textarea {
+  font-size: var(--input-font-size);
+  width: 90%;
   background: black;
   color: white;
+  border: var(--border-width) solid var(--magic-color);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+pre {
+  font-size: var(--input-font-size);
+  width: 90%;
+  background: black;
+  color: white;
+  border: var(--border-width) solid var(--magic-color);
+  height: 10rem;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .body_block {
   margin: 4%;
 }
+
+
+
+
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  /*overflow-x:scroll;*/
+  /*border: 1px solid #ccc;*/
+  background-color: black;
+  color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  font-weight: lighter;
+  /*display: inline-block;*/
+  filter: brightness(60%);
+  font-size: 18px;
+  width: fit-content;
+  width: -moz-fit-content;
+  width: calc(var(--tab-width) / 3);
+  background-color: inherit;
+  background-color: #111;
+  /*float: left;*/
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 16px 0px;
+  /*transition: 0.3s;*/
+  border: var(--border-width) solid var(--magic-color);
+  border-width: var(--border-width) var(--border-width) var(--border-width) var(--border-width);
+  border-radius: 5px 5px 0px 0px;
+}
+
+.tab_button_wrapper {
+  overflow-x: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: fit-content;
+  width: -moz-fit-content;
+  border-radius: 5px 5px 0px 0px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  font-weight: bold;
+  filter: brightness(100%);
+  background-color: #444;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  font-weight: bold;
+  filter: brightness(100%);
+  background-color: #000;
+  border-width: var(--border-width) var(--border-width) 0px var(--border-width);
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: var(--border-width) solid var(--magic-color);
+  border-width: 0px var(--border-width) var(--border-width) var(--border-width);
+  border-top: none;
+  border-radius: 0px 0px 5px 5px;
+}
+
+
+.theme_button_wrapper {
+  /**/
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  width: fit-content;
+  width: -moz-fit-content;
+}
+
+
+/*.theme_button:before{
+  display: inline-block;
+  content: "\00d7";
+}*/
+
+/*.theme_button:hover {
+  filter: brightness(100%);
+}*/
+.theme_button_wrapper button {
+  cursor: pointer;
+  /*color: gray;*/
+}
+
+.theme_button {
+  position: relative;
+  height: 30px;
+  width: 30px;
+  margin: 10px;
+  font-size: 15px;
+  border-radius: 15px;
+  background: #000;
+  color: transparent;
+  /*filter: brightness(60%);*/
+  /*border:none;*/
+}
+
+#gray_theme_button {
+  /*background: var(--magic-gray);*/
+  /*background: #222;*/
+  border: 2px solid var(--magic-gray);
+}
+
+#red_theme_button {
+  /*background: var(--magic-red);*/
+  /*background: #222;*/
+  border: 2px solid var(--magic-red);
+}
+
+#violet_theme_button {
+  /*background: var(--magic-violet);*/
+  /*background: #222;*/
+  border: 2px solid var(--magic-violet);
+}
+
+.theme_button.active {
+  /*background: var(--magic-color);*/
+  color: var(--magic-color);
+  /*filter: brightness(100%);*/
+  /*border: 2px solid gray;*/
+}
+
+.button_cross {
+  position: absolute;
+  top: -4px; left:4px;
+  /*border: 2px solid var(--magic-red);*/
+  font-size: 30px;
+  width: auto;
+  height:auto;
+  text-align: center;
+  /*margin: auto;*/
+}
+
+
+
+
 
 

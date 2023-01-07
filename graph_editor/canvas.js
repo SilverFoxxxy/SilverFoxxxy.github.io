@@ -6,10 +6,12 @@ var cwidth = canvas.width;
 var cheight = canvas.height;
 const maxDelta = 300;
 
-
+window.lastScore = -1;
 window.shake_p = 1;
 window.nowDelta = maxDelta;
 window.failShakeCnt = 0;
+var base = 300;
+var base_sq = base * base;
 
 var zero_time = Date.now();
 const dt = 20;
@@ -17,22 +19,18 @@ var shake_time = 1;
 var rounds = 0;
 var lastTime;
 var on_pause = false;
+var shake_finished = false;
 
 // Graph View State:
 // N = 0;
+n = 3;
 graph = [[1, 2],[0],[0]];
-vertex = [{
-            "text": "1",
-            "pos": [10, 10]
-        },
-        {
-            "text": "2",
-            "pos": [100, 300]
-        },
-        {
-            "text": "3",
-            "pos": [250, 110]
-        }];
+vertex = [[10, 10], [100, 300], [250, 110]];
+vertex_text = [];
+short_path = [];
+
+is_vertex_changed = [];
+vertex_orig = [];
 // Normalized vertexes:
 vertex_n = [];
 
@@ -57,8 +55,11 @@ var requestAnimFrame = (function(){
 
 function getPercent() {
     var maxd = maxDelta;
-    var nowd = nowDelta + 1;
-    return Math.min(100, Math.floor(100 * (1 - (Math.log(nowd + 1) - 1) / Math.log(maxd + 2)) + 1));
+    var nowd = nowDelta + 0.5;
+    //console.log("percents");
+    //console.log(Math.log(nowd + 1), Math.log(maxd + 2));
+    //console.log((1 - (Math.log(nowd + 1)) / Math.log(maxd + 2)));
+    return Math.min(100, Math.floor(100 * (1 - (Math.log(nowd + 0.1)) / Math.log(maxd + 2))) + 1);
 }
 
 
@@ -66,24 +67,39 @@ function getPercent() {
 
 
 function main_cycle() {
-    var now = Date.now();
-    var nowr = Math.floor((now - zero_time) / dt);
+    var step_time = Date.now();
+    var nowr = Math.floor((step_time - zero_time) / dt);
 
-    for (var i = rounds; i < nowr; i++) {
+    //for (var i = rounds; i < nowr; i++) {
+        // if (shake_finished) {
+        //     // for (var i = rounds; i < nowr; i++) {
+        //     for (var j = 0; j < 50; j++) {
+        //         // countPhysics();
+        //     }
+        //     normalizeGraph();
+        //     // getPercent();
+        //     render();
+        // }
         // update();
         //if (!on_pause) {
         // .log((1000 / 60) / (shake_time + 0.001));
         // for (var j = 0; j < (1000 / 60) / (shake_time + 0.001); j++) {
-        for (var j = 0; j < 4 + (1000 / 60) / (shake_time + 0.001); j++) {
-            shakeGraph();
-        }
-        normalizeGraph();
-        getPercent();
-        render();
-        //}
+        if (!shake_finished) {
+            for (var j = 0; j < 1000; j++) {
+                shakeGraph();
+                var nowt = Date.now();
+                if (nowt - step_time > 1000 / 60) {
+                    break;
+                } 
+            }
+            normalizeGraph();
+            getPercent();
+            render();
+            //}
 
-        rounds = nowr;
-    }
+            rounds = nowr;
+        }
+    // }
     
     rounds = nowr;
 
@@ -96,15 +112,39 @@ function main_cycle() {
 
 
 
+function start_cycle() {
+    zero_time = Date.now();
+    main_cycle();
+}
+
+
+
+
+
 function main() {
+    shake_finished = false;
+    window.n = vertex.length;
+    var m = 0;
+    for (var i = 0; i < vertex.length; i++) {
+        m += graph[i].length;
+    }
+    console.log(m);
+    if (m > 250) {
+        alert("Your graph is TOO BIG to show\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
+        init();
+    }
+    calc_all_dist();
     window.nowDelta = maxDelta;
     window.failShakeCnt = 0;
-    zero_time = Date.now();
-    shakeGraph();shakeGraph();shakeGraph();shakeGraph();shakeGraph();shakeGraph();shakeGraph();shakeGraph();shakeGraph();shakeGraph();
-    shake_time = (Date.now() - zero_time) / 10;
+    lastScore = -1;
+    // for (var i = 0; i < 10; i++) {
+    //     shakeGraph();
+    // }
+    // shake_time = (Date.now() - zero_time) / 10;
     console.log("main");
-    on_pause = false;
-    main_cycle();
+    on_pause = true;
+    pause_view();
+    start_cycle();
 };
 
 
@@ -112,10 +152,14 @@ function main() {
 
 
 function init() {
-    document.getElementById("input_n").value = "6";
-    document.getElementById("input_graph").value = "0 2\n0 4\n0 5\n1 4\n1 5\n2 3\n2 4\n4 5";
-    inputGraph();
-    console.log("init");
+    // document.getElementById("input_n").value = "6";
+    // document.getElementById("input_graph").value = "0 2\n0 4\n0 5\n1 4\n1 5\n2 3\n2 4\n4 5";
+    // inputGraph();
+    var n0 = 10 + Math.floor(Math.random() * 6);
+    var p0 = (0.2 + Math.random() * 0.25) * 10 / n0;
+    renderRandomGraph(n0, p0);
+    main();
+    // console.log("init");
     // terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
 
     // document.getElementById('play-again').addEventListener('click', function() {
@@ -124,7 +168,7 @@ function init() {
 
     // reset();
     // lastTime = Date.now();
-    main();
+    // main();
 }
 
 
@@ -185,8 +229,8 @@ function renderProgress() {
 
 function renderVertex(i) {
     var v = vertex_n[i];
-    var nx = v.pos[0];
-    var ny = v.pos[1];
+    var nx = v[0];
+    var ny = v[1];
     var nowk = Math.floor(Math.sqrt(vertex.length));
     var rad = Math.floor(45 / nowk);
     ctx.beginPath();
@@ -201,7 +245,7 @@ function renderVertex(i) {
     ctx.font = Math.floor(55 / nowk) + "px Arial";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
-    ctx.fillText(v.text, nx, ny + Math.floor(rad * 2 / 4));
+    ctx.fillText(vertex_text[i], nx, ny + Math.floor(rad * 2 / 4));
     /*ctx.moveTo(110, 75);
     ctx.arc(75, 75, 35, 0, Math.PI, false); // Mouth (clockwise)
     ctx.moveTo(65, 65);
@@ -215,20 +259,30 @@ function renderVertex(i) {
 
 
 function renderRandomGraph(n, p) {
-    vertex = []
+    vertex = new Array(n);
+    vertex_text = new Array(n);
     graph = new Array(n);
     for (var i = 0; i < n; i++) {
         graph[i] = [];
-        vertex.push({"text": String(i), "pos": [10, 10]});
+        vertex[i] = [10, 10];
+        vertex_text[i] = String(i);
     }
+    m = 0;
     for (var i = 0; i < n; i++) {
         for (var j = i + 1; j < n; j++) {
             if (Math.random() <= p) {
+                m++;
                 graph[i].push(j);
                 graph[j].push(i);
             }
         }
     }
+    // if (p > 0 && m == 0 && n >= 5) {
+    //     v = Math.floor(Math.random() * (n - 1.1));
+    //     u = (v + 1 + Math.floor(Math.random() * (n - 1.1))) % n;
+    //     graph[u].push(v);
+    //     graph[v].push(u);
+    // }
 }
 
 
@@ -236,10 +290,10 @@ function renderRandomGraph(n, p) {
 
 
 function renderEdge(u, v) {
-    nx1 = vertex_n[u].pos[0];
-    ny1 = vertex_n[u].pos[1];
-    nx2 = vertex_n[v].pos[0];
-    ny2 = vertex_n[v].pos[1];
+    nx1 = vertex_n[u][0];
+    ny1 = vertex_n[u][1];
+    nx2 = vertex_n[v][0];
+    ny2 = vertex_n[v][1];
 
     ctx.beginPath();
 
@@ -265,6 +319,28 @@ function renderEdge(u, v) {
 
 
 
+function checkChanged(a) {
+    for (var i = 0; i < a.length; i++) {
+        if (is_vertex_changed[a[i]]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+function scoreDist(pos1, pos2) {
+    var nowds = distanceSquare(pos1, pos2) / base_sq;
+    return (Math.sqrt(Math.sqrt(nowds)) + 1 / (nowds + 0.00000001));
+}
+
+
+
+
+
 
 /*
 + sqrt(dist(i, j))
@@ -282,21 +358,99 @@ if e1 cross e2:
 
 
 */
-function graphRate() {
+
+// var cnt_dist = 0;
+// var cnt_cross = 0;
+// var cnt_line = 0;
+
+function graphRateBfs() {
+    // console.log("BBB");
+
     var Edges = [];
     var rate = 0;
+    var score = 0;
+    var oldrate = 0;
     var big = 1000000000;
-    var n = vertex.length;
+
+    n = vertex.length;
+
     if (n == 0) {
         return 1;
     }
     if (n == 1) {
         return 1;
     }
-    /*mindist = distanceSquare(vertex[0].pos, vertex[1].pos);
+
+    var base = 300;
+    var base_sq = base * base;
     for (var i = 0; i < vertex.length; i++) {
         for (var j = i + 1; j < vertex.length; j++) {
-            mindist = Math.min(mindist, distanceSquare(vertex[i].pos, vertex[j].pos));
+            var nowd = distanceSquare(vertex[i], vertex[j]) / base_sq;
+            var flag = false;
+            score += 1 / (nowd + 0.00000001);
+            // score += scoreDist(vertex[i], vertex[j]);
+            if (short_path[i][j] == -1) {
+                // var nowds0 = Math.sqrt((nowd) / base_sq);
+                score += Math.sqrt(nowd) / n;
+            } else {
+                // var nowds0 = Math.sqrt((nowd) / base_sq);
+                score += Math.pow(Math.sqrt(nowd) - short_path[i][j], 2);
+            }
+        }
+    }
+    // console.log(score);
+    for (var i = 0; i < graph.length; i++) {
+        for (var j = 0; j < graph[i].length; j++) {
+            var v = graph[i][j];
+            if (i < v) {
+                Edges.push([i, v]);
+            }
+        }
+    }
+    // console.log(score);
+    for (var i = 0; i < vertex.length; i++) {
+        for (var j = 0; j < Edges.length; j++) {
+            var u = Edges[j][0];
+            var v = Edges[j][1];
+            if (u == i || v == i) {
+                continue;
+            }
+            var nowds0 = distancePointToLineSquared(vertex[i][0], vertex[i][1], vertex[u][0], vertex[u][1], vertex[v][0], vertex[v][1]);
+            score += base_sq / (nowds0 + 0.00000000001);
+        }
+    }
+
+    console.log(score);
+    return score;
+}
+
+
+function graphRate() {
+    // console.log("AAA");
+    // return graphRateBfs();
+    cnt_dist = 0;
+    cnt_cross = 0;
+    cnt_line = 0;
+    var Edges = [];
+    var rate = 0;
+    var score = 0;
+    var oldrate = 0;
+    var big = 1000000000;
+    n = vertex.length;
+    if (n == 0) {
+        return 1;
+    }
+    if (n == 1) {
+        return 1;
+    }
+    full_score = true;
+    // 80
+    // var full_score = (shake_p == 1) || lastScore == -1;
+    // 40
+    /*mindist = distanceSquare(vertex[0], vertex[1]);
+    for (var i = 0; i < vertex.length; i++) {
+        for (var j = i + 1; j < vertex.length; j++) {
+            mindist = Math.min(mindist, distanceSquare(vertex[i], vertex[j]));
         }
     }
     if (mindist == 0) {
@@ -306,9 +460,30 @@ function graphRate() {
     var base_sq = base * base;
     for (var i = 0; i < vertex.length; i++) {
         for (var j = i + 1; j < vertex.length; j++) {
-            var nowds = distanceSquare(vertex[i].pos, vertex[j].pos) / base_sq;
+            /*
+            var nowds = distanceSquare(vertex[i], vertex[j]) / base_sq;
             rate += Math.sqrt(Math.sqrt(nowds));
             rate += 1 / (nowds + 0.00000001);
+            */
+            
+            var flag = false;
+            if (full_score) {
+                score += scoreDist(vertex[i], vertex[j]);
+                // console.log("WTF");
+                // rate += scoreDist(vertex[i], vertex[j]);
+            } else {
+                // console.log("BINGO2");
+                // console.log(i, j);
+                // console.log(is_vertex_changed[i], is_vertex_changed[j]);
+                if (checkChanged([i, j])) {
+                    // console.log("here");
+                    rate += scoreDist(vertex[i], vertex[j]);
+                    oldrate += scoreDist(vertex_orig[i], vertex_orig[j]);
+                    //console.log(i, j);
+                    //console.log(vertex);
+                    //console.log(vertex_orig);
+                }
+            }
         }
     }
     // console.log(graph);
@@ -319,8 +494,22 @@ function graphRate() {
             if (i < v) {
                 Edges.push([i, v]);
             }
-            var nowds = distanceSquare(vertex[i].pos, vertex[v].pos) / base_sq;
+            /*
+            var nowds = distanceSquare(vertex[i], vertex[v]) / base_sq;
             rate += Math.sqrt(nowds);
+            */
+            
+            if (full_score) {
+                var nowds0 = Math.sqrt(distanceSquare(vertex[i], vertex[v]) / base_sq);
+                score += nowds0;
+                //var nowds = Math.sqrt(distanceSquare(vertex[i], vertex[v]) / base_sq);
+                //rate += nowds;
+            } else if (checkChanged([i, v])) {
+                var nowds = Math.sqrt(distanceSquare(vertex[i], vertex[v]) / base_sq);
+                rate += nowds;
+                var oldds = Math.sqrt(distanceSquare(vertex_orig[i], vertex_orig[v]) / base_sq);
+                oldrate += oldds;
+            }
         }
     }
 
@@ -331,8 +520,22 @@ function graphRate() {
             if (u == i || v == i) {
                 continue;
             }
-            var nowdist = distancePointToLineSquared(vertex[i].pos[0], vertex[i].pos[1], vertex[u].pos[0], vertex[u].pos[1], vertex[v].pos[0], vertex[v].pos[1]);
+            /*
+            var nowdist = distancePointToLineSquared(vertex[i][0], vertex[i][1], vertex[u][0], vertex[u][1], vertex[v][0], vertex[v][1]);
             rate += base_sq / (nowdist + 0.00000000001);
+            */
+            
+            if (full_score) {
+                var nowds0 = distancePointToLineSquared(vertex[i][0], vertex[i][1], vertex[u][0], vertex[u][1], vertex[v][0], vertex[v][1]);
+                score += base_sq / (nowds0 + 0.00000000001);
+                // var nowds = distancePointToLineSquared(vertex[i][0], vertex[i][1], vertex[u][0], vertex[u][1], vertex[v][0], vertex[v][1]);;
+                // rate += base_sq / (nowds + 0.00000000001);
+            } else if (checkChanged([u, i, v])) {
+                var nowds = distancePointToLineSquared(vertex[i][0], vertex[i][1], vertex[u][0], vertex[u][1], vertex[v][0], vertex[v][1]);
+                rate += base_sq / (nowds + 0.00000000001);
+                var oldds = distancePointToLineSquared(vertex_orig[i][0], vertex_orig[i][1], vertex_orig[u][0], vertex_orig[u][1], vertex_orig[v][0], vertex_orig[v][1]);
+                oldrate += base_sq / (oldds + 0.00000000001);
+            }
             // console.log(nowdist);
         }
     }
@@ -344,35 +547,89 @@ function graphRate() {
             nowis.push(Edges[i][1]);
             nowis.push(Edges[j][0]);
             nowis.push(Edges[j][1]);
-            var flag = false;
-            for (var k = 0; k < 4; k++) {
-                for (var l = k + 1; l < 4; l++) {
-                    if (nowis[k] == nowis[l]) {
-                        flag = true;
-                        break;
+            if (full_score) {
+                var flag = false;
+                for (var k = 0; k < 4; k++) {
+                    for (var l = k + 1; l < 4; l++) {
+                        if (nowis[k] == nowis[l]) {
+                            flag = true;
+                            break;
+                        }
                     }
                 }
-            }
-            if (flag) {
-                continue;
-            }
-            nowps = [];
-            for (var k = 0; k < 4; k++) {
-                nowps[k] = vertex[nowis[k]].pos;
-            }
-            if (CrossingCheck(nowps[0], nowps[1], nowps[2], nowps[3])) {
-                rate += n * n * n;
-                // rate += big;
+                if (flag) {
+                    continue;
+                }
+                nowps = new Array(4);
+                for (var k = 0; k < 4; k++) {
+                    nowps[k] = vertex[nowis[k]];
+                }
+                if (CrossingCheck(nowps[0], nowps[1], nowps[2], nowps[3])) {
+                    // rate += n * n * n * Math.sqrt(Math.sqrt(distanceSquare(nowps[0], nowps[1]) * distanceSquare(nowps[2], nowps[3])));
+                    score += n * n * n;
+                    // rate += big;
+                }
+            } else if (checkChanged(nowis)) {
+                var flag = false;
+                for (var k = 0; k < 4; k++) {
+                    for (var l = k + 1; l < 4; l++) {
+                        if (nowis[k] == nowis[l]) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+                if (flag) {
+                    continue;
+                }
+                nowps = new Array(4);
+                for (var k = 0; k < 4; k++) {
+                    nowps[k] = vertex[nowis[k]];
+                }
+                if (CrossingCheck(nowps[0], nowps[1], nowps[2], nowps[3])) {
+                    // rate += n * n * n * Math.sqrt(Math.sqrt(distanceSquare(nowps[0], nowps[1]) * distanceSquare(nowps[2], nowps[3])));
+                    rate += n * n * n;
+                    // rate += big;
+                }
+                oldps = new Array(4);
+                for (var k = 0; k < 4; k++) {
+                    oldps[k] = vertex_orig[nowis[k]];
+                }
+                if (CrossingCheck(oldps[0], oldps[1], oldps[2], oldps[3])) {
+                    oldrate += n * n * n;
+                }
             }
         }
     }
 
+    // console.log(cnt_dist, cnt_line, cnt_cross, shake_p);
+    if (lastScore == -1) {
+        // lastScore = score;
+        return score;
+    }
+    if (full_score) {
+        // if (rate == score) {
+        //     console.log("ALARM!");
+        //     console.log(score, lastScore + rate - oldrate);
+        // }
+        // lastScore = Math.min(lastScore, score);
+        return score;
+    } else {
+        // console.log("***");
+        // console.log(score, lastScore + rate - oldrate);
+        // console.log(score, lastScore, rate, oldrate);
+        // console.log(score, "\n", rate);
+        // console.log(lastScore, "\n", oldrate);
+        var res = lastScore + rate - oldrate;
+        // lastScore = Math.min(lastScore, score);
+        return res;
+    }
     /*if (n >= 2) {
         var mindist = 1000000000000;
         var maxdist = -1;
         for (var i = 0; i < vertex.length; i++) {
             for (var j = i + 1; j < vertex.length; j++) {
-                var nowd = distanceSquare(vertex[i].pos, vertex[j].pos);
+                var nowd = distanceSquare(vertex[i], vertex[j]);
                 mindist = Math.min(nowd, mindist);
                 maxdist = Math.max(nowd, maxdist);
             }
@@ -380,8 +637,8 @@ function graphRate() {
         rate += big / 100 * maxdist / (mindist + 1);
     }*/
 
-    console.log("Rate = " + rate);
-    return rate;
+    // console.log("Rate = " + rate);
+    return score;
 }
 
 
@@ -389,7 +646,41 @@ function graphRate() {
 
 
 function countPhysics() {
+    if (lastScore == -1) {
+        lastScore = graphRateBfs();
+    }
+    let deltax = new Array(n)
+    let deltay = new Array(n);
+    deltax = deltax.fill(0);
+    deltay = deltay.fill(0);
 
+    var step = 10 + Math.floor((Math.random() - 0.5) * 50 * 2);
+
+    // console.log(vertex);
+    for (var i = 0; i < vertex.length; i++) {
+        if (Math.random() <= shake_p) {
+            is_vertex_changed[i] = true;
+            deltax[i] = Math.floor((Math.random() - 0.5) * 2 * step);
+            deltay[i] = Math.floor((Math.random() - 0.5) * 2 * step);
+            vertex[i][0] += deltax[i];
+            vertex[i][1] += deltay[i];
+        }
+    }
+    var newRate = -1;
+    newRate = graphRateBfs();
+    // console.log(lastScore);
+    // console.log(newRate);
+    if (newRate >= lastScore) {
+        for (var i = 0; i < vertex.length; i++) {
+            vertex[i][0] -= deltax[i];
+            vertex[i][1] -= deltay[i];
+        }
+        failShakeCnt++;
+    }
+    // console.log(vertex_orig);
+    if (lastScore > newRate) {
+        lastScore = newRate;
+    }
 }
 
 
@@ -401,7 +692,8 @@ function genTest(k = 3) {
     vertex = new Array(n);
     graph = new Array(n);
     for (var i = 0; i < n; i++) {
-        vertex[i] = {"text": String(i), "pos": [10,10]};
+        vertex[i] = [10,10];
+        vertex_text[i] = String(i);
         graph[i] = [];
     }
     for (var i = 0; i < n; i++) {
@@ -431,17 +723,19 @@ function normalizeGraph() {
 
     vertex_n = new Array(n);
     for (var i = 0; i < vertex.length; i++) {
-        vertex_n[i] = vertex[i];
+        vertex_n[i] = [0, 0];
+        vertex_n[i][0] = vertex[i][0];
+        vertex_n[i][1] = vertex[i][1];
     }
-    var minx = vertex_n[0].pos[0];
-    var maxx = vertex_n[0].pos[0];
-    var miny = vertex_n[0].pos[1];
-    var maxy = vertex_n[0].pos[1];
+    var minx = vertex_n[0][0];
+    var maxx = vertex_n[0][0];
+    var miny = vertex_n[0][1];
+    var maxy = vertex_n[0][1];
     for (var i = 0; i < vertex.length; i++) {
-        minx = Math.min(minx, vertex_n[i].pos[0]);
-        maxx = Math.max(maxx, vertex_n[i].pos[0]);
-        miny = Math.min(miny, vertex_n[i].pos[1]);
-        maxy = Math.max(maxy, vertex_n[i].pos[1]);
+        minx = Math.min(minx, vertex_n[i][0]);
+        maxx = Math.max(maxx, vertex_n[i][0]);
+        miny = Math.min(miny, vertex_n[i][1]);
+        maxy = Math.max(maxy, vertex_n[i][1]);
     }
 
     var ltx = minx - 30;
@@ -453,19 +747,19 @@ function normalizeGraph() {
     zero_y = Math.floor((lty + rby) / 2);
     var coeff = 1;
     if (cwidth < (maxx - minx + 100)) {
-        coeff = cwidth / (maxx - minx + 100);
+        coeff = (cwidth - 80) / (maxx - minx);
     }
     if (cheight < (maxy - miny + 100)) {
-        coeff = Math.min(coeff, cheight / (maxy - miny + 100));
+        coeff = Math.min(coeff, (cheight - 80) / (maxy - miny));
     }
 
     for (var i = 0; i < vertex_n.length; i++) {
-        vertex_n[i].pos[0] -= zero_x;
-        vertex_n[i].pos[0] *= coeff;
-        vertex_n[i].pos[0] = Math.floor(vertex_n[i].pos[0] + cwidth / 2);
-        vertex_n[i].pos[1] -= zero_y;
-        vertex_n[i].pos[1] *= coeff;
-        vertex_n[i].pos[1] = Math.floor(vertex_n[i].pos[1] + cheight / 2);
+        vertex_n[i][0] -= zero_x;
+        vertex_n[i][0] *= coeff;
+        vertex_n[i][0] = Math.floor(vertex_n[i][0] + cwidth / 2);
+        vertex_n[i][1] -= zero_y;
+        vertex_n[i][1] *= coeff;
+        vertex_n[i][1] = Math.floor(vertex_n[i][1] + cheight / 2);
     }
 }
 
@@ -473,31 +767,64 @@ function normalizeGraph() {
 
 
 
-function shakeGraph() {
+
+function shakeGraph(score_t = 0) {
+    // console.log("shake");
+    // if (shake_finished) {
+    //     score_t = 1;
+    // }
     if (nowDelta > 0) {
         // console.log(nowDelta, failShakeCnt);
-        var n = vertex.length;
-        var nowRate = graphRate();
+        window.n = vertex.length;
+        // var nowRate = lastScore;
         let deltax = new Array(n)
-        deltax = deltax.fill(0);
         let deltay = new Array(n);
+        deltax = deltax.fill(0);
         deltay = deltay.fill(0);
+
+        is_vertex_changed = new Array(n);
+        vertex_orig = new Array(n);
+        is_vertex_changed = is_vertex_changed.fill(false);
+
+        // console.log(vertex);
         for (var i = 0; i < vertex.length; i++) {
+            vertex_orig[i] = [0, 0];
+            vertex_orig[i][0] = vertex[i][0];
+            vertex_orig[i][1] = vertex[i][1];
             if (Math.random() <= shake_p) {
+                // console.log(vertex_orig[i]);
+                is_vertex_changed[i] = true;
                 deltax[i] = Math.floor((Math.random() - 0.5) * 2 * nowDelta / shake_p);
                 deltay[i] = Math.floor((Math.random() - 0.5) * 2 * nowDelta / shake_p);
-                vertex[i].pos[0] += deltax[i];
-                vertex[i].pos[1] += deltay[i];
+                vertex[i][0] += deltax[i];
+                vertex[i][1] += deltay[i];
+                // console.log(vertex[i], vertex_orig[i]);
             }
         }
-        var newRate = graphRate();
-        if (newRate >= nowRate) {
+        // console.log(window.is_vertex_changed);
+        // console.log(vertex_orig);
+        // console.log(vertex);
+        var newRate = -1;
+        //if (score_t == 0) {
+            newRate = graphRate();
+        //}
+        //if (score_t == 1) {
+        //    newRate = graphRateBfs();
+        //}
+        // console.log(lastScore);
+        // console.log(newRate);
+        if (newRate >= lastScore && lastScore != -1) {
             for (var i = 0; i < vertex.length; i++) {
-                vertex[i].pos[0] -= deltax[i];
-                vertex[i].pos[1] -= deltay[i];
+                vertex[i][0] -= deltax[i];
+                vertex[i][1] -= deltay[i];
             }
             failShakeCnt++;
         }
+        // console.log(vertex_orig);
+        if (lastScore == -1 || lastScore > newRate) {
+            lastScore = newRate;
+        }
+        // }
         if (failShakeCnt >= (20) / shake_p) {
             if (shake_p * n * 0.6 >= 3) {
                 shake_p *= 0.6;
@@ -506,12 +833,23 @@ function shakeGraph() {
                 shake_p = 1;
                 nowDelta *= 0.95;
                 nowDelta = Math.floor(nowDelta);
-                if (nowDelta == 0) {
-                    on_pause = true;
-                }
+                // if (nowDelta == 0) {
+                //     on_pause = true;
+                // }
                 failShakeCnt = 0;
             }
         }
+    } else {
+        // if (score_t == 0) {
+            shake_finished = true;
+            lastScore = -1;
+        //    lastScore = -1;
+        //    nowDelta = base * 0.7;
+        //}
+        //if (score_t == 1) {
+            // on_pause = false;
+            // pause_view();
+        //}
     }
 }
 
@@ -520,6 +858,7 @@ function shakeGraph() {
 
 
 function distanceSquare(pos1, pos2) {
+    // cnt_dist++;
     return Math.pow((pos1[0] - pos2[0]), 2) + Math.pow((pos1[1] - pos2[1]), 2);
 }
 
@@ -529,14 +868,17 @@ function distanceSquare(pos1, pos2) {
 
 function pause_view() {
     var pause_bttn = document.getElementById("pause_bttn");
+    var pause_bttn1 = document.getElementById("pause_bttn1");
     on_pause = !on_pause;
     
     if (on_pause) {
         pause_bttn.innerHTML = "play";
+        pause_bttn1.innerHTML = "play";
     }
     else {
         pause_bttn.innerHTML = "stop";
-        main();
+        pause_bttn1.innerHTML = "stop";
+        start_cycle();
     }
 }
 
@@ -555,9 +897,13 @@ function render_view() {
 
 
 function render_random_view() {
-    n = parseInt(document.getElementById("input_rand_n").value);
-    p = parseFloat(document.getElementById("input_rand_p").value);
-    renderRandomGraph(n, p);
+    try {
+        n = parseInt(document.getElementById("input_rand_n").value);
+        p = parseFloat(document.getElementById("input_rand_p").value);
+        renderRandomGraph(n, p);
+    } catch(err) {
+        alert("failed to generate graph");
+    }
     main();
 }
 
@@ -572,9 +918,9 @@ function setKey(event, status) {
     switch(code) {
     case 32:
         key = 'SPACE';
-        if (!document.getElementById('input_graph').hasFocus) {
+        /*if (!document.getElementById('input_graph').hasFocus) {
             pause_view();
-        }
+        }*/
         break;
     case 13:
         key = 'ENTER';
@@ -592,41 +938,43 @@ function setKey(event, status) {
 
 
 function inputGraph() {
-    console.log("on Input");
-    var ntxt = document.getElementById("input_n").value;
-    var nowtxt = document.getElementById("input_graph").value;
-    var lines = nowtxt.split("\n");
-    var n = parseInt(ntxt);
-    var Edges = [];
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].split(" ");
-        if (line.length >= 2) {
-            var u = parseInt(line[0]);
-            var v = parseInt(line[1]);
-            Edges.push([u, v]);
+    // console.log("on Input");
+    try {
+        var ntxt = document.getElementById("input_n").value;
+        var nowtxt = document.getElementById("input_graph").value;
+        var lines = nowtxt.split("\n");
+        var n = parseInt(ntxt);
+        var Edges = [];
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i].split(" ");
+            if (line.length >= 2) {
+                var u = parseInt(line[0]);
+                var v = parseInt(line[1]);
+                Edges.push([u, v]);
+            }
         }
-    }
-    console.log(Edges.length);
-    console.log(Edges);
-    vertex = new Array(n);
-    graph = new Array(n);
-    console.log(graph);
-    for (var i = 0; i < n; i++) {
-        vertex[i] = {
-            "text": String(i),
-            "pos": [10, 10]
+        // console.log(Edges.length);
+        // console.log(Edges);
+        vertex = new Array(n);
+        graph = new Array(n);
+        // console.log(graph);
+        for (var i = 0; i < n; i++) {
+            vertex[i] = [10, 10];
+            vertex_text[i] = String(i);
+            graph[i] = [];
         }
-        graph[i] = [];
-    }
 
-    for (var i = 0; i < Edges.length; i++) {
-        var u = Edges[i][0];
-        var v = Edges[i][1];
-        graph[u].push(v);
-        graph[v].push(u);
-        console.log(graph);
+        for (var i = 0; i < Edges.length; i++) {
+            var u = Edges[i][0];
+            var v = Edges[i][1];
+            graph[u].push(v);
+            graph[v].push(u);
+            // console.log(graph);
+        }
+        // console.log(graph);
+    } catch(err) {
+        alert("incorrect input");
     }
-    console.log(graph);
 }
 
 
@@ -653,7 +1001,7 @@ function renderEntities(list) {
 
 function renderEntity(entity) {
     ctx.save();
-    ctx.translate(entity.pos[0], entity.pos[1]);
+    ctx.translate(entity[0], entity[1]);
     entity.sprite.render(ctx);
     ctx.restore();
 }
@@ -664,6 +1012,7 @@ function renderEntity(entity) {
 
 function distancePointToLineSquared(x, y, x1, y1, x2, y2)
 {
+    // cnt_line++;
     A = x - x1;
     B = y - y1;
     C = x2 - x1;
@@ -701,23 +1050,37 @@ function distancePointToLineSquared(x, y, x1, y1, x2, y2)
 
 function VEK(ax,ay,bx,by)//векторное произведение
 {
-    return ax*by-bx*ay;
+    return ax * by - bx * ay;
 }
- 
+
 function CrossingCheck(t1,t2,t3,t4) //проверка пересечения
 {
-    var v1,v2,v3,v4;
+    // cnt_cross++;
+    var v1, v2, v3, v4;
 
-    v1=VEK(t4[0] - t3[0], t4[1] - t3[1], t1[0] - t3[0], t1[1] - t3[1]);
+    dv34x = t4[0] - t3[0];
+    dv34y = t4[1] - t3[1];
 
-    v2=VEK(t4[0] - t3[0], t4[1] - t3[1], t2[0] - t3[0], t2[1] - t3[1]);
+    dv13x = t1[0] - t3[0];
+    dv13y = t1[1] - t3[1];
 
-    v3=VEK(t2[0] - t1[0], t2[1] - t1[1], t3[0] - t1[0], t3[1] - t1[1]);
+    v1=VEK(dv34x, dv34y, dv13x, dv13y);
 
-    v4=VEK(t2[0] - t1[0], t2[1] - t1[1], t4[0] - t1[0], t4[1] - t1[1]);
+    v2=VEK(dv34x, dv34y, t2[0] - t3[0], t2[1] - t3[1]);
+
+    if (v1 * v2 > 0) {
+        return false;
+    }
+
+
+    dv21x = t2[0] - t1[0];
+    dv21y = t2[1] - t1[1];
+    v3=VEK(dv21x, dv21y, - dv13x, - dv13y);
+
+    v4=VEK(dv21x, dv21y, t4[0] - t1[0], t4[1] - t1[1]);
 
     // console.log(v1, v2, v3, v4);
-    if(v1*v2<=0 && v3*v4<=0) return true;
+    if (v3 * v4 <=0) return true;
     else return false;
 }
 
@@ -737,6 +1100,61 @@ function print_random_view() {
         }
     }
     document.getElementById("random_graph").innerHTML = nowtxt;
+}
+
+
+
+
+
+function calc_all_dist() {
+    // console.log("AAA");
+    short_path = new Array(n);
+    for (var i = 0; i < n; i++) {
+        bfs(i);
+    }
+}
+
+
+
+
+
+function bfs(u) {
+    v_queue = [];
+    v_queue.push([u, 0]);
+
+    used = new Array(n);
+    now_dist = new Array(n);
+
+    used.fill(false);
+    now_dist = now_dist.fill(-1);
+
+    now_dist[u] = 0;
+
+    nowi = 0;
+    while (true) {
+        if (v_queue.length == nowi) {
+            break;
+        }
+        now_x = v_queue[nowi];
+        now_v = now_x[0];
+        now_d = now_x[1];
+        if (!used[now_v]) {
+            used[now_v] = true;
+            for (var i = 0; i < graph[now_v].length; i++) {
+                var ch = graph[now_v][i];
+                if (now_dist[ch] == -1) {
+                    v_queue.push([ch, now_d + 1]);
+                    now_dist[ch] = now_d + 1;
+                }
+            }
+        }
+        nowi++;
+    }
+    // console.log(now_dist);
+    short_path[u] = new Array(n);
+    for (var i = 0; i < n; i++) {
+        short_path[u][i] = now_dist[i];
+    }
 }
 
 
@@ -801,5 +1219,49 @@ init();
 
 */
 
+
+
+
+function openTab(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById("init_tab_button").click(); 
+
+
+function setTheme(evt, theme){
+    localStorage.setItem('theme', theme);
+    theme_buttons = document.getElementsByClassName("theme_button");
+    for (i = 0; i < theme_buttons.length; i++) {
+        theme_buttons[i].className = theme_buttons[i].className.replace(" active", "");
+    }
+    // document.getElementById(theme).style.display = "block";
+    evt.currentTarget.className += " active";
+    document.documentElement.className = theme;
+}
+
+var current_theme = localStorage.getItem('theme');
+console.log(current_theme);
+if (!current_theme) {
+    current_theme = 'gray';
+}
+document.getElementById(current_theme + "_theme_button").click(); 
 
 

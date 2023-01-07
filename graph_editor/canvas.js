@@ -67,6 +67,11 @@ function getPercent() {
 
 
 function main_cycle() {
+    if (!shake_finished) {
+        document.getElementById("progress_bar").style.filter = "brightness(100%)";
+    } else {
+        document.getElementById("progress_bar").style.filter = "brightness(0%)";
+    }
     var step_time = Date.now();
     var nowr = Math.floor((step_time - zero_time) / dt);
 
@@ -122,6 +127,7 @@ function start_cycle() {
 
 
 function main() {
+    print_graph();
     shake_finished = false;
     window.n = vertex.length;
     var m = 0;
@@ -1100,6 +1106,30 @@ function print_random_view() {
         }
     }
     document.getElementById("random_graph").innerHTML = nowtxt;
+}
+
+
+
+
+
+function print_graph() {
+    document.getElementById("input_n").value = String(vertex.length);
+    // nowtxt = "";
+    // nowtxt += String(vertex.length);
+    nowtxt = "";
+    for (var i = 0; i < vertex.length; i++) {
+        for (var j = 0; j < graph[i].length; j++) {
+            var v = graph[i][j];
+            if (i < v) {
+                if (nowtxt != "") {
+                    nowtxt += "\n";
+                }
+                nowtxt += String(i) + " " + String(v);
+            }
+        }
+    }
+    document.getElementById("random_graph").innerHTML = String(vertex.length) + "\n" + nowtxt;
+    document.getElementById("input_graph").value = nowtxt;
 }
 
 

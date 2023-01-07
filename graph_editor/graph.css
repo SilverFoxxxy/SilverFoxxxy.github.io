@@ -48,6 +48,8 @@
 }
 
 #progress_bar {
+  transition: filter 3s;
+  filter: brightness(0%);
   background: black;
   border: var(--border-width) solid var(--magic-color);
 }
@@ -81,6 +83,8 @@ div {
 }
 
 input {
+  /*display: inline-block;*/
+  width: 60%;
   font-size: var(--input-font-size);
   background: black;
   color: white;
@@ -99,12 +103,13 @@ textarea {
 }
 
 pre {
+  overflow-y: scroll;
   font-size: var(--input-font-size);
   width: 90%;
   background: black;
   color: white;
   border: var(--border-width) solid var(--magic-color);
-  height: 10rem;
+  height: 200px;
   border-radius: 5px;
   padding: 10px;
 }
@@ -135,7 +140,8 @@ pre {
   font-size: 18px;
   width: fit-content;
   width: -moz-fit-content;
-  width: calc(var(--tab-width) / 3);
+  /*width: calc(var(--tab-width) / 3);*/
+  width:100%;
   background-color: inherit;
   background-color: #111;
   /*float: left;*/
@@ -155,6 +161,7 @@ pre {
   grid-template-columns: 1fr 1fr 1fr;
   width: fit-content;
   width: -moz-fit-content;
+  width:100%;
   border-radius: 5px 5px 0px 0px;
 }
 

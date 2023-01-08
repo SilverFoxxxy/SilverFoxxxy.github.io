@@ -1,0 +1,62 @@
+* {
+    /* contextmenu: false; */
+    margin: 0;
+    overflow: hidden;
+    /* oncontextmenu: none; */
+}
+
+
+header {
+    height: 40px;
+    background-color: #311e47;
+}
+
+h1, h2 {
+    color: bisque;
+    text-align: center;
+}
+
+a {
+    color: red;
+    text-decoration: none;
+}
+
+a h2 {
+    color: red;
+}
+
+#menu h1 {
+    font-size: 250%;
+    text-align: center;
+}
+
+.info {
+    border: 4px double bisque;
+    padding: 10px;
+    margin: 10px;
+}
+
+.info h2 {
+    font-size: 100%;
+    text-align: left;
+}
+
+footer {
+    height: 40px;
+    background-color: #311e47;
+    clear: both;
+}
+
+#menu {
+    float: left;
+    width: 300px;
+    height: calc(100vh - 80px);
+    background-color: #311e47;
+}
+
+#canvas {
+    float: right;
+    height: calc(100vh - 80px);
+    width: calc(100vw - 300px);
+    display: block;
+}

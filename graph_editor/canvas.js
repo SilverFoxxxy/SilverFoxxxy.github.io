@@ -297,20 +297,20 @@ function renderVertex(i, flag = false) {
     }
     ctx.fillStyle = "black";
 
-    if (current_theme == "white") {
-        ctx.strokeStyle = "white";
-        ctx.fillStyle = "black";
-        if (flag == 1) {
-            ctx.strokeStyle = "white";
-            ctx.setLineDash([10]);
-        }
-    }
+    // if (current_theme == "white") {
+    //     ctx.strokeStyle = "white";
+    //     ctx.fillStyle = "black";
+    //     if (flag == 1) {
+    //         ctx.strokeStyle = "white";
+    //         // ctx.setLineDash([10]);
+    //     }
+    // }
 
 
     ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
     ctx.stroke();
     ctx.fill();
-    ctx.setLineDash([]);
+    // ctx.setLineDash([]);
 
     if (current_theme == "white") {
         rad = Math.floor(rad * 0.87);
@@ -333,14 +333,17 @@ function renderVertex(i, flag = false) {
         ctx.fillStyle = mag_backfill;
     }
     if (current_theme == "white") {
-        ctx.fillStyle = "black";
-        ctx.strokeStyle = "black";
-        // if (flag) {
-        //     ctx.lineWidth = Math.floor(10 * nowk);
-        //     ctx.strokeStyle = "white";
-        //     ctx.setLineDash([10, 10]);
-        //     // ctx.strokeStyle = "red";
-        // }
+        if (flag == 1) {
+            ctx.fillStyle = "black";
+            ctx.strokeStyle = "red";
+            // ctx.lineWidth = Math.floor(10 * nowk);
+            // ctx.strokeStyle = "white";
+            // ctx.setLineDash([10, 10]);
+            // ctx.strokeStyle = "red";
+        } else {
+            ctx.fillStyle = "black";
+            ctx.strokeStyle = "black";
+        }
     }
 
     ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
@@ -409,28 +412,27 @@ function renderEdge(u, v, flag = false) {
 
     ctx.lineWidth = 8;
 
-
+    if (current_theme == "white") {
+        ctx.strokeStyle = "white";
+        if (flag == 1) {
+            // nowlen = Math.sqrt(distanceSquare(vertex_n[u], vertex_n[v]));
+            // cnt = Math.floor(nowlen / 25);
+            // if (cnt % 2 == 0) {
+            //     cnt++;
+            // }
+            // ctx.setLineDash([Math.floor(nowlen / cnt)]);
+        }
+    }
 
     ctx.strokeStyle = mag_fill;
     if (flag == -1) {
         ctx.strokeStyle = mag_backfill;
     }
-    if (current_theme == "white") {
-        ctx.strokeStyle = "white";
-        if (flag == 1) {
-            nowlen = Math.sqrt(distanceSquare(vertex_n[u], vertex_n[v]));
-            cnt = Math.floor(nowlen / 25);
-            if (cnt % 2 == 0) {
-                cnt++;
-            }
-            ctx.setLineDash([Math.floor(nowlen / cnt)]);
-        }
-    }
 
     ctx.moveTo(nx1, ny1);
     ctx.lineTo(nx2, ny2);
     ctx.stroke();
-    ctx.setLineDash([]);
+    // ctx.setLineDash([]);
 
     // if (!(current_theme == "white" && flag)) {
     if (true) {
@@ -446,10 +448,10 @@ function renderEdge(u, v, flag = false) {
         }
         if (current_theme == "white") {
             ctx.strokeStyle = "black";
-            // if (flag) {
-            //     ctx.strokeStyle = "black";
-            //     // ctx.strokeStyle = "red";
-            // }
+            if (flag == 1) {
+                // ctx.strokeStyle = "black";
+                ctx.strokeStyle = "red";
+            }
         }
 
         ctx.moveTo(nx1, ny1);

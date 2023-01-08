@@ -3,8 +3,12 @@
 canvas = document.getElementById("graph_view");
 var ctx = canvas.getContext("2d");
 var mindir = Math.min(window.innerWidth, window.innerHeight * 0.8);
-ctx.canvas.width = Math.floor(mindir * 0.9);
-ctx.canvas.height = Math.floor(mindir * 0.9);
+// ctx.canvas.width = Math.floor(mindir * 0.9);
+// ctx.canvas.height = Math.floor(mindir * 0.9);
+ctx.canvas.width = 1000;
+ctx.canvas.height = 1000;
+canvas.style.width = String(Math.floor(mindir * 0.9)) + "px";
+canvas.style.width = String(Math.floor(mindir * 0.9)) + "px";
 var cwidth = canvas.width;
 var cheight = canvas.height;
 const maxDelta = 300;

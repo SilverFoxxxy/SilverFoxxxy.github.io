@@ -2,6 +2,9 @@
 
 canvas = document.getElementById("graph_view");
 var ctx = canvas.getContext("2d");
+var mindir = Math.min(window.innerWidth, window.innerHeight * 0.8);
+ctx.canvas.width = Math.floor(mindir * 0.9);
+ctx.canvas.height = Math.floor(mindir * 0.9);
 var cwidth = canvas.width;
 var cheight = canvas.height;
 const maxDelta = 300;
@@ -71,6 +74,7 @@ function main_cycle() {
         document.getElementById("progress_bar").style.filter = "brightness(100%)";
     } else {
         document.getElementById("progress_bar").style.filter = "brightness(0%)";
+        pause_view();
     }
     var step_time = Date.now();
     var nowr = Math.floor((step_time - zero_time) / dt);
@@ -135,8 +139,8 @@ function main() {
         m += graph[i].length;
     }
     console.log(m);
-    if (m > 250) {
-        alert("Your graph is TOO BIG to show\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
+    if (m > 250 || vertex.length > 100) {
+        alert("Your graph is TOO BIG to show\nMAX Vertex number is 100\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
         init();
     }
     calc_all_dist();
@@ -237,18 +241,18 @@ function renderVertex(i) {
     var v = vertex_n[i];
     var nx = v[0];
     var ny = v[1];
-    var nowk = Math.floor(Math.sqrt(vertex.length));
-    var rad = Math.floor(45 / nowk);
+    var nowk = cwidth / 600 * 1.5 / Math.sqrt(vertex.length);
+    var rad = Math.floor(45 * nowk);
     ctx.beginPath();
     ctx.moveTo(nx + rad, ny);
-    ctx.lineWidth = Math.floor(12 / nowk);
+    ctx.lineWidth = Math.floor(12 * nowk);
     ctx.strokeStyle = "white";
     ctx.fillStyle = "black";
     ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
     ctx.stroke();
     ctx.fill();
 
-    ctx.font = Math.floor(55 / nowk) + "px Arial";
+    ctx.font = Math.floor(55 * nowk) + "px Arial";
     ctx.fillStyle = "white";
     ctx.textAlign = "center";
     ctx.fillText(vertex_text[i], nx, ny + Math.floor(rad * 2 / 4));
@@ -303,7 +307,7 @@ function renderEdge(u, v) {
 
     ctx.beginPath();
 
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 4;
     ctx.strokeStyle = "white";
 
     ctx.moveTo(nx1, ny1);
@@ -312,7 +316,7 @@ function renderEdge(u, v) {
 
     ctx.beginPath();
 
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 2;
     ctx.strokeStyle = "black";
 
     ctx.moveTo(nx1, ny1);
@@ -1199,6 +1203,21 @@ function bfs(u) {
 
 init();
 
+
+
+
+
+
+function copy_to_clipboard(text_id) {
+    /* Select text area by id*/
+    var Text = document.getElementById(text_id);
+
+    /* Select the text inside text area. */
+    // Text.select();
+
+    /* Copy selected text into clipboard */
+    navigator.clipboard.writeText(Text.value);
+}
 
 // test:
 /*

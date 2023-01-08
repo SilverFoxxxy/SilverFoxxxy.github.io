@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -37,7 +38,7 @@
                 <button class="theme_button" onclick="setTheme(event, 'gray')" id="gray_theme_button"><div class="button_cross">&#215;</div></button>
                 <button class="theme_button" onclick="setTheme(event, 'violet')" id="violet_theme_button"><div class="button_cross">&#215;</div></button>
                 <button class="theme_button" onclick="setTheme(event, 'red')" id="red_theme_button"><div class="button_cross">&#215;</div></button>
-            </div></center>
+            </div>
     <!-- <center>
     <h1>Graph Editor</h1>
     </center> -->
@@ -45,7 +46,7 @@
     <div class="wrapper">
         <!--  -->
 
-        <div style="width: 600px;">
+        <div class="main_block" style="width: auto;">
             
             <center>
                 <canvas id="graph_view" width="500" height="500" style="border: 1px solid black"></canvas>
@@ -58,14 +59,12 @@
                         <!-- <div id="bar_num" style="position: absolute; width: 100%; height: 100%; text-align: center; font-size: 1rem;">0%</div> -->
                 </div>
             </div>
-            <br><br><br>
-            <br><br><br>
-            <br><br><br>
+            <br>
         </div>
 
-        <div style="width: 5rem;"></div>
+        <div class="main_block" style="width: 5rem; height: 2rem;"></div>
 
-        <div id="input_block">
+        <div class="main_block" id="input_block">
             <div class="tab">
                 <div class="tab_button_wrapper">
                     <button id="init_tab_button" class="tablinks" onclick="openTab(event, 'Input')">INPUT</button>
@@ -81,7 +80,11 @@
                 <br><br>
                 edges:
                 <br>
-                <textarea id="input_graph" name="input_g" cols="20" rows="7"></textarea>
+                <div class="copy_div">
+                    <textarea id="input_graph" name="input_g" cols="20" rows="7">
+                    </textarea>
+                    <button class="copy_button" onclick="copy_to_clipboard('input_graph')"><div class="tooltip">copied!</div>copy</button>
+                </div>
                 <br><br>
                 <button id="render_bttn" onclick="render_view()">render</button>
                 <br><br>
@@ -93,7 +96,9 @@
               <center><h3>Random Graph</h3></center>
                 n = <input type="text" id="input_rand_n">
                 <br><br>
-                p = <input type="text" id="input_rand_p">
+                p = <input type="text" id="input_rand_p" placeholder="0.15">
+                <br>
+                <div style="color:gray;">&emsp;&emsp;edge probability</div>
                 <br><br>
                 <button id="render_random_bttn" onclick="render_random_view()">render</button>
                 <br><br>
@@ -107,7 +112,10 @@
                 <center><h3>Print Current Graph</h3></center>
                 <button id="print_random_bttn" onclick="print_random_view()">print</button>
                 <br><br>
-                <pre id="random_graph"></pre>
+                <div class="copy_div">
+                    <pre id="random_graph"></pre>
+                    <button class="copy_button" onclick="copy_to_clipboard('random_graph')"><div class="tooltip">copied!</div>copy</button>
+                </div>
                 <br>
             </div>
 
@@ -123,6 +131,7 @@
     </div>
 
     <div id="problems"></div>
+    </center>
     <br>
     <br>
     <br>

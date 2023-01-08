@@ -48,7 +48,7 @@
 }
 
 #progress_bar {
-  transition: filter 3s;
+  transition: filter 2s;
   filter: brightness(0%);
   background: black;
   border: var(--border-width) solid var(--magic-color);
@@ -65,6 +65,7 @@ body {
 }
 
 button {
+  cursor: pointer;
   font-weight: bold;
   font-family: "Times New Roman", Times, serif;
   font-size: var(--button-font-size);
@@ -84,7 +85,7 @@ div {
 
 input {
   /*display: inline-block;*/
-  width: 60%;
+  width: 70%;
   font-size: var(--input-font-size);
   background: black;
   color: white;
@@ -115,7 +116,8 @@ pre {
 }
 
 .body_block {
-  margin: 4%;
+  width: 100%;
+  margin: 1%;
 }
 
 
@@ -147,7 +149,6 @@ pre {
   /*float: left;*/
   border: none;
   outline: none;
-  cursor: pointer;
   padding: 16px 0px;
   /*transition: 0.3s;*/
   border: var(--border-width) solid var(--magic-color);
@@ -262,8 +263,56 @@ pre {
   /*margin: auto;*/
 }
 
+@media screen and (orientation: portrait) {
+  .wrapper {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    width: 100%;
+  }
+  .main_block {
+    margin: 0 auto;
+  }
+}
 
 
+.copy_div {
+  position: relative;
+}
+
+.copy_button {
+  font: 1em "Fira Sans", sans-serif;
+  filter: brightness(50%);
+  padding: 3px 3px;
+  width: auto;
+  color: gray;
+  border: var(--border-width) solid gray;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.copy_button:hover {
+  filter: brightness(100%);
+  color: white;
+}
+
+.copy_button:active {
+  filter: brightness(100%);
+  color: gray;
+}
+
+.tooltip {
+  font-size: 0.7em;
+  background: var(--magic-color);
+  position: absolute;
+  top: -1.5em;
+  transition: -5s 10s ease-out opacity;
+  opacity: 0;
+}
+
+.copy_button:active .tooltip {
+  opacity: 1;
+}
 
 
 

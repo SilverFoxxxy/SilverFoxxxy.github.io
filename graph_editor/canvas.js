@@ -5,6 +5,7 @@ var ctx = canvas.getContext("2d");
 var mindir = Math.min(window.innerWidth, window.innerHeight * 0.8);
 
 var cur_i = -1;
+var canvas_clicked = false;
 // ctx.canvas.width = Math.floor(mindir * 0.9);
 // ctx.canvas.height = Math.floor(mindir * 0.9);
 ctx.canvas.width = 1000;
@@ -1467,7 +1468,7 @@ function findVertex(coords) {
 
 function onMoveCanvas(e) {
     // canvas.addEventListener('mousemove', function() {
-    if (!shake_finished) {
+    if (!shake_finished || canvas_clicked) {
         return;
     }
     
@@ -1493,5 +1494,35 @@ function onMoveCanvas(e) {
     // }
 }
 
+function onClickCanvas(e) {
+    // canvas.addEventListener('mousemove', function() {
+    if (!shake_finished) {
+        return;
+    }
+    
+    console.log("mouseclick");
 
+    cw = canvas.width;
+    vw = canvas.offsetWidth;
+    ch = canvas.height;
+    vh = canvas.offsetHeight;
+    // console.log(e.offsetX, e.offsetY);
+    nowx = Math.floor(e.offsetX * cw / vw);
+    nowy = Math.floor(e.offsetY * ch / vh);
+    // console.log(nowx, nowy);
+    var nowi = findVertex([nowx, nowy]);
+    canvas_clicked = true;
+    if (nowi == -1) {
+        canvas_clicked = false;
+    }
+    // console.log(nowi);
+    if (nowi == cur_i) {
+        return;
+    }
+    cur_i = nowi;
+    render(nowi);
+    // if (cur != -1) {
+    //     nodes[cur] = [e.offsetX, e.offsetY];
+    // }
+}
 

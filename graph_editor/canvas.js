@@ -1472,7 +1472,7 @@ function onMoveCanvas(e) {
         return;
     }
     
-    console.log("mousemove");
+    // console.log("mousemove");
 
     cw = canvas.width;
     vw = canvas.offsetWidth;
@@ -1500,7 +1500,7 @@ function onClickCanvas(e) {
         return;
     }
     
-    console.log("mouseclick");
+    // console.log("mouseclick");
 
     cw = canvas.width;
     vw = canvas.offsetWidth;
@@ -1511,14 +1511,21 @@ function onClickCanvas(e) {
     nowy = Math.floor(e.offsetY * ch / vh);
     // console.log(nowx, nowy);
     var nowi = findVertex([nowx, nowy]);
-    canvas_clicked = true;
-    if (nowi == -1) {
-        canvas_clicked = false;
-    }
     // console.log(nowi);
-    if (nowi == cur_i) {
-        return;
+    // console.log(canvas_clicked);
+    // console.log("check conds");
+    // if (nowi == cur_i && canvas_clicked) {
+    //     return;
+    // }
+    if (canvas_clicked && (nowi == cur_i)) {
+        canvas_clicked = false;
+    } else {
+        canvas_clicked = true;
+        if (nowi == -1) {
+            canvas_clicked = false;
+        }
     }
+    // console.log(canvas_clicked);
     cur_i = nowi;
     render(nowi);
     // if (cur != -1) {

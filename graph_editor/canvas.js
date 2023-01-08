@@ -197,6 +197,10 @@ function render(nowi = -1) {
     // console.log("rerender");
     renderProgress();
     ctx.fillStyle = "black";
+    flag = -1;
+    if (nowi == -1) {
+        flag = false;
+    }
     /*if (rounds % 20 < 10) {
         ctx.fillStyle = "black";
         //console.log("A");
@@ -212,7 +216,7 @@ function render(nowi = -1) {
     if (nowi != -1) {
         vertex_light[nowi] = true;
         for (var i = 0; i < graph[nowi].length; i++) {
-            vertex_light[graph[nowi][i]] = true;
+            vertex_light[graph[nowi][i]] = 1;
         }
     }
 
@@ -223,21 +227,21 @@ function render(nowi = -1) {
                 edge_light.push([u, graph[u][j]]);
                 // renderEdge(u, graph[u][j], true);
             } else {
-                renderEdge(u, graph[u][j]);
+                renderEdge(u, graph[u][j], flag);
             }
         }
     }
     for (var i = 0; i < edge_light.length; i++) {
         var u = edge_light[i][0];
         var v = edge_light[i][1];
-        renderEdge(u, v, true);
+        renderEdge(u, v, 1);
     }
 
     for (var i = 0; i < vertex.length; i++) {
         if (vertex_light[i]) {
-            renderVertex(i, true);
+            renderVertex(i, 1);
         } else {
-            renderVertex(i);
+            renderVertex(i, flag);
         }
     }
 
@@ -287,13 +291,16 @@ function renderVertex(i, flag = false) {
     ctx.beginPath();
     ctx.moveTo(nx + rad, ny);
     ctx.lineWidth = Math.floor(12 * nowk);
-    ctx.strokeStyle = mag_backfill;
+    ctx.strokeStyle = mag_fill;
+    if (flag) {
+        ctx.strokeStyle = mag_backfill;
+    }
     ctx.fillStyle = "black";
 
     if (current_theme == "white") {
         ctx.strokeStyle = "white";
         ctx.fillStyle = "black";
-        if (flag) {
+        if (flag == 1) {
             ctx.strokeStyle = "white";
             ctx.setLineDash([10]);
         }
@@ -316,9 +323,12 @@ function renderVertex(i, flag = false) {
     ctx.moveTo(nx + rad, ny);
     ctx.lineWidth = Math.floor(12 * nowk);
     ctx.strokeStyle = mag_fill;
+    if (flag == -1) {
+        ctx.strokeStyle = mag_backfill;
+    }
     ctx.fillStyle = "black";
 
-    if (flag) {
+    if (flag == 1) {
         ctx.strokeStyle = "white";
         ctx.fillStyle = mag_backfill;
     }
@@ -401,10 +411,13 @@ function renderEdge(u, v, flag = false) {
 
 
 
-    ctx.strokeStyle = mag_backfill;
+    ctx.strokeStyle = mag_fill;
+    if (flag == -1) {
+        ctx.strokeStyle = mag_backfill;
+    }
     if (current_theme == "white") {
         ctx.strokeStyle = "white";
-        if (flag) {
+        if (flag == 1) {
             nowlen = Math.sqrt(distanceSquare(vertex_n[u], vertex_n[v]));
             cnt = Math.floor(nowlen / 25);
             if (cnt % 2 == 0) {
@@ -425,8 +438,11 @@ function renderEdge(u, v, flag = false) {
 
         ctx.lineWidth = 4;
         ctx.strokeStyle = mag_fill;
-        if (flag) {
+        if (flag == 1) {
             ctx.strokeStyle = "white";
+        }
+        if (flag == -1) {
+            ctx.strokeStyle = mag_backfill;
         }
         if (current_theme == "white") {
             ctx.strokeStyle = "black";
@@ -1433,7 +1449,7 @@ function setTheme(evt, theme){
 var current_theme = localStorage.getItem('theme');
 console.log(current_theme);
 if (!current_theme) {
-    current_theme = 'white';
+    current_theme = 'gray';
 }
 document.getElementById(current_theme + "_theme_button").click(); 
 

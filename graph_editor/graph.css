@@ -17,23 +17,28 @@
   --magic-color: #555;
   /*--magic-red: #370101;*/ /*#01372F; #013726; #220137; #2E3701; #01372A*/
   --magic-red: #5a082d;/*#b04743;/*#6F3533 #600A0A;*/ /*#555;/* #4A0160;*//* #3F0152;*/
-  --magic-violet: #37085A;/*#5a082d;/*#6d3567;/*#480341;/*#5a1c54;/*#6d3567;/*#480341;*//*#5D0279*/
-  --magic-gray: #555;/*#085A49;/*#555;*/
+  --magic-violet: #48176D;
+  --magic-gray: #555;
+
+  --magic-lred: #8A1F4F;/*#37085A;*//*#5a082d;/*#6d3567;/*#480341;/*#5a1c54;/*#6d3567;/*#480341;*//*#5D0279*/
+  --magic-lviolet: #7125A8;
+  /*#085A49;/*#555;*/
+  --magic-lgray: #999;
   --main-color: #CCC;
 }
 
 :root.gray {
-  --magic-color: var(--magic-gray); /*#555;*/
+  --magic-color: var(--magic-lgray); /*#555;*/
   --magic-backcolor: var(--magic-gray);
 }
 
 :root.red {
-  --magic-color: var(--magic-red); /*#600A0A;*/
+  --magic-color: var(--magic-lred); /*#600A0A;*/
   --magic-backcolor: var(--magic-red);
 }
 
 :root.violet {
-  --magic-color: var(--magic-violet);/* #480341;*/
+  --magic-color: var(--magic-lviolet);/* #480341;*/
   --magic-backcolor: var(--magic-violet);
 }
 

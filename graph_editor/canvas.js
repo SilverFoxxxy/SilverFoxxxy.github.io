@@ -1451,7 +1451,7 @@ function setTheme(evt, theme){
 var current_theme = localStorage.getItem('theme');
 console.log(current_theme);
 if (!current_theme) {
-    current_theme = 'gray';
+    current_theme = 'white';
 }
 document.getElementById(current_theme + "_theme_button").click(); 
 

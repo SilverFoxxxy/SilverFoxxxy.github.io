@@ -16,22 +16,22 @@
   */
   --magic-color: #555;
   /*--magic-red: #370101;*/ /*#01372F; #013726; #220137; #2E3701; #01372A*/
-  --magic-red: #600A0A; /*#555;/* #4A0160;*//* #3F0152;*/
-  --magic-violet: #480341;/*#5D0279*/
-  --magic-gray: #555;
+  --magic-red: #5a082d;/*#b04743;/*#6F3533 #600A0A;*/ /*#555;/* #4A0160;*//* #3F0152;*/
+  --magic-violet: #37085A;/*#5a082d;/*#6d3567;/*#480341;/*#5a1c54;/*#6d3567;/*#480341;*//*#5D0279*/
+  --magic-gray: #555;/*#085A49;/*#555;*/
   --main-color: #CCC;
 }
 
 :root.gray {
-  --magic-color: #555;
+  --magic-color: var(--magic-gray); /*#555;*/
 }
 
 :root.red {
-  --magic-color: #600A0A;
+  --magic-color: var(--magic-red); /*#600A0A;*/
 }
 
 :root.violet {
-  --magic-color: #480341;
+  --magic-color: var(--magic-violet);/* #480341;*/
 }
 
 .wrapper {
@@ -76,6 +76,14 @@ button {
   width:100%;
   padding: 5px 0px;
   border-radius: 5px;
+}
+
+#pause_bttn {
+  display: none;
+}
+
+#pause_bttn1 {
+  display: none;
 }
 
 div {

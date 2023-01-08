@@ -760,11 +760,12 @@ function normalizeGraph() {
     zero_x = Math.floor((ltx + rbx) / 2);
     zero_y = Math.floor((lty + rby) / 2);
     var coeff = 1;
-    if (cwidth < (maxx - minx + 100)) {
-        coeff = (cwidth - 80) / (maxx - minx);
+    var maxrad = 80;
+    if (cwidth < (maxx - minx + maxrad * 2)) {
+        coeff = (cwidth - maxrad * 2) / (maxx - minx);
     }
-    if (cheight < (maxy - miny + 100)) {
-        coeff = Math.min(coeff, (cheight - 80) / (maxy - miny));
+    if (cheight < (maxy - miny + maxrad * 2)) {
+        coeff = Math.min(coeff, (cheight - maxrad * 2) / (maxy - miny));
     }
 
     for (var i = 0; i < vertex_n.length; i++) {
@@ -1220,7 +1221,11 @@ function copy_to_clipboard(text_id) {
     // Text.select();
 
     /* Copy selected text into clipboard */
-    navigator.clipboard.writeText(Text.value);
+    if (text_id == "random_graph") {
+        navigator.clipboard.writeText(Text.innerHTML);
+    } else {
+        navigator.clipboard.writeText(Text.value);
+    }
 }
 
 // test:

@@ -3,6 +3,8 @@
 canvas = document.getElementById("graph_view");
 var ctx = canvas.getContext("2d");
 var mindir = Math.min(window.innerWidth, window.innerHeight * 0.8);
+
+var cur_i = -1;
 // ctx.canvas.width = Math.floor(mindir * 0.9);
 // ctx.canvas.height = Math.floor(mindir * 0.9);
 ctx.canvas.width = 1000;
@@ -190,7 +192,9 @@ function init() {
 
 
 // Draw everything
-function render() {
+function render(nowi = -1) {
+    // console.log(nowi);
+    // console.log("rerender");
     renderProgress();
     ctx.fillStyle = "black";
     /*if (rounds % 20 < 10) {
@@ -202,14 +206,39 @@ function render() {
     }*/
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    for (var u = 0; u < graph.length; u++) {
-        for (var j = 0; j < graph[u].length; j++) {
-            renderEdge(u, graph[u][j]);
+    vertex_light = new Array(n);
+    vertex_light = vertex_light.fill(false);
+
+    if (nowi != -1) {
+        vertex_light[nowi] = true;
+        for (var i = 0; i < graph[nowi].length; i++) {
+            vertex_light[graph[nowi][i]] = true;
         }
     }
 
+    var edge_light = [];
+    for (var u = 0; u < graph.length; u++) {
+        for (var j = 0; j < graph[u].length; j++) {
+            if (u == nowi || graph[u][j] == nowi) {
+                edge_light.push([u, graph[u][j]]);
+                // renderEdge(u, graph[u][j], true);
+            } else {
+                renderEdge(u, graph[u][j]);
+            }
+        }
+    }
+    for (var i = 0; i < edge_light.length; i++) {
+        var u = edge_light[i][0];
+        var v = edge_light[i][1];
+        renderEdge(u, v, true);
+    }
+
     for (var i = 0; i < vertex.length; i++) {
-        renderVertex(i);
+        if (vertex_light[i]) {
+            renderVertex(i, true);
+        } else {
+            renderVertex(i);
+        }
     }
 
     // ctx.fillStyle = terrainPattern;
@@ -238,23 +267,76 @@ function renderProgress() {
 }
 
 
+function getVertexRad() {
+    var nowk = cwidth / 600 * 1.5 / Math.sqrt(vertex.length);
+    var rad = Math.floor(45 * nowk);
+    return [nowk, rad];
+}
 
 
-
-function renderVertex(i) {
+function renderVertex(i, flag = false) {
+    const computedStyle = getComputedStyle(canvas);
+    var mag_fill = computedStyle.getPropertyValue('--magic-fill');
+    var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
     var v = vertex_n[i];
     var nx = v[0];
     var ny = v[1];
-    var nowk = cwidth / 600 * 1.5 / Math.sqrt(vertex.length);
-    var rad = Math.floor(45 * nowk);
+    var nowrk = getVertexRad();
+    var nowk = nowrk[0];
+    var rad = nowrk[1];
     ctx.beginPath();
     ctx.moveTo(nx + rad, ny);
     ctx.lineWidth = Math.floor(12 * nowk);
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = mag_backfill;
     ctx.fillStyle = "black";
+
+    if (current_theme == "white") {
+        ctx.strokeStyle = "white";
+        ctx.fillStyle = "black";
+        if (flag) {
+            ctx.strokeStyle = "white";
+            ctx.setLineDash([10]);
+        }
+    }
+
+
     ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
     ctx.stroke();
     ctx.fill();
+    ctx.setLineDash([]);
+
+    if (current_theme == "white") {
+        rad = Math.floor(rad * 0.87);
+    } else {
+        rad = Math.floor(rad * 0.92);
+    }
+
+
+    ctx.beginPath();
+    ctx.moveTo(nx + rad, ny);
+    ctx.lineWidth = Math.floor(12 * nowk);
+    ctx.strokeStyle = mag_fill;
+    ctx.fillStyle = "black";
+
+    if (flag) {
+        ctx.strokeStyle = "white";
+        ctx.fillStyle = mag_backfill;
+    }
+    if (current_theme == "white") {
+        ctx.fillStyle = "black";
+        ctx.strokeStyle = "black";
+        // if (flag) {
+        //     ctx.lineWidth = Math.floor(10 * nowk);
+        //     ctx.strokeStyle = "white";
+        //     ctx.setLineDash([10, 10]);
+        //     // ctx.strokeStyle = "red";
+        // }
+    }
+
+    ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
+    ctx.stroke();
+    ctx.fill();
+    
 
     ctx.font = Math.floor(55 * nowk) + "px Arial";
     ctx.fillStyle = "white";
@@ -303,30 +385,61 @@ function renderRandomGraph(n, p) {
 
 
 
-function renderEdge(u, v) {
+function renderEdge(u, v, flag = false) {
     nx1 = vertex_n[u][0];
     ny1 = vertex_n[u][1];
     nx2 = vertex_n[v][0];
     ny2 = vertex_n[v][1];
 
+    const computedStyle = getComputedStyle(canvas);
+    var mag_fill = computedStyle.getPropertyValue('--magic-fill');
+    var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
+
     ctx.beginPath();
 
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = "white";
+    ctx.lineWidth = 8;
+
+
+
+    ctx.strokeStyle = mag_backfill;
+    if (current_theme == "white") {
+        ctx.strokeStyle = "white";
+        if (flag) {
+            nowlen = Math.sqrt(distanceSquare(vertex_n[u], vertex_n[v]));
+            cnt = Math.floor(nowlen / 25);
+            if (cnt % 2 == 0) {
+                cnt++;
+            }
+            ctx.setLineDash([Math.floor(nowlen / cnt)]);
+        }
+    }
 
     ctx.moveTo(nx1, ny1);
     ctx.lineTo(nx2, ny2);
     ctx.stroke();
+    ctx.setLineDash([]);
 
-    ctx.beginPath();
+    // if (!(current_theme == "white" && flag)) {
+    if (true) {
+        ctx.beginPath();
 
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "black";
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = mag_fill;
+        if (flag) {
+            ctx.strokeStyle = "white";
+        }
+        if (current_theme == "white") {
+            ctx.strokeStyle = "black";
+            // if (flag) {
+            //     ctx.strokeStyle = "black";
+            //     // ctx.strokeStyle = "red";
+            // }
+        }
 
-    ctx.moveTo(nx1, ny1);
-    ctx.lineTo(nx2, ny2);
-    ctx.stroke();
-    
+        ctx.moveTo(nx1, ny1);
+        ctx.lineTo(nx2, ny2);
+        ctx.stroke();
+    }
 }
 
 
@@ -1306,6 +1419,7 @@ document.getElementById("init_tab_button").click();
 
 function setTheme(evt, theme){
     localStorage.setItem('theme', theme);
+    current_theme = theme;
     theme_buttons = document.getElementsByClassName("theme_button");
     for (i = 0; i < theme_buttons.length; i++) {
         theme_buttons[i].className = theme_buttons[i].className.replace(" active", "");
@@ -1313,13 +1427,53 @@ function setTheme(evt, theme){
     // document.getElementById(theme).style.display = "block";
     evt.currentTarget.className += " active";
     document.documentElement.className = theme;
+    render();
 }
 
 var current_theme = localStorage.getItem('theme');
 console.log(current_theme);
 if (!current_theme) {
-    current_theme = 'gray';
+    current_theme = 'white';
 }
 document.getElementById(current_theme + "_theme_button").click(); 
+
+function findVertex(coords) {
+    var rad_sq = Math.pow(getVertexRad()[1], 2);
+    for (var i = 0; i < vertex.length; i++) {
+        if (distanceSquare(coords, vertex_n[i]) <= rad_sq) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function onMoveCanvas(e) {
+    // canvas.addEventListener('mousemove', function() {
+    if (!shake_finished) {
+        return;
+    }
+    
+    console.log("mousemove");
+
+    cw = canvas.width;
+    vw = canvas.offsetWidth;
+    ch = canvas.height;
+    vh = canvas.offsetHeight;
+    // console.log(e.offsetX, e.offsetY);
+    nowx = Math.floor(e.offsetX * cw / vw);
+    nowy = Math.floor(e.offsetY * ch / vh);
+    // console.log(nowx, nowy);
+    var nowi = findVertex([nowx, nowy]);
+    // console.log(nowi);
+    if (nowi == cur_i) {
+        return;
+    }
+    cur_i = nowi;
+    render(nowi);
+    // if (cur != -1) {
+    //     nodes[cur] = [e.offsetX, e.offsetY];
+    // }
+}
+
 
 

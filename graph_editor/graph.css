@@ -24,14 +24,28 @@
 
 :root.gray {
   --magic-color: var(--magic-gray); /*#555;*/
+  --magic-backcolor: var(--magic-gray);
 }
 
 :root.red {
   --magic-color: var(--magic-red); /*#600A0A;*/
+  --magic-backcolor: var(--magic-red);
 }
 
 :root.violet {
   --magic-color: var(--magic-violet);/* #480341;*/
+  --magic-backcolor: var(--magic-violet);
+}
+
+:root.white {
+  --magic-color: #fff;/* #480341;*/
+  --magic-backcolor: #555;
+}
+
+canvas {
+  cursor: crosshair;
+  --magic-fill: var(--magic-color, black);
+  --magic-backfill: var(--magic-backcolor, black);
 }
 
 .wrapper {
@@ -51,7 +65,7 @@
   transition: filter 2s;
   filter: brightness(0%);
   background: black;
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
 }
 
 #white_bar {
@@ -69,7 +83,7 @@ button {
   font-weight: bold;
   font-family: "Times New Roman", Times, serif;
   font-size: var(--button-font-size);
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
   background: black;
   color: white;
   text-align: center;
@@ -97,7 +111,7 @@ input {
   font-size: var(--input-font-size);
   background: black;
   color: white;
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
   border-radius: 5px;
 }
 
@@ -106,7 +120,7 @@ textarea {
   width: 90%;
   background: black;
   color: white;
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
   border-radius: 5px;
   padding: 10px;
 }
@@ -117,7 +131,7 @@ pre {
   width: 90%;
   background: black;
   color: white;
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
   height: 200px;
   border-radius: 5px;
   padding: 10px;
@@ -159,7 +173,7 @@ pre {
   outline: none;
   padding: 16px 0px;
   /*transition: 0.3s;*/
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
   border-width: var(--border-width) var(--border-width) var(--border-width) var(--border-width);
   border-radius: 5px 5px 0px 0px;
 }
@@ -193,7 +207,7 @@ pre {
 .tabcontent {
   display: none;
   padding: 6px 12px;
-  border: var(--border-width) solid var(--magic-color);
+  border: var(--border-width) solid var(--magic-backcolor);
   border-width: 0px var(--border-width) var(--border-width) var(--border-width);
   border-top: none;
   border-radius: 0px 0px 5px 5px;
@@ -203,7 +217,7 @@ pre {
 .theme_button_wrapper {
   /**/
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
   width: fit-content;
   width: -moz-fit-content;
 }
@@ -251,6 +265,12 @@ pre {
   /*background: var(--magic-violet);*/
   /*background: #222;*/
   border: 2px solid var(--magic-violet);
+}
+
+#white_theme_button {
+  /*background: var(--magic-violet);*/
+  /*background: #222;*/
+  border: 2px solid #fff;
 }
 
 .theme_button.active {

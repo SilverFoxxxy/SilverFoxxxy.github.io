@@ -26,20 +26,24 @@
 </head>
 <body>
     <center>
-        <h1>VK friends map</h1>
+        <h3>VK friends map</h3>
 
-        Input your vk id: <br>
-        <div class="input_div">
+        
+        <div class="input_wrapper">
+            <div style="text-align: right;">vk id:</div>
+            <div></div>
             <input id="vk_id" placeholder="ibelkov"></input>
-            <br>
+            <div></div>
             <button id="input_bttn" onclick="showFriends()">show map</button>
-        </div><br>
+        </div>
+        <br>
         <div id="content_block">
             <!-- <progress id="map_progress" max="100" value="1"></progress> -->
+            
+            <div id="chartdiv"></div>
             <div id="loading_bar" align="left">
                 <div id="progress_bar" class="progress"></div>
             </div>
-            <div id="chartdiv"></div>
             <center>
                 <div id="loading" style="visibility: hidden; width: 100%; font-size: 3rem; color: white;  text-align: center; position: absolute; top: 45%;">
                     <center>
@@ -49,17 +53,13 @@
                     </center>
                 </div>
             </center>
+            <center>
             <div id="friends_list"></div>
+            </center>
         </div>
     </center>
     <div style="width: 100vw;">
     <center>
-        <div id="map_v" class="map_view" style="position: relative;">
-            
-            
-            <div id="map"></div>
-            
-        </div>
     </center>
     </div>
 

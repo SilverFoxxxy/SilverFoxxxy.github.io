@@ -786,17 +786,45 @@ function recalcZoom(zoom_, init=false) {
             return b[1] - a[1];
         });
 
-        for (var i = 0; i < Math.min(3, keys.length); i++) {
+        print_cnt = Math.min(3, keys.length);
+        if (keys.length == 4) {
+            print_cnt = 4;
+        }
+
+        for (var i = 0; i < print_cnt; i++) {
             city_ru = window.city_clusters[keys[i]].city_ru;
             country_ru = window.city_clusters[keys[i]].country_ru;
             cur_text += city_ru + " " + country_ru + "\n";
         }
-        var cnt = keys.length - 3;
+        var cnt = keys.length - print_cnt;
         if (cnt > 0) {
-            cur_text += "+ " + cnt + " other cit" + ((cnt == 1) ? "y" : "ies") + "\n";
+            cit_txt = "";
+            // 1 город
+            // 2, 3, 4 города
+            // 5 - 9; 10 - 20 городов
+            if ((10 <= cnt && cnt <= 20) || cnt % 10 == 0 || (5 <= cnt % 10 && cnt % 10 <= 9)) {
+                cit_txt = "других городов";
+            } else if (cnt % 10 == 1) {
+                cit_txt = "другой город";
+            } else {
+                cit_txt = "других города";
+            }
+            cur_text += "+ " + cnt + "  " + cit_txt + "\n";
         }
 
-        cur_text += "\n " + pop + " friend" + ((pop == 1) ? "" : "s");
+        fr_txt = "";
+        // 1 город
+        // 2, 3, 4 города
+        // 5 - 9; 10 - 20 городов
+        if ((10 <= pop && pop <= 20) || pop % 10 == 0 || (5 <= (pop % 10) && (pop % 10) <= 9)) {
+            fr_txt = "друзей";
+        } else if (pop % 10 == 1) {
+            fr_txt = "друг";
+        } else {
+            fr_txt = "друга";
+        }
+
+        cur_text += "\n " + pop + " " + fr_txt;
 
         xc = coords[0];
         yc = coords[1];
@@ -1087,7 +1115,7 @@ function showFriendsCycle() {
         var loading_screen = document.getElementById("loading");
         loading_screen.style.visibility = "hidden";
         var loading_bar = document.getElementById("loading_bar");
-        loading_bar.style.filter = "brightness(0%)";
+        loading_bar.style.opacity = "0";
     }
 }
 
@@ -1104,7 +1132,7 @@ async function showFriends() {
         var loading_screen = document.getElementById("loading");
         loading_screen.style.visibility = "visible";
         var loading_bar = document.getElementById("loading_bar");
-        loading_bar.style.filter = "brightness(100%)";
+        loading_bar.style.opacity = "1";
 
         let vk_id = document.getElementById("vk_id").value;
         friends = await(get_friends(vk_id));

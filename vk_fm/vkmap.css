@@ -1,0 +1,237 @@
+:root {
+  --main-bg-color: brown;
+  --progress: 1%;
+}
+
+body {
+    color: white;
+    background: black;
+}
+
+.input_div {
+    
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+input {
+    all: unset;
+    border: 1px solid #555;
+    box-sizing: border-box;
+    /*all: unset;
+    border: 1px solid gray;
+    text-align: left;
+    padding: ;*/
+}
+
+input:focus {
+  outline: red 1px auto;
+}
+
+button {
+  all: unset;
+  border: 1px solid #555;
+  cursor: pointer;
+}
+
+button:hover {
+  outline: red 1px auto;
+}
+
+#vk_id {
+    width: 100%;
+}
+
+#input_bttn {
+    width: 100%;
+}
+
+.map_view {
+    /*width: calc(min(90vh, 90vw));
+    height: calc(min(60vh, 60vw));*/
+}
+
+#map {
+    /*max-width: calc(min(90vh, 90vw));
+    max-height: calc(min(60vh, 60vw));*/
+}
+
+#chartdiv {
+  background: black;
+  width: 80vw;
+  max-width: 100%;
+  height: 60vh;
+}
+
+#content_block {
+    width: 80vw;
+    max-width: 900px;
+    border: 1px solid gray;
+    position: relative;
+}
+
+/*#map_progress {
+  width: 100%;
+  height: 1rem;
+  background: black;
+  color: yellow;
+  border-radius: 50%;
+}
+*/
+.list_hint {
+    /*background: black;*/
+}
+
+.progress {
+    width: var(--progress);
+    transition: width: 0.3s;
+    height: 0.5rem;
+    background: #74ABE9;
+}
+
+.progress_bar {
+    transition: width: 0.3s;
+}
+
+#loading_bar {
+  transition: filter 2s;
+  filter: brightness(0%);
+  max-width: 100%;
+  height: 0.5rem;
+  background: black;
+  border: 1px solid #444;
+}
+
+.user_info {
+    width: 100%;
+    margin: 10px;
+    /*height: 100%;*/
+    /*background: blue;*/
+}
+
+.avatar_img {
+    border: 2px solid gray;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin: 5px 5px;
+}
+
+.img_container {
+    /*border: 1px dotted gray;*/
+    border-radius: 50%;
+    width: 45px;
+}
+
+.hint_wrapper {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+    background: #222;
+    padding: 5px;
+    border-radius: 40px;
+    width: 95%;
+    /*border: 1px solid gray;*/
+    display: grid;
+    grid-template-columns: 45px 10px auto;
+}
+
+.hint_text {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+    color: white;
+    width: 100%;
+    font-size: 18px;
+    text-align: left;
+    padding: 5px;
+    /*border: 1px solid black;*/
+}
+
+.location_text {
+    color: gray;
+}
+
+#friends_list {
+    width: 100%;
+}
+
+
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+
+  all:unset;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  padding: 9px 18px;
+  width: 100%;
+  /*border: 2px solid #888;*/
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  /*padding: 0 18px;*/
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+  padding: 0 10px 0 0;
+  display: none;
+  grid-template-columns: auto;
+  max-height: 60vh;
+  overflow: hidden;
+  overflow-y: scroll;
+  background-color: #000;
+}
+
+/*@media screen and (orientation: portrait) {
+  .content {
+    grid-template-columns: auto;
+    width: 100%;
+  }
+}*/
+@media screen and (min-width: 600px) {
+  .content {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .content {
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+  }
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}

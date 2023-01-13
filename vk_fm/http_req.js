@@ -2,7 +2,8 @@
 // const server = 'https://45.143.93.51/';
 // const server = 'http://45.143.93.51/';
 // const server = 'http://localhost:8090/';
-const server = 'http://194.87.99.149/vk_map/';
+const server = 'https://belkovanya.site/vk_map/';
+// const server = 'http://194.87.99.149/vk_map/';
 
 async function send_req(req_json) {
     console.log(JSON.stringify(req_json));

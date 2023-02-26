@@ -74,6 +74,7 @@ canvas {
 }
 
 #white_bar {
+  transition: width 0.2s;
    background: var(--magic-color);
 }
 
@@ -150,6 +151,12 @@ pre {
 
 
 
+.hints {
+    padding: 4%;
+    font-size: var(--main-font-size);
+    border: var(--border-width) solid var(--magic-backcolor);
+    border-radius: 5px;
+}
 
 /* Style the tab */
 .tab {

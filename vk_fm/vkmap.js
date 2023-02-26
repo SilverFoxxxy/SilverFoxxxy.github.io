@@ -6,6 +6,55 @@ window.series = -1;
 window.lseries = -1;
 root = -1;
 
+cur_id = -1;
+
+
+function getFriends(vk_id) {
+    var elem = document.getElementById("loading_req_text");
+    elem.style.opacity = "1";
+    if (cur_id != vk_id) {
+        cur_id = vk_id;
+    }
+    getFriendsCycle(vk_id);
+}
+
+
+
+
+
+async function getFriendsCycle(vk_id) {
+    if (vk_id != cur_id) {
+        return -1;
+    }
+    var friends = await(get_friends(vk_id));
+    if (friends.hasOwnProperty("status")) {
+        if (friends.status == "ok") {
+            window.friends = friends;
+            document.getElementById("loading_req_text").style.opacity = "0";
+            showFriends();
+            return;
+        }
+        //if (friends.status == "failed") {
+        if (friends.hasOwnProperty("error") && friends.error == -1) {
+            setTimeout(getFriendsCycle, 1000, vk_id);
+            return;
+        }
+        if (friends.hasOwnProperty("error") && friends.error == 15) {
+            alert("Ошибка: закрытый профиль");
+        } else {
+            alert("Ошибка: некорректный id");
+        }
+        //}
+        document.getElementById("loading_req_text").style.opacity = "0";
+        return;
+    }
+    setTimeout(getFriendsCycle, 1000, vk_id);
+    return;
+}
+
+
+
+
 
 function clearMap() {
     if (window.series != -1) {
@@ -51,6 +100,7 @@ function clearMap() {
             text: "{value.formatNumber('#.')}",
             fillOpacity: 0.7,
             fill: am5.color(0xff0000),
+            // fill: am5.color(0xde4f2f),
             cursorOverStyle: "pointer",
             tooltipText: `{name}[/]`
         }, circleTemplate);
@@ -169,13 +219,26 @@ am5.ready(function() {
 
     var root = am5.Root.new("chartdiv");
     window.root = root;
-    root.setThemes([am5themes_Animated.new(root)]);
+    // root.setThemes([am5themes_Animated.new(root)]);
 
-    var chart = root.container.children.push(am5map.MapChart.new(root, {homeZoomLevel: 1,}));
+    var chart = root.container.children.push(am5map.MapChart.new(root, {homeZoomLevel: 1, wheelY: "none"}));
 
     window.chart = chart;
 
-    chart.set("zoomStep", 1.3);
+    // var chart = root.container.children.push(
+    //   am5map.MapChart.new(root, {
+    //     wheelY: "none"
+    //   })
+    // );
+    // var chart = root.container.children.push(
+    //   am5map.MapChart.new(root, {
+    //     panX: "rotateX",
+    //     wheelY: "zoom",
+    //     wheelSensitivity: 0.7
+    //   })
+    // );
+    chart.set("zoomControl", am5map.ZoomControl.new(root, {}));
+    chart.set("zoomStep", 1.7);
     chart.on("zoomLevel", function(zoom, target) {
         // console.log(zoom, target);
         recalcZoom(zoom);
@@ -270,26 +333,11 @@ am5.ready(function() {
     init();
 
     recalcZoom(1);
-
-    // pushToSeries(pointSeries, 50, {
-    //     latitude: 40.641312,
-    //     longitude: -73.778137,
-    //     name: "NY",
-    //     value: 50
-    // });
-    // var nyc = pointSeries.pushDataItem();
-
-    // pointSeries.dispose();
 });
 
 
 
 
-// ymaps.ready(init);
-
-// 55.7 37.6
-// 59.9 30.3
-// 59.2 39.9
 
 var root_css = document.querySelector(':root');
 
@@ -354,30 +402,6 @@ const levenshteinDistance = (s, t) => {
 
 
 
-/*const fastLevenshteinDistance = (s, t, maxk) => {
-  if (!s.length) return t.length;
-  if (!t.length) return s.length;
-  const arr = [];
-  for (let i = 0; i <= t.length; i++) {
-    arr[i] = [i];
-    for (let j = 1; j <= s.length; j++) {
-      arr[i][j] =
-        i === 0
-          ? j
-          : Math.min(
-              arr[i - 1][j] + 1,
-              arr[i][j - 1] + 1,
-              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)
-            );
-    }
-  }
-  return arr[t.length][s.length];
-};*/
-
-
-
-
-
 function getCoords(city, country) {
     if (citiesVec == -1) {
         return -1;
@@ -386,7 +410,6 @@ function getCoords(city, country) {
     let r_i = upperBound(city, country);
     console.log(l_i, r_i);
     if (l_i < r_i && citiesVec[l_i][0] == city && citiesVec[l_i][1] == country) {
-        // console.log("HERE");
         let max_i = l_i;
         let max_pop = 0;
         for (let i = l_i; i < r_i; i++) {
@@ -395,7 +418,6 @@ function getCoords(city, country) {
                 max_pop = citiesVec[i][6];
             }
         }
-        // console.log(max_i);
         return [citiesVec[max_i][2], citiesVec[max_i][3]];
     } else {
         let now_i = find_closest(city, country);
@@ -404,11 +426,6 @@ function getCoords(city, country) {
         }
         return [citiesVec[now_i][2], citiesVec[now_i][3]];
     }
-    // console.log(l_i, r_i)
-    // console.log(l_i * 9, r_i * 9)
-    //for (let i = l_i; i < r_i; i++) {
-    //    console.log(citiesVec[i]);
-    //}
 }
 
 
@@ -437,85 +454,27 @@ function fastGetCoords(city, country) {
     }
 }
 
-// var objectManager;
+
+
+
 
 async function init() {
 
     let DBurl = "https://silverfoxxxy.github.io/vk_fm/res/citiesDB_sorted.json";
     let respDB = await fetch(DBurl);
-    // let commits = 
+
     citiesDB = await respDB.json();
     citiesVec = citiesDB.cities;
-
-    // nowcoords = getCoords("Dolgoprudny", "Russia");
-    // console.log(nowcoords);
-    // console.log("wtf");
 
     var mindir = Math.min(window.innerWidth * 0.7, window.innerHeight * 0.9);
 
     var mwidth = String(Math.floor(mindir * 0.9)) + "px";
     var mheight = String(Math.floor(mindir * 0.9)) + "px";
 
-    map_v = document.getElementById("map_v");
-    map_v.style.width = mwidth;
-    map_v.style.height = mheight;
-
-
-    // myMap = new ymaps.Map('map', {
-    //     center: [0, 0],
-    //     zoom: 1,
-        
-    //     controls: ['smallMapDefaultSet']
-    // }, {
-    //     minZoom:1,
-    //     // maxZoom:20,
-    //     // searchControlProvider: 'yandex#search',
-    //     // restrictMapArea: [
-    //     //     [-89.5,-180.5],
-    //     //     [89.0,180.5]
-    //     // ]
-    // });
-
     let test_res = await (get_test());
 
     console.log(test_res);
 
-    // var customBalloonContentLayout = ymaps.templateLayoutFactory.createClass([
-    //         '<ul class="list, list_hint">',
-    //         // Outputting a list of all geo objects in the cycle.
-    //         '{% for geoObject in properties.geoObjects %}',
-    //             '<li><a href=# data-placemarkid="{{ geoObject.properties.placemarkId }}" class="list_item">{{ geoObject.properties.clusterCaption|raw }}</a></li>',
-    //         '{% endfor %}',
-    //         '</ul>'
-    //     ].join(''));
-
-    // objectManager = new ymaps.ObjectManager({
-    //     // // Чтобы метки начали кластеризоваться, выставляем опцию.
-    //     // clusterize: true,
-    //     // // ObjectManager принимает те же опции, что и кластеризатор.
-    //     // // 110
-    //     // gridSize: 95,
-    //     // clusterDisableClickZoom: true,
-    //     // clusterOpenBalloonOnClick: true,
-    //     // *
-    //     //  * Setting the mode for opening the balloon.
-    //     //  * In this example, the balloon will never open in the panel mode.
-         
-    //     // clusterBalloonPanelMaxMapArea: 0,
-    //     // /**
-    //     //  * By default, the balloon options balloonMaxWidth and balloonMaxHeight are not set for the clusterer,
-    //     //  * since all standard layouts have defined dimensions.
-    //     //  */
-    //     // clusterBalloonMaxHeight: 200,
-    //     // // Setting a custom layout for balloon content.
-    //     // clusterBalloonContentLayout: customBalloonContentLayout
-    // });
-
-
-
-    //var json = getJSON();
-    //console.log(json);
-    //var data = eval("(" +json.responseText + ")");
 }
 
 
@@ -592,25 +551,10 @@ function find_closest(city, country) {
     return min_i;
 }
 
-// var i = 0;
-// function move_pr() {
-//   if (i == 0) {
-//     i = 1;
-//     var elem = document.getElementById("myBar");
-//     var width = 10;
-//     var id = setInterval(frame, 10);
-//     function frame() {
-//       if (width >= 100) {
-//         clearInterval(id);
-//         i = 0;
-//       } else {
-//         width++;
-//         elem.style.width = width + "%";
-//         elem.innerHTML = width + "%";
-//       }
-//     }
-//   }
-// }
+
+
+
+
 
 window.progress_percent = 0;
 
@@ -620,18 +564,8 @@ window.reload_bar_run = false;
 
 function reload_bar() {
     window.reload_cnt++;
-    // var map_progress = document.getElementById("map_progress");
-    // map_progress.value = window.progress_percent;
-    // console.log("in reload: ", window.progress_percent);
     var progress_bar = document.getElementById("progress_bar");
     progress_bar.style.width = window.progress_percent + "%";
-    /*if (!window.reload_bar_run) {
-        console.log("WTF???");
-    }
-    if (window.reload_bar_run) {
-        requestAnimationFrame(reload_bar);
-        setTimeout(reload_bar, 100);
-    }*/
 }
 
 var cur_i = 0;
@@ -740,6 +674,7 @@ function user2text(user) {
 
 window.lastZoom = 1;
 function recalcZoom(zoom_, init=false) {
+    console.log("recalcZoom!");
     if (!init) {
         var z_ = 1;
         for (var i = 1; i < 63; i *= 2) {
@@ -755,7 +690,7 @@ function recalcZoom(zoom_, init=false) {
         }
     }
     var zoom = window.lastZoom;
-    console.log("recalcZoom");
+    console.log("recalcZoom: " + String(zoom));
     // window.lastZoom = Math.floor(zoom);
     new_clusters = clusterizeByZoom(window.city_clusters, zoom);
     console.log(new_clusters);
@@ -988,14 +923,18 @@ function updCollapsibles() {
     var coll = document.getElementsByClassName("collapsible");
     var i;
 
+    // &#8743; &#8744;
+
     for (i = 0; i < coll.length; i++) {
       coll[i].addEventListener("click", function() {
         this.classList.toggle("active");
         var content = this.nextElementSibling;
         if (content.style.display === "grid") {
           content.style.display = "none";
+          this.firstElementChild.lastElementChild.innerHTML = "&#8744;";
         } else {
           content.style.display = "grid";
+          this.firstElementChild.lastElementChild.innerHTML = "&#8743;";
         }
       });
     }
@@ -1008,16 +947,10 @@ function updCollapsibles() {
 function showFriendListByKey(key) {
     html_text = "";
     cur_keys = cur_clusters[key].keys;
-    // console.log(cur_keys);
     cur_keys = cur_keys.sort(function (a, b) {
         return city_clusters[b].users.length - city_clusters[a].users.length;
     });
-    /*
-    <button type="button" class="collapsible">Open Collapsible</button>
-    <div class="content">
-      <p>Lorem ipsum...</p>
-    </div>
-    */
+    // small_city_ids = [];
     for (var i = 0; i < cur_keys.length; i++) {
         cur_key = cur_keys[i];
 
@@ -1028,25 +961,41 @@ function showFriendListByKey(key) {
             return 0;
         });
 
-        html_text += "<button type='button' class='collapsible'>"
+        cur_id = "city_list_" + i;
+
+        // if (users.length < 3) { small_city_ids.push(cur_id); }
+
+        bttn_text = "<button type='button' class='collapsible' " + "id='" + cur_id + "'><div class='collapse_button_wrapper'><div>"
                     + city_clusters[cur_key].city_ru + " "
                     + city_clusters[cur_key].country_ru + ": "
-                    + users.length + "</button><div class='content'>";
+                    + users.length
+                    + "</div><span class='collapsible_arrow'>&#8744;</span>"
+                    + "</div></button><div class='content'>";
+        users_list = "";
         for (var j = 0; j < users.length; j++) {
-            html_text += user2text(users[j]);
+            users_list += user2text(users[j]);
         }
 
-        html_text += "</div>";
+        html_text2 = "</div>";
+        if (users.length <= 2) {
+            html_text += users_list;
+        } else {
+            html_text += bttn_text + users_list + html_text2;
+        }
     }
     document.getElementById("friends_list").innerHTML = html_text;
     updCollapsibles();
+
+    // for (var i = 0; i < small_city_ids.length; i++) {
+    //     document.getElementById(small_city_ids[i]).click();
+    // }
 }
 
 
 
 
 
-function showFriendsCycle() {
+async function showFriendsCycle() {
     var cp_time = Date.now();
     for (cur_i; cur_i < n; cur_i++) {
         try {
@@ -1074,7 +1023,6 @@ function showFriendsCycle() {
             var nowkey = city + "#" + country;
             var coords = -1;
             if (nowkey in city_dict) {
-                // console.log("ALREADY HAVE THIS CITY IN CACHE");
                 coords = city_dict[nowkey];
             } else {
                 coords = getCoords(city, country);
@@ -1106,9 +1054,6 @@ function showFriendsCycle() {
     if (cur_i < n) {
         requestAnimFrame(showFriendsCycle);
     } else {
-        //console.log(city_clusters);
-        //console.log("clusters:");
-        //console.log(clusterizeByZoom(city_clusters, 1));
         recalcZoom(1, true);
         console.log(city_clusters);
         city_arr = [];
@@ -1118,6 +1063,19 @@ function showFriendsCycle() {
         loading_bar.style.opacity = "0";
     }
 }
+
+
+
+
+
+async function tryShowFriends() {
+    let vk_id = document.getElementById("vk_id").value;
+    getFriends(vk_id);
+}
+
+
+
+
 
 async function showFriends() {
     clearAllData();
@@ -1134,37 +1092,29 @@ async function showFriends() {
         var loading_bar = document.getElementById("loading_bar");
         loading_bar.style.opacity = "1";
 
-        let vk_id = document.getElementById("vk_id").value;
-        friends = await(get_friends(vk_id));
-        if (friends.hasOwnProperty("status")) {
-            alert("Ошибка: некорректный id");
+        // let vk_id = document.getElementById("vk_id").value;
+        var friends = window.friends;
+        if (!friends.hasOwnProperty("status") || friends.status != "ok") {
+            alert("Ошибка:??? TODO");
             return;
         }
         
-        // var fr = await JSON.parse(friends["friends"]);
-        frnds_ru = JSON.parse(friends["friends"].ru);
+        // frnds_ru = JSON.parse(friends["friends"].ru);
 
-        if (frnds_ru.hasOwnProperty("error")) {
-            alert("Ошибка:\n\
-                    - Некорректный id\n\
-                    - Профиль закрытый\n\
-                    - Превышено количество запросов в секунду\n\
-                    Код ошибки: " + frnds_ru.error.error_code + "\n"
-                    + "Сообщение об ошибке: " + frnds_ru.error.error_msg);
-            return;
-        }
-
-        var fr_ru = JSON.parse(friends["friends"].ru).response.items.sort(function(a, b) {return a.id - b.id;});
-        var fr_en = JSON.parse(friends["friends"].en).response.items.sort(function(a, b) {return a.id - b.id;});
-
-
-        var fr = [];
-
-        // for (var i = 0; i < fr_ru.length; i++) {
-        //     // console.log(fr_ru[i].id, fr_en[i].id);
-            
+        // if (frnds_ru.hasOwnProperty("error")) {
+        //     alert("Ошибка:\n\
+        //             - Некорректный id\n\
+        //             - Профиль закрытый\n\
+        //             - Превышено количество запросов в секунду\n\
+        //             Код ошибки: " + frnds_ru.error.error_code + "\n"
+        //             + "Сообщение об ошибке: " + frnds_ru.error.error_msg);
+        //     return;
         // }
 
+        var fr_ru = friends.response[1][1].response.items.sort(function(a, b) {return a.id - b.id;});
+        var fr_en = friends.response[2][1].response.items.sort(function(a, b) {return a.id - b.id;});
+
+        var fr = [];
 
         console.log(fr_en);
         window.friend_list = [];
@@ -1184,10 +1134,9 @@ async function showFriends() {
         showFriendsCycle();
     } catch(err) {
         console.log("I COUGHT: " + err);
-        console.log(progress_percent);
+        console.log(err.stack);
         // window.reload_bar_run = false;
     }
 }
 
 // citiesDB = https://silverfoxxxy.github.io/vk_fm/res/citiesDB_sorted.json
-// citiesDB = https://raw.githubusercontent.com/SilverFoxxxy/SilverFoxxxy.github.io/main/vk_fm/res/citiesDB_sorted.json

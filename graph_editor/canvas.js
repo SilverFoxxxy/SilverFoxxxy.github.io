@@ -193,7 +193,7 @@ function init() {
 
 
 // Draw everything
-function render(nowi = -1) {
+function render(nowi = cur_i) {
     // console.log(nowi);
     // console.log("rerender");
     renderProgress();

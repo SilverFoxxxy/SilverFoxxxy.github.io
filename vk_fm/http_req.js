@@ -21,6 +21,7 @@ async function send_req(req_json) {
     if (response.ok) { // если HTTP-статус в диапазоне 200-299
       // получаем тело ответа (см. про этот метод ниже)
       let res_json = await response.json();
+      console.log(res_json);
       return res_json;
       // var data = JSON.stringify(json);
       // console.log(json);

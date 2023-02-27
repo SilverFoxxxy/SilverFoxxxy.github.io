@@ -117,6 +117,7 @@ button:hover {
 }
 
 #loading_req_text {
+  visibility: hidden;
   position: absolute;
   top: 45%;
   left:0px;

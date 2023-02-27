@@ -11,6 +11,7 @@ cur_id = -1;
 
 function getFriends(vk_id) {
     var elem = document.getElementById("loading_req_text");
+    elem.style.visibility = "visible";
     elem.style.opacity = "1";
     if (cur_id != vk_id) {
         cur_id = vk_id;
@@ -30,7 +31,9 @@ async function getFriendsCycle(vk_id) {
     if (friends.hasOwnProperty("status")) {
         if (friends.status == "ok") {
             window.friends = friends;
-            document.getElementById("loading_req_text").style.opacity = "0";
+            var elem = document.getElementById("loading_req_text");
+            elem.style.visibility = "hidden";
+            elem.style.opacity = "0";
             showFriends();
             return;
         }
@@ -45,7 +48,9 @@ async function getFriendsCycle(vk_id) {
             alert("Ошибка: некорректный id");
         }
         //}
-        document.getElementById("loading_req_text").style.opacity = "0";
+        var elem = document.getElementById("loading_req_text");
+        elem.style.visibility = "hidden";
+        elem.style.opacity = "0";
         return;
     }
     setTimeout(getFriendsCycle, 1000, vk_id);
@@ -1069,7 +1074,15 @@ async function showFriendsCycle() {
 
 
 async function tryShowFriends() {
-    let vk_id = document.getElementById("vk_id").value;
+    let vk_url = document.getElementById("vk_id").value;
+    let vk_id = vk_url;
+    if (vk_url.indexOf('vk') > -1) {
+        vk_id = vk_url.slice(vk_url.indexOf('vk'));
+        if (vk_id.indexOf('/') > -1) {
+            vk_id = vk_id.split('/')[1];
+            console.log(vk_id);
+        }
+    }
     getFriends(vk_id);
 }
 

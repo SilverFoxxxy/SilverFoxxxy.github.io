@@ -936,10 +936,10 @@ function updCollapsibles() {
         var content = this.nextElementSibling;
         if (content.style.display === "grid") {
           content.style.display = "none";
-          this.firstElementChild.lastElementChild.innerHTML = "&#8744;";
+          this.firstElementChild.lastElementChild.innerHTML = "&#9660;";
         } else {
           content.style.display = "grid";
-          this.firstElementChild.lastElementChild.innerHTML = "&#8743;";
+          this.firstElementChild.lastElementChild.innerHTML = "&#9650;";
         }
       });
     }
@@ -974,7 +974,7 @@ function showFriendListByKey(key) {
                     + city_clusters[cur_key].city_ru + " "
                     + city_clusters[cur_key].country_ru + ": "
                     + users.length
-                    + "</div><span class='collapsible_arrow'>&#8744;</span>"
+                    + "</div><span class='collapsible_arrow'>&#9660;</span>"
                     + "</div></button><div class='content'>";
         users_list = "";
         for (var j = 0; j < users.length; j++) {

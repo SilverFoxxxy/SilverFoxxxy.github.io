@@ -43,7 +43,7 @@ async function getFriendsCycle(vk_id) {
             return;
         }
         if (friends.hasOwnProperty("error") && friends.error == 15) {
-            alert("Ошибка: закрытый профиль");
+            alert("Ошибка: закрытый профиль.\nПосле разблокировки профиля:\nПопробуйте снова через 5 минут");
         } else {
             alert("Ошибка: некорректный id");
         }

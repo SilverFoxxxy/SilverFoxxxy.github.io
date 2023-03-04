@@ -1,0 +1,127 @@
+:root {
+    --main-padding: 5px;
+}
+
+
+body {
+    color: white;
+    background-color: #282923;
+}
+
+#container {
+    margin: auto;
+    width: 80vh;
+    /*width: 100vw;*/
+    height: 90vh;
+    border: 1px solid gray;
+    padding: var(--main-padding);
+}
+
+#avatar_div {
+    margin: 0px 5px 10px 0px;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 4vh;
+    margin: 0px;
+    margin-top: 3vh;
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    color: #ccc;
+    font-size: 3vh;
+    margin: 0px;
+    margin-top: 2vh;
+}
+
+#name_div {
+    display: flex;
+}
+
+#title_div {
+    margin-top: auto;
+    margin: auto;
+    /*border: 1px solid red;*/
+}
+
+div {
+    /*border: 1px dotted gray;*/
+}
+
+a {
+    all: unset;
+    cursor: pointer;
+}
+
+.content_wrapper {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-template-rows: 35% auto;
+    grid-template-areas: 
+    "photo main"
+    "links main";
+}
+
+
+
+
+#links_div {
+    padding: var(--main-padding);
+    font-size: 2vh;
+    color: #ccc;
+}
+
+#main_div {
+    grid-area: main;
+    border-left: 1px solid gray;
+    padding: var(--main-padding);
+}
+
+#avatar_div {
+    grid-area: photo;
+    border-right: 1px solid gray;
+}
+
+#links_div {
+    grid-area: links;
+    /*border-right: 1px solid gray;*/
+}
+
+#main_img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid violet;
+}
+
+.link_wrapper {
+    height: 20px;
+    display: grid;
+    grid-template-columns: 20px auto;
+}
+
+.link_icon {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 50%;
+}
+
+.link_text {
+    color: #7CC1FD;
+    margin-top: auto;
+    margin-left: 3px;
+}
+
+#github_icon {
+    background-color: white;
+    border-radius: 50%; 
+}
+
+#cf_icon {
+    border-radius: 50%;
+}
+
+

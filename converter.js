@@ -1,3 +1,4 @@
+VPN_URL = "https://belkovanya.site/atcoder/users/"
 
 var x1 = 0;
 var x2 = 3900;
@@ -32,7 +33,7 @@ async function getACrating(ACname) {
     // var url = "https://atcoder.jp/users/" + ACname + "?graph=rating";
     // var url = "https://atcoder.jp/";
     // var url = "https://176.119.156.91/vpn/atcoder?user=" + ACname;
-    var url = "https://misha-sh-vm.publicvm.com/vpn/atcoder?user=" + ACname;
+    var url = VPN_URL + ACname;
     var html = (await (await fetch(url, {mode: 'cors', credentials: 'omit'})).text());
 
     if (html == null) {

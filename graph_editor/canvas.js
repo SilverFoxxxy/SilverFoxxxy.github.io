@@ -10,8 +10,12 @@ var canvas_clicked = false;
 // ctx.canvas.height = Math.floor(mindir * 0.9);
 ctx.canvas.width = 1000;
 ctx.canvas.height = 1000;
-canvas.style.width = String(Math.floor(mindir * 0.9)) + "px";
-canvas.style.width = String(Math.floor(mindir * 0.9)) + "px";
+var canvas_edge = Math.floor(mindir * 0.9);
+if (window.innerWidth > window.innerHeight * 0.8) {
+    canvas_edge = Math.min(window.innerWidth * 0.9 - 350, window.innerHeight * 0.8 * 0.9);
+}
+canvas.style.width = String(canvas_edge) + "px";
+canvas.style.height = String(canvas_edge) + "px";
 var cwidth = canvas.width;
 var cheight = canvas.height;
 const maxDelta = 300;

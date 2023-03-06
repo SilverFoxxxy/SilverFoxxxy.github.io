@@ -25,6 +25,8 @@
   /*#085A49;/*#555;*/
   --magic-lgray: #999;
   --main-color: #CCC;
+
+  --link-color: #9ce;
 }
 
 :root.gray {
@@ -76,6 +78,26 @@ canvas {
 #white_bar {
   transition: width 0.2s;
    background: var(--magic-color);
+}
+
+/* unvisited link */
+a:link {
+  color: var(--link-color);
+}
+
+/* visited link */
+a:visited {
+  color: var(--link-color);
+}
+
+/* mouse over link */
+a:hover {
+  color: var(--link-color);
+}
+
+/* selected link */
+a:active {
+  color: var(--link-color);
 }
 
 body {
@@ -311,6 +333,12 @@ pre {
   }
   .main_block {
     margin: 0 auto;
+  }
+  #graph_view {
+    /*width: calc(90vw - var(--tab-width));
+    height: calc(90vw - var(--tab-width));*/
+    width: 100px;
+    height: 100px;
   }
 }
 

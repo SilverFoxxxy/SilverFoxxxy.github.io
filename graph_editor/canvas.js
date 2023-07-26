@@ -16,9 +16,9 @@ var requestAnimFrame = (function(){
 
 function main_cycle() {
     if (!shake_finished) {
-        document.getElementById("progress_bar").style.filter = "brightness(100%)";
+        document.getElementById("progress_bar").style.filter = "opacity(100%)";
     } else {
-        document.getElementById("progress_bar").style.filter = "brightness(0%)";
+        document.getElementById("progress_bar").style.filter = "opacity(0%)";
         pause_view();
     }
     var step_time = Date.now();
@@ -108,7 +108,9 @@ function init() {
     // document.getElementById("input_graph").value = "0 2\n0 4\n0 5\n1 4\n1 5\n2 3\n2 4\n4 5";
     // inputGraph();
     var n0 = 10 + Math.floor(Math.random() * 6);
+    let oriented = (localStorage.getItem('oriented') == "true");
     var p0 = (0.2 + Math.random() * 0.25) * 10 / n0;
+    if (oriented) p0 /= 2;
     renderRandomGraph(n0, p0);
     print_graph(true);
     main();
@@ -702,44 +704,47 @@ function inputGraph() {
         let lines = nowtxt.split("\n");
         let line = lines[0].split(" ");
         let n = parseInt(line[0]);
-        let Edges = [];
+        window.graph_edges = [];
         for (let i = 1; i < lines.length; i++) {
             let line = lines[i].split(" ");
             if (line.length >= 2) {
                 let u = parseInt(line[0]) - zero_index;
                 let v = parseInt(line[1]) - zero_index;
-                Edges.push([u, v]);
+                window.graph_edges.push([u, v]);
                 if (weighted && line.length >= 3) {
-                    if (u > v) {
-                        [u, v] = [v, u];
-                    }
+                    // if (u > v) {
+                    //     [u, v] = [v, u];
+                    // }
                     window.weights[u + "_" + v] = line[2];
-                    window.weights[v + "_" + u] = line[2];
+                    // window.weights[v + "_" + u] = line[2];
                 }
             }
         }
         console.log(window.weights);
         // console.log(Edges.length);
         // console.log(Edges);
-        vertex = new Array(n);
-        graph = new Array(n);
+        window.vertex = new Array(n);
+        window.graph = new Array(n);
         // console.log(graph);
         for (var i = 0; i < n; i++) {
             vertex[i] = [10, 10];
             vertex_text[i] = String(i);
-            graph[i] = [];
+            window.graph[i] = [];
         }
 
-        for (let i = 0; i < Edges.length; i++) {
-            let u = Edges[i][0];
-            let v = Edges[i][1];
-            graph[u].push(v);
-            graph[v].push(u);
+        for (let i = 0; i < window.graph_edges.length; i++) {
+            let u = window.graph_edges[i][0];
+            let v = window.graph_edges[i][1];
+            if (!window.graph[u].includes(v)) {
+                window.graph[u].push(v);
+                window.graph[v].push(u);
+            }
             // console.log(graph);
         }
         // console.log(graph);
     } catch(err) {
         console.log(err);
+        init();
         alert("incorrect input");
     }
 }
@@ -837,21 +842,34 @@ function CrossingCheck(t1,t2,t3,t4) //проверка пересечения
 function graph_to_string() {
     let zero_index = 1 - document.getElementById("zero_index").checked;
     let weighted = document.getElementById("weighted").checked;
+    let oriented = document.getElementById("oriented").checked;
 
     let nowtxt = "";
     let cnt = 0;
-    for (var i = 0; i < vertex.length; i++) {
-        for (var j = 0; j < graph[i].length; j++) {
-            var v = graph[i][j];
-            if (i < v) {
-                // if (nowtxt != "") {
+    // for (var i = 0; i < vertex.length; i++) {
+    //     for (var j = 0; j < graph[i].length; j++) {
+    //         var v = graph[i][j];
+    //         if (i < v) {
+    //             // if (nowtxt != "") {
                     
-                // }
-                cnt++;
-                nowtxt += String(i + zero_index) + " " + String(v + zero_index);
-                nowtxt += "\n";
-            }
+    //             // }
+    //             cnt++;
+    //             nowtxt += String(i + zero_index) + " " + String(v + zero_index);
+    //             nowtxt += "\n";
+    //         }
+    //     }
+    // }
+    for (let edge of window.graph_edges) {
+        let u, v;
+        [u, v] = edge;
+
+        if ((!oriented) && u > v && graph[u].includes(v)) {
+            continue;
         }
+
+        cnt++;
+        nowtxt += String(u + zero_index) + " " + String(v + zero_index);
+        nowtxt += "\n";
     }
     nowtxt = String(vertex.length) + " " + String(cnt) + "\n" + nowtxt;
     return nowtxt;

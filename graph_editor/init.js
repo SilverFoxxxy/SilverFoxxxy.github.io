@@ -44,7 +44,7 @@ function recalc_canvas_size() {
 
     window.cur_i = -1;
     window.canvas_clicked = false;
-    
+
     window.canvas_edge = Math.floor(mindir * 0.9);
     // console.log([window.innerWidth * 0.9 - 400, window.innerHeight * 0.8 * 0.9]);
     if (window.innerWidth * 0.9 - 400 > window.innerHeight * 0.8 * 0.9) {
@@ -61,6 +61,7 @@ addEventListener("resize", (event) => {recalc_canvas_size();});
 // Graph View State:
 // N = 0;
 n = 3;
+window.graph_edges = [];
 graph = [[1, 2],[0],[0]];
 vertex = [[10, 10], [100, 300], [250, 110]];
 vertex_text = [];
@@ -71,7 +72,5 @@ vertex_orig = [];
 // Normalized vertexes:
 vertex_n = [];
 window.weights = {};
-
-
 
 

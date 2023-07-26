@@ -5,14 +5,27 @@ function sync_checkboxes(a, b) {
 
   checkbox1.addEventListener('change', () => {
     checkbox2.checked = checkbox1.checked;
+    render();
   });
   checkbox2.addEventListener('change', () => {
     checkbox1.checked = checkbox2.checked;
+    render();
   });
 }
 
 sync_checkboxes('zero_index', 'zero_index_2');
 sync_checkboxes('weighted', 'weighted_2');
+
+var zero_flag = (localStorage.getItem('zero_index') == "true");
+checkbox1 = document.getElementById("zero_index");
+checkbox2 = document.getElementById("zero_index_2");
+checkbox1.checked = checkbox2.checked = zero_flag;
+
+checkbox1.addEventListener('change', () => {
+  localStorage.setItem('zero_index', document.getElementById("zero_index").checked);
+  console.log(document.getElementById("zero_index").checked);
+  render();
+});
 
 var checkbox1 = document.getElementById("weighted");
 var checkbox2 = document.getElementById("weighted_2");
@@ -22,6 +35,16 @@ checkbox1.addEventListener('change', () => {
 checkbox2.addEventListener('change', () => {
   render();
 });
+var oriented_flag = (localStorage.getItem('oriented') == "true");
+checkbox1 = document.getElementById("oriented");
+checkbox1.checked = oriented_flag;
+
+checkbox1.addEventListener('change', () => {
+  localStorage.setItem('oriented', document.getElementById("oriented").checked);
+  console.log(document.getElementById("oriented").checked);
+  render();
+});
+
 
 function copy_to_clipboard(text_id) {
     /* Select text area by id*/

@@ -62,6 +62,7 @@
                 <button class="theme_button" onclick="setTheme(event, 'gray')" id="gray_theme_button"><div class="button_cross">&#215;</div></button>
                 <button class="theme_button" onclick="setTheme(event, 'violet')" id="violet_theme_button"><div class="button_cross">&#215;</div></button>
                 <button class="theme_button" onclick="setTheme(event, 'red')" id="red_theme_button"><div class="button_cross">&#215;</div></button>
+                <button class="theme_button" onclick="setTheme(event, 'light')" id="light_theme_button"><div class="button_cross">&#215;</div></button>
             </div>
         </center>
     <!-- <center>
@@ -125,8 +126,9 @@ a2 b2
                     <button class="copy_button" onclick="copy_to_clipboard('input_graph')"><div class="tooltip">copied!</div>copy</button>
                 </div>
                 <br>
-                <input id="zero_index" type="checkbox" class="custom-checkbox" checked/> zero-indexed
-                <input id="weighted" type="checkbox" class="custom-checkbox" checked/> weighted
+                <div class="checkbox-div"><input id="zero_index" type="checkbox" class="custom-checkbox" checked/> zero-indexed</div>
+                <div class="checkbox-div"><input id="weighted" type="checkbox" class="custom-checkbox" checked/> weighted</div>
+                <div class="checkbox-div"><input id="oriented" type="checkbox" class="custom-checkbox"/> oriented</div>
                 <br><br>
                 <button id="render_bttn" onclick="render_view()">render</button>
                 <br>
@@ -152,8 +154,8 @@ a2 b2
 
             <div id="Print" class="tabcontent">
                 <center><h3>Print Current Graph</h3></center>
-                <input id="zero_index_2" type="checkbox" class="custom-checkbox" checked/> zero-indexed
-                <input id="weighted_2" type="checkbox" class="custom-checkbox" checked/> weighted
+                <div class="checkbox-div"><input id="zero_index_2" type="checkbox" class="custom-checkbox" checked/> zero-indexed</div>
+                <div class="checkbox-div"><input id="weighted_2" type="checkbox" class="custom-checkbox" checked/> weighted</div>
                 <button id="print_random_bttn" onclick="print_random_view()">print</button>
                 <br><br>
                 <div class="copy_div">

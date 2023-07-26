@@ -26,10 +26,10 @@ function normalizeGraph() {
         maxy = Math.max(maxy, vertex_n[i][1]);
     }
 
-    var ltx = minx - 30;
-    var lty = miny - 30;
-    var rbx = maxx + 30;
-    var rby = maxy + 30;
+    var ltx = minx - 30 + 40 / (n + 1);
+    var lty = miny - 30 + 40 / (n + 1);
+    var rbx = maxx + 30 - 40 / (n + 1);
+    var rby = maxy + 30 - 40 / (n + 1);
 
     zero_x = Math.floor((ltx + rbx) / 2);
     zero_y = Math.floor((lty + rby) / 2);
@@ -72,7 +72,9 @@ function render(nowi = cur_i) {
     // console.log(nowi);
     // console.log("rerender");
     renderProgress();
-    ctx.fillStyle = "black";
+    const computedStyle = getComputedStyle(canvas);
+    var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
+    ctx.fillStyle = mag_backgroundfill;
     flag = -1;
     if (nowi == -1) {
         flag = false;
@@ -97,21 +99,41 @@ function render(nowi = cur_i) {
     }
 
     var edge_light = [];
-    for (var u = 0; u < graph.length; u++) {
-        for (var j = 0; j < graph[u].length; j++) {
-            if (u == nowi || graph[u][j] == nowi) {
-                edge_light.push([u, graph[u][j]]);
-                // renderEdge(u, graph[u][j], true);
-            } else {
-                renderEdge(u, graph[u][j], flag);
-            }
+
+    var edge_to_render = [];
+    for (let edge of window.graph_edges) {
+    // for (var u = 0; u < graph.length; u++) {
+    //     for (var j = 0; j < graph[u].length; j++) {
+        let u, v;
+        [u, v] = edge;
+        if (u == nowi || v == nowi) {
+            edge_light.push([u, v]);
+            // renderEdge(u, graph[u][j], true);
+        } else {
+            edge_to_render.push([u, v, flag]);
+            // renderEdge(u, graph[u][j], flag);
         }
     }
 
     for (var i = 0; i < edge_light.length; i++) {
         var u = edge_light[i][0];
         var v = edge_light[i][1];
-        renderEdge(u, v, 1);
+        edge_to_render.push([u, v, 1]);
+    }
+
+    for (let edge of edge_to_render) {
+        let u, v, flag, arrow = false;
+        [u, v, flag] = edge;
+        renderEdge(u, v, flag, arrow);
+    }
+
+    let oriented = document.getElementById("oriented").checked;
+    if (oriented) {
+        for (let edge of edge_to_render) {
+            let u, v, flag, arrow = true;
+            [u, v, flag] = edge;
+            renderEdge(u, v, flag, arrow);
+        }
     }
 
     for (var i = 0; i < vertex.length; i++) {
@@ -150,6 +172,7 @@ function renderProgress() {
 
 function getVertexRad() {
     var nowk = cwidth / 600 * 1.5 / Math.sqrt(vertex.length);
+    nowk = Math.min(nowk, 1.1);
     var rad = Math.floor(45 * nowk);
     return [nowk, rad];
 }
@@ -159,6 +182,8 @@ function renderVertex(i, label, flag = false) {
     const computedStyle = getComputedStyle(canvas);
     var mag_fill = computedStyle.getPropertyValue('--magic-fill');
     var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
+    var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
+    var mag_fontcolor = computedStyle.getPropertyValue('--magic-font-color');
     var v = vertex_n[i];
     var nx = v[0];
     var ny = v[1];
@@ -169,10 +194,11 @@ function renderVertex(i, label, flag = false) {
     ctx.moveTo(nx + rad, ny);
     ctx.lineWidth = Math.floor(12 * nowk);
     ctx.strokeStyle = mag_fill;
-    if (flag) {
+    if (flag && current_theme != "light"
+        || flag == 1 && current_theme == "light") {
         ctx.strokeStyle = mag_backfill;
     }
-    ctx.fillStyle = "black";
+    ctx.fillStyle = mag_backgroundfill;
 
     // if (current_theme == "white") {
     //     ctx.strokeStyle = "white";
@@ -195,41 +221,63 @@ function renderVertex(i, label, flag = false) {
         rad = Math.floor(rad * 0.92);
     }
 
-
-    ctx.beginPath();
-    ctx.moveTo(nx + rad, ny);
-    ctx.lineWidth = Math.floor(12 * nowk);
-    ctx.strokeStyle = mag_fill;
-    if (flag == -1) {
-        ctx.strokeStyle = mag_backfill;
-    }
-    ctx.fillStyle = "black";
-
-    if (flag == 1) {
-        ctx.strokeStyle = "white";
-        ctx.fillStyle = mag_backfill;
-    }
-    if (current_theme == "white") {
-        if (flag == 1) {
-            ctx.fillStyle = "black";
-            ctx.strokeStyle = "red";
-            // ctx.lineWidth = Math.floor(10 * nowk);
-            // ctx.strokeStyle = "white";
-            // ctx.setLineDash([10, 10]);
-            // ctx.strokeStyle = "red";
-        } else {
-            ctx.fillStyle = "black";
-            ctx.strokeStyle = "black";
+    if (current_theme != "light") {
+        ctx.beginPath();
+        ctx.moveTo(nx + rad, ny);
+        ctx.lineWidth = Math.floor(12 * nowk);
+        ctx.strokeStyle = mag_fill;
+        if (flag == -1) {
+            ctx.strokeStyle = mag_backfill;
         }
+        ctx.fillStyle = mag_backgroundfill;
+
+        if (flag == 1) {
+            ctx.strokeStyle = mag_fontcolor;
+            ctx.fillStyle = mag_backfill;
+        }
+        if (current_theme == "white") {
+            if (flag == 1) {
+                ctx.fillStyle = "black";
+                ctx.strokeStyle = "red";
+                // ctx.lineWidth = Math.floor(10 * nowk);
+                // ctx.strokeStyle = "white";
+                // ctx.setLineDash([10, 10]);
+                // ctx.strokeStyle = "red";
+            } else {
+                ctx.fillStyle = "black";
+                ctx.strokeStyle = "black";
+            }
+        }
+
+        ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
+        ctx.stroke();
+        ctx.fill();
     }
 
-    ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
-    ctx.stroke();
-    ctx.fill();
+    if (current_theme == "light") {
+            if (flag == 1) {
+                // ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.moveTo(nx + rad, ny);
+                ctx.lineWidth = Math.floor(5 * nowk);
+                ctx.strokeStyle = "red";
+                ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
+                ctx.stroke();
+                // ctx.lineWidth = Math.floor(10 * nowk);
+                // ctx.strokeStyle = "white";
+                // ctx.setLineDash([10, 10]);
+                // ctx.strokeStyle = "red";
+            }
+        }
+    // if (flag &&
+    //     (current_theme == "light" ||
+    //      current_theme == "white")) {
+
+    // }
     
 
     ctx.font = Math.floor(55 * nowk) + "px Arial";
-    ctx.fillStyle = "white";
+    ctx.fillStyle = mag_fontcolor;
     ctx.textAlign = "center";
     ctx.fillText(String(label), nx, ny + Math.floor(rad * 2 / 4));
     /*ctx.moveTo(110, 75);
@@ -248,18 +296,39 @@ function renderRandomGraph(n, p) {
     vertex = new Array(n);
     vertex_text = new Array(n);
     graph = new Array(n);
+    window.graph_edges = [];
     for (var i = 0; i < n; i++) {
         graph[i] = [];
         vertex[i] = [10, 10];
         vertex_text[i] = String(i);
     }
     m = 0;
-    for (var i = 0; i < n; i++) {
-        for (var j = i + 1; j < n; j++) {
-            if (Math.random() <= p) {
-                m++;
-                graph[i].push(j);
-                graph[j].push(i);
+
+    let oriented = (localStorage.getItem('oriented') == "true");
+    if (oriented) {
+        for (var i = 0; i < n; i++) {
+            for (var j = 0; j < n; j++) {
+                if (i != j)
+                    if (Math.random() <= p) {
+                        m++;
+                        if (!graph[i].includes(j)) {
+                            graph[i].push(j);
+                            graph[j].push(i);
+                        }
+                        window.graph_edges.push([i, j]);
+                    }
+            }
+        }
+    } else {
+        for (var i = 0; i < n; i++) {
+            for (var j = i + 1; j < n; j++) {
+                if (Math.random() <= p) {
+                    m++;
+                    graph[i].push(j);
+                    graph[j].push(i);
+                    window.graph_edges.push([i, j]);
+                    window.graph_edges.push([j, i]);
+                }
             }
         }
     }
@@ -275,49 +344,68 @@ function renderRandomGraph(n, p) {
 
 
 
-function drawEdge(x1, y1, x2, y2, oriented) {
-    ctx.beginPath();
+function drawEdge(x1, y1, x2, y2, oriented, clear=false) {
+    // console.log(oriented);
     if (oriented) {
         var nowrk = getVertexRad();
         var nowk = nowrk[0];
         var rad = nowrk[1];
 
-        let len = Math.sqrt(Math.pow(x1 - x2, 2), Math.pow(y1 - y2, 2));
-
+        
         var headlen = 20; // length of head in pixels
         var dx = x2 - x1;
         var dy = y2 - y1;
-        let x2_ = x1 + dx * (len - rad + 0.1) / (len + 0.1);
-        let y2_ = y1 + dy * (len - rad + 0.1) / (len + 0.1);
+
+        let len = Math.sqrt((Math.pow(dx, 2) + Math.pow(dy, 2)));
+
+        let x2_ = x1 + dx * (len - rad - 10) / (len);
+        let y2_ = y1 + dy * (len - rad - 10) / (len);
+        let x2_0 = x1 + dx * (len - rad - 10 - headlen * 0.8) / (len);
+        let y2_0 = y1 + dy * (len - rad - 10 - headlen * 0.8) / (len);
+        if (len < 0.1) {
+            // console.log(len);
+            x2_ = x2;
+            y2_ = y2;
+        }
+        const computedStyle = getComputedStyle(canvas);
+        var mag_fill = computedStyle.getPropertyValue('--magic-fill');
+        var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
+        var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
         var angle = Math.atan2(dy, dx);
-        ctx.moveTo(x2_, y2_);
-        ctx.lineTo(x2_ - headlen * Math.cos(angle - Math.PI / 6), y2_ - headlen * Math.sin(angle - Math.PI / 10));
-        ctx.moveTo(x2_, y2_);
-        ctx.lineTo(x2_ - headlen * Math.cos(angle + Math.PI / 6), y2_ - headlen * Math.sin(angle + Math.PI / 10));
-        ctx.moveTo(x1, y1);
+        if (clear) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = mag_backgroundfill;
+            ctx.fillStyle = mag_backgroundfill;
+            ctx.moveTo((x2_0 + x2_) / 2, (y2_0 + y2_) / 2);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.moveTo(x2_ - headlen * Math.cos(angle - Math.PI / 12), y2_ - headlen * Math.sin(angle - Math.PI / 12));
         ctx.lineTo(x2_, y2_);
-    } else {
         
+        //ctx.moveTo(x2_, y2_);
+        ctx.lineTo(x2_ - headlen * Math.cos(angle + Math.PI / 12), y2_ - headlen * Math.sin(angle + Math.PI / 12));
+        ctx.stroke();
+    } else {
+        ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-        
+
+        ctx.stroke();
     }
-    ctx.stroke();
+    
 }
 
 
 
 
 
-function renderEdge(u, v, flag = false) {
-    let weighted = document.getElementById("weighted").checked;
-    let oriented = false;//document.getElementById("oriented").checked;
-    let label = "";
-    if (weighted) {
-        if (window.weights.hasOwnProperty(u + "_" + v)) {
-            label = window.weights[u + "_" + v];
-        }
-    }
+function renderEdge(u, v, flag = false, arrows = false) {
+    // let oriented = false;//document.getElementById("oriented").checked;
+    
     nx1 = vertex_n[u][0];
     ny1 = vertex_n[u][1];
     nx2 = vertex_n[v][0];
@@ -326,7 +414,7 @@ function renderEdge(u, v, flag = false) {
     const computedStyle = getComputedStyle(canvas);
     var mag_fill = computedStyle.getPropertyValue('--magic-fill');
     var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
-
+    var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
 
     if (current_theme == "white") {
         ctx.strokeStyle = "white";
@@ -341,20 +429,27 @@ function renderEdge(u, v, flag = false) {
     }
 
     ctx.lineWidth = 8;
+    if (current_theme == "light") {
+        ctx.lineWidth = 6;
+    }
 
     ctx.strokeStyle = mag_fill;
-    if (flag == -1) {
+    if (flag == -1 && current_theme != "light") {
         ctx.strokeStyle = mag_backfill;
     }
 
-    drawEdge(nx1, ny1, nx2, ny2, oriented);
+    drawEdge(nx1, ny1, nx2, ny2, arrows, true);
     // ctx.setLineDash([]);
 
     // if (!(current_theme == "white" && flag)) {
     if (true) {
         // ctx.beginPath();
 
+
         ctx.lineWidth = 4;
+        if (current_theme == "light") {
+            ctx.lineWidth = 4;
+        }
         ctx.strokeStyle = mag_fill;
         if (flag == 1) {
             ctx.strokeStyle = "white";
@@ -369,14 +464,19 @@ function renderEdge(u, v, flag = false) {
                 ctx.strokeStyle = "red";
             }
         }
+        if (current_theme == "light") {
+            ctx.strokeStyle = "black";
+            if (flag == 1) {
+                // ctx.strokeStyle = "black";
+                ctx.strokeStyle = "red";
+            }
+        }
 
         // ctx.moveTo(nx1, ny1);
         // ctx.lineTo(nx2, ny2);
         // ctx.stroke();
-        drawEdge(nx1, ny1, nx2, ny2, oriented);
+        drawEdge(nx1, ny1, nx2, ny2, arrows);
     }
-
-    ctx.beginPath();
 
 /*
 5 7
@@ -389,22 +489,31 @@ function renderEdge(u, v, flag = false) {
 4 5 2
 */
 
-    let mx = (nx1 + nx2) / 2;
-    let my = (ny1 + ny2) / 2;
-    var nowrk = getVertexRad();
-    var nowk = nowrk[0];
-    var rad = nowrk[1];
-    ctx.font = Math.floor(45 * nowk) + "px Arial";
-    ctx.shadowColor="black";
-    ctx.strokeStyle = "black";
-    ctx.shadowBlur=7;
-    ctx.lineWidth=5;
-    ctx.strokeText(label,mx,my + Math.floor(rad * 2 / 4));
-    ctx.shadowBlur=0;
-    ctx.fillStyle = "#8FFE09"; // red
-    ctx.textAlign = "center";
-    ctx.fillText(label, mx, my + Math.floor(rad * 2 / 4));
-    ctx.stroke();
+    let weighted = document.getElementById("weighted").checked;
+    
+    if (!arrows && weighted) {
+        ctx.beginPath();
+        let label = "";
+        if (window.weights.hasOwnProperty(u + "_" + v)) {
+            label = window.weights[u + "_" + v];
+        }
+        let mx = (nx1 + nx2) / 2;
+        let my = (ny1 + ny2) / 2;
+        var nowrk = getVertexRad();
+        var nowk = nowrk[0];
+        var rad = nowrk[1];
+        ctx.font = Math.floor(45 * nowk) + "px Arial";
+        ctx.shadowColor="black";
+        ctx.strokeStyle = "black";
+        ctx.shadowBlur=7;
+        ctx.lineWidth=5;
+        ctx.strokeText(label,mx,my + Math.floor(rad * 2 / 4));
+        ctx.shadowBlur=0;
+        ctx.fillStyle = "#8FFE09"; // red
+        ctx.textAlign = "center";
+        ctx.fillText(label, mx, my + Math.floor(rad * 2 / 4));
+        ctx.stroke();
+    }
 }
 
 

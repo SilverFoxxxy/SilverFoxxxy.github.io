@@ -16,6 +16,11 @@
   */
   --magic-color: #555;
   /*--magic-red: #370101;*/ /*#01372F; #013726; #220137; #2E3701; #01372A*/
+  --magic-light: #FFFFAA;
+  --magic-light-gray: #000;
+  --magic-llight: #999;
+  --magic-white: #FFFFFF;
+  --magic-black: #000;
   --magic-red: #5a082d;/*#b04743;/*#6F3533 #600A0A;*/ /*#555;/* #4A0160;*//* #3F0152;*/
   --magic-violet: #48176D;
   --magic-gray: #555;
@@ -32,27 +37,43 @@
 :root.gray {
   --magic-color: var(--magic-lgray); /*#555;*/
   --magic-backcolor: var(--magic-gray);
+  --magic-background-color: var(--magic-black);
+  --magic-font-color: var(--magic-white);
 }
 
 :root.red {
   --magic-color: var(--magic-lred); /*#600A0A;*/
   --magic-backcolor: var(--magic-red);
+  --magic-background-color: var(--magic-black);
+  --magic-font-color: var(--magic-white);
 }
 
 :root.violet {
   --magic-color: var(--magic-lviolet);/* #480341;*/
   --magic-backcolor: var(--magic-violet);
+  --magic-background-color: var(--magic-black);
+  --magic-font-color: var(--magic-white);
 }
 
 :root.white {
   --magic-color: #fff;/* #480341;*/
   --magic-backcolor: #555;
+  --magic-background-color: var(--magic-black);
+  --magic-font-color: var(--magic-white);
+}
+
+:root.light {
+  --magic-color: var(--magic-light-gray); /*#555;*/
+  --magic-backcolor: var(--magic-llight);
+  --magic-background-color: var(--magic-white);
+  --magic-font-color: var(--magic-black);
 }
 
 canvas {
   cursor: crosshair;
   --magic-fill: var(--magic-color, black);
   --magic-backfill: var(--magic-backcolor, black);
+  --magic-backgroundfill: var(--magic-background-color, black);
 }
 
 .wrapper {
@@ -70,8 +91,9 @@ canvas {
 
 #progress_bar {
   transition: filter 2s;
-  filter: brightness(0%);
-  background: black;
+  /*filter: brightness(0%);*/
+  filter: opacity(0%);
+  background: var(--magic-background-color);
   border: var(--border-width) solid var(--magic-backcolor);
 }
 
@@ -102,8 +124,8 @@ a:active {
 
 body {
   font-size: var(--main-font-size);
-  background: black;
-  color: white;
+  background: var(--magic-background-color, black);
+  color: var(--magic-font-color);
 }
 
 button {
@@ -112,8 +134,8 @@ button {
   font-family: "Times New Roman", Times, serif;
   font-size: var(--button-font-size);
   border: var(--border-width) solid var(--magic-backcolor);
-  background: black;
-  color: white;
+  background: var(--magic-background-color);
+  color: var(--magic-font-color);
   text-align: center;
   width:100%;
   padding: 5px 0px;
@@ -137,8 +159,8 @@ input {
   /*display: inline-block;*/
   width: 70%;
   font-size: var(--input-font-size);
-  background: black;
-  color: white;
+  background: var(--magic-background-color);
+  color: var(--magic-font-color);
   border: var(--border-width) solid var(--magic-backcolor);
   border-radius: 5px;
 }
@@ -150,8 +172,8 @@ input {
 textarea {
   font-size: var(--input-font-size);
   width: 90%;
-  background: black;
-  color: white;
+  background: var(--magic-background-color);
+  color: var(--magic-font-color);
   border: var(--border-width) solid var(--magic-backcolor);
   border-radius: 5px;
   padding: 10px;
@@ -161,8 +183,8 @@ pre {
   overflow-y: scroll;
   font-size: var(--input-font-size);
   width: 90%;
-  background: black;
-  color: white;
+  background: var(--magic-background-color);
+  color: var(--magic-font-color);
   border: var(--border-width) solid var(--magic-backcolor);
   height: 200px;
   border-radius: 5px;
@@ -189,8 +211,8 @@ pre {
   overflow: hidden;
   /*overflow-x:scroll;*/
   /*border: 1px solid #ccc;*/
-  background-color: black;
-  color: white;
+  background: var(--magic-background-color);
+  color: var(--magic-color);
   border-radius: 5px 5px 0px 0px;
 }
 
@@ -198,14 +220,14 @@ pre {
 .tab button {
   font-weight: lighter;
   /*display: inline-block;*/
-  filter: brightness(60%);
+  filter: opacity(60%);
   font-size: 18px;
   width: fit-content;
   width: -moz-fit-content;
   /*width: calc(var(--tab-width) / 3);*/
   width:100%;
   background-color: inherit;
-  background-color: #111;
+  /*background-color: #111;*/
   /*float: left;*/
   border: none;
   outline: none;
@@ -237,7 +259,7 @@ pre {
 .tab button.active {
   font-weight: bold;
   filter: brightness(100%);
-  background-color: #000;
+  background-color: var(--magic-background-color);
   border-width: var(--border-width) var(--border-width) 0px var(--border-width);
 }
 
@@ -255,7 +277,7 @@ pre {
 .theme_button_wrapper {
   /**/
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto;
   width: fit-content;
   width: -moz-fit-content;
 }
@@ -281,10 +303,14 @@ pre {
   margin: 10px;
   font-size: 15px;
   border-radius: 15px;
-  background: #000;
+  background: var(--magic-background-color);
   color: transparent;
   /*filter: brightness(60%);*/
   /*border:none;*/
+}
+
+#light_theme_button {
+  border: 2px solid var(--magic-light);
 }
 
 #gray_theme_button {
@@ -308,7 +334,7 @@ pre {
 #white_theme_button {
   /*background: var(--magic-violet);*/
   /*background: #222;*/
-  border: 2px solid #fff;
+  border: 2px solid #ddd;
 }
 
 .theme_button.active {

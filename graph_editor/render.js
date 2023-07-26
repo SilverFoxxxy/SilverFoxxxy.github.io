@@ -297,6 +297,7 @@ function renderRandomGraph(n, p) {
     vertex_text = new Array(n);
     graph = new Array(n);
     window.graph_edges = [];
+    window.weights = {};
     for (var i = 0; i < n; i++) {
         graph[i] = [];
         vertex[i] = [10, 10];

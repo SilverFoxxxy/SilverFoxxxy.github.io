@@ -705,6 +705,7 @@ function inputGraph() {
         let line = lines[0].split(" ");
         let n = parseInt(line[0]);
         window.graph_edges = [];
+        window.weights = {};
         for (let i = 1; i < lines.length; i++) {
             let line = lines[i].split(" ");
             if (line.length >= 2) {

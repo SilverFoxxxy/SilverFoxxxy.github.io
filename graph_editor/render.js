@@ -278,15 +278,24 @@ function renderRandomGraph(n, p) {
 function drawEdge(x1, y1, x2, y2, oriented) {
     ctx.beginPath();
     if (oriented) {
-        var headlen = 100; // length of head in pixels
+        var nowrk = getVertexRad();
+        var nowk = nowrk[0];
+        var rad = nowrk[1];
+
+        let len = Math.sqrt(Math.pow(x1 - x2, 2), Math.pow(y1 - y2, 2));
+
+        var headlen = 20; // length of head in pixels
         var dx = x2 - x1;
         var dy = y2 - y1;
+        let x2_ = x1 + dx * (len - rad + 0.1) / (len + 0.1);
+        let y2_ = y1 + dy * (len - rad + 0.1) / (len + 0.1);
         var angle = Math.atan2(dy, dx);
+        ctx.moveTo(x2_, y2_);
+        ctx.lineTo(x2_ - headlen * Math.cos(angle - Math.PI / 6), y2_ - headlen * Math.sin(angle - Math.PI / 10));
+        ctx.moveTo(x2_, y2_);
+        ctx.lineTo(x2_ - headlen * Math.cos(angle + Math.PI / 6), y2_ - headlen * Math.sin(angle + Math.PI / 10));
         ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6));
-        ctx.moveTo(x2, y2);
-        ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6));
+        ctx.lineTo(x2_, y2_);
     } else {
         
         ctx.moveTo(x1, y1);
@@ -369,6 +378,17 @@ function renderEdge(u, v, flag = false) {
 
     ctx.beginPath();
 
+/*
+5 7
+2 1 5
+1 3 1
+3 2 8
+3 5 7
+3 4 3
+2 4 7
+4 5 2
+*/
+
     let mx = (nx1 + nx2) / 2;
     let my = (ny1 + ny2) / 2;
     var nowrk = getVertexRad();
@@ -381,7 +401,7 @@ function renderEdge(u, v, flag = false) {
     ctx.lineWidth=5;
     ctx.strokeText(label,mx,my + Math.floor(rad * 2 / 4));
     ctx.shadowBlur=0;
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "#8FFE09"; // red
     ctx.textAlign = "center";
     ctx.fillText(label, mx, my + Math.floor(rad * 2 / 4));
     ctx.stroke();

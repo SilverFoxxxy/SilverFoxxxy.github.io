@@ -143,6 +143,10 @@ input {
   border-radius: 5px;
 }
 
+.custom-checkbox {
+  width: auto;
+}
+
 textarea {
   font-size: var(--input-font-size);
   width: 90%;
@@ -325,7 +329,8 @@ pre {
   /*margin: auto;*/
 }
 
-@media screen and (orientation: portrait) {
+/*@media screen and (orientation: portrait) {*/
+@media (max-aspect-ratio: 4/3) {
   .wrapper {
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
@@ -374,7 +379,7 @@ pre {
   background: var(--magic-color);
   position: absolute;
   top: -1.5em;
-  transition: -5s 10s ease-out opacity;
+  transition: 4s ease-out opacity;
   opacity: 0;
 }
 
@@ -382,5 +387,10 @@ pre {
   opacity: 1;
 }
 
+.example {
+  font-size: 0.8em;
+  filter: brightness(80%);
+  /*color: #ccc;*/
+}
 
 

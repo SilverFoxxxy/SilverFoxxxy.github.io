@@ -87,7 +87,7 @@
             <br>
         </div>
 
-        <div class="main_block" style="width: 5rem; height: 2rem;"></div>
+        <div class="main_block" style="width: 50px; height: 2rem;"></div>
 
         <div class="main_block" id="input_block">
             <div class="tab">
@@ -101,9 +101,23 @@
             <!-- Tab content -->
             <div id="Input" class="tabcontent">
               <center><h3>Input Graph</h3></center>
-                n = <input type="text" id="input_n">
-                <br><br>
-                edges:
+                <!-- n = <input type="text" id="input_n"> -->
+                <!-- <br><br> -->
+                <span class="example">
+                
+                <details>
+                <summary>input format</summary>
+                <textarea class="example" cols="20" rows="4" style="overflow-y: hidden;" readonly>
+n m
+a1 b1
+a2 b2
+...
+                </textarea> 
+                </details>
+                <hr>
+                </span><br>
+
+                input:
                 <br>
                 <div class="copy_div">
                     <textarea id="input_graph" name="input_g" cols="20" rows="7">
@@ -111,6 +125,9 @@
                     <button class="copy_button" onclick="copy_to_clipboard('input_graph')"><div class="tooltip">copied!</div>copy</button>
                 </div>
                 <br>
+                <input id="zero_index" type="checkbox" class="custom-checkbox" checked/> zero-indexed
+                <input id="weighted" type="checkbox" class="custom-checkbox" checked/> weighted
+                <br><br>
                 <button id="render_bttn" onclick="render_view()">render</button>
                 <br>
                 <button id="pause_bttn" onclick="pause_view()">stop</button>
@@ -135,6 +152,8 @@
 
             <div id="Print" class="tabcontent">
                 <center><h3>Print Current Graph</h3></center>
+                <input id="zero_index_2" type="checkbox" class="custom-checkbox" checked/> zero-indexed
+                <input id="weighted_2" type="checkbox" class="custom-checkbox" checked/> weighted
                 <button id="print_random_bttn" onclick="print_random_view()">print</button>
                 <br><br>
                 <div class="copy_div">
@@ -179,6 +198,9 @@
     <br><br><br>
     <br><br><br>
 
+    <script src="init.js" type="text/javascript"></script>
+    <script src="render.js" type="text/javascript"></script>
+    <script src="small_helpers.js" type="text/javascript"></script>
     <script src="canvas.js" type="text/javascript"></script>
 </div>
 </body>

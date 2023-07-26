@@ -1,57 +1,5 @@
 
 
-canvas = document.getElementById("graph_view");
-var ctx = canvas.getContext("2d");
-var mindir = Math.min(window.innerWidth, window.innerHeight * 0.8);
-
-var cur_i = -1;
-var canvas_clicked = false;
-// ctx.canvas.width = Math.floor(mindir * 0.9);
-// ctx.canvas.height = Math.floor(mindir * 0.9);
-ctx.canvas.width = 1000;
-ctx.canvas.height = 1000;
-var canvas_edge = Math.floor(mindir * 0.9);
-if (window.innerWidth > window.innerHeight * 0.8) {
-    canvas_edge = Math.min(window.innerWidth * 0.9 - 350, window.innerHeight * 0.8 * 0.9);
-}
-canvas.style.width = String(canvas_edge) + "px";
-canvas.style.height = String(canvas_edge) + "px";
-var cwidth = canvas.width;
-var cheight = canvas.height;
-const maxDelta = 300;
-
-window.lastScore = -1;
-window.shake_p = 1;
-window.nowDelta = maxDelta;
-window.failShakeCnt = 0;
-var base = 300;
-var base_sq = base * base;
-
-var zero_time = Date.now();
-const dt = 20;
-var shake_time = 1;
-var rounds = 0;
-var lastTime;
-var on_pause = false;
-var shake_finished = false;
-
-// Graph View State:
-// N = 0;
-n = 3;
-graph = [[1, 2],[0],[0]];
-vertex = [[10, 10], [100, 300], [250, 110]];
-vertex_text = [];
-short_path = [];
-
-is_vertex_changed = [];
-vertex_orig = [];
-// Normalized vertexes:
-vertex_n = [];
-
-
-
-
-
 var requestAnimFrame = (function(){
     return window.requestAnimationFrame       ||
         window.webkitRequestAnimationFrame ||
@@ -62,20 +10,6 @@ var requestAnimFrame = (function(){
             window.setTimeout(callback, 1000 / 60);
         };
 })();
-
-
-
-
-
-function getPercent() {
-    var maxd = maxDelta;
-    var nowd = nowDelta + 0.5;
-    //console.log("percents");
-    //console.log(Math.log(nowd + 1), Math.log(maxd + 2));
-    //console.log((1 - (Math.log(nowd + 1)) / Math.log(maxd + 2)));
-    return Math.min(100, Math.floor(100 * (1 - (Math.log(nowd + 0.1)) / Math.log(maxd + 2))) + 1);
-}
-
 
 
 
@@ -112,8 +46,6 @@ function main_cycle() {
                     break;
                 } 
             }
-            normalizeGraph();
-            getPercent();
             render();
             //}
 
@@ -142,7 +74,6 @@ function start_cycle() {
 
 
 function main() {
-    print_graph();
     shake_finished = false;
     window.n = vertex.length;
     var m = 0;
@@ -150,10 +81,10 @@ function main() {
         m += graph[i].length;
     }
     console.log(m);
-    if (m > 250 || vertex.length > 100) {
-        alert("Your graph is TOO BIG to show\nMAX Vertex number is 100\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
-        init();
-    }
+    // if (m > 250 || vertex.length > 100) {
+    //     alert("Your graph is TOO BIG to show\nMAX Vertex number is 100\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
+    //     init();
+    // }
     calc_all_dist();
     window.nowDelta = maxDelta;
     window.failShakeCnt = 0;
@@ -179,6 +110,7 @@ function init() {
     var n0 = 10 + Math.floor(Math.random() * 6);
     var p0 = (0.2 + Math.random() * 0.25) * 10 / n0;
     renderRandomGraph(n0, p0);
+    print_graph(true);
     main();
     // console.log("init");
     // terrainPattern = ctx.createPattern(resources.get('img/terrain.png'), 'repeat');
@@ -190,279 +122,6 @@ function init() {
     // reset();
     // lastTime = Date.now();
     // main();
-}
-
-
-
-
-
-// Draw everything
-function render(nowi = cur_i) {
-    // console.log(nowi);
-    // console.log("rerender");
-    renderProgress();
-    ctx.fillStyle = "black";
-    flag = -1;
-    if (nowi == -1) {
-        flag = false;
-    }
-    /*if (rounds % 20 < 10) {
-        ctx.fillStyle = "black";
-        //console.log("A");
-    } else {
-        ctx.fillStyle = "yellow";
-        //console.log("B");
-    }*/
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    vertex_light = new Array(n);
-    vertex_light = vertex_light.fill(false);
-
-    if (nowi != -1) {
-        vertex_light[nowi] = true;
-        for (var i = 0; i < graph[nowi].length; i++) {
-            vertex_light[graph[nowi][i]] = 1;
-        }
-    }
-
-    var edge_light = [];
-    for (var u = 0; u < graph.length; u++) {
-        for (var j = 0; j < graph[u].length; j++) {
-            if (u == nowi || graph[u][j] == nowi) {
-                edge_light.push([u, graph[u][j]]);
-                // renderEdge(u, graph[u][j], true);
-            } else {
-                renderEdge(u, graph[u][j], flag);
-            }
-        }
-    }
-    for (var i = 0; i < edge_light.length; i++) {
-        var u = edge_light[i][0];
-        var v = edge_light[i][1];
-        renderEdge(u, v, 1);
-    }
-
-    for (var i = 0; i < vertex.length; i++) {
-        if (vertex_light[i]) {
-            renderVertex(i, 1);
-        } else {
-            renderVertex(i, flag);
-        }
-    }
-
-    // ctx.fillStyle = terrainPattern;
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Render the player if the game isn't over
-    /*if (!isGameOver) {
-        renderEntity(player);
-    }
-
-    renderEntities(bullets);
-    renderEntities(enemies);
-    renderEntities(explosions);*/
-};
-
-
-
-
-
-function renderProgress() {
-    var progress = getPercent();
-    var wh_bar = document.getElementById("white_bar");
-    wh_bar.style.width = progress + "%";
-    // var text_progress = document.getElementById("percents");
-    // text_progress.innerHTML = "<b>" + progress + "</b>%";
-}
-
-
-function getVertexRad() {
-    var nowk = cwidth / 600 * 1.5 / Math.sqrt(vertex.length);
-    var rad = Math.floor(45 * nowk);
-    return [nowk, rad];
-}
-
-
-function renderVertex(i, flag = false) {
-    const computedStyle = getComputedStyle(canvas);
-    var mag_fill = computedStyle.getPropertyValue('--magic-fill');
-    var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
-    var v = vertex_n[i];
-    var nx = v[0];
-    var ny = v[1];
-    var nowrk = getVertexRad();
-    var nowk = nowrk[0];
-    var rad = nowrk[1];
-    ctx.beginPath();
-    ctx.moveTo(nx + rad, ny);
-    ctx.lineWidth = Math.floor(12 * nowk);
-    ctx.strokeStyle = mag_fill;
-    if (flag) {
-        ctx.strokeStyle = mag_backfill;
-    }
-    ctx.fillStyle = "black";
-
-    // if (current_theme == "white") {
-    //     ctx.strokeStyle = "white";
-    //     ctx.fillStyle = "black";
-    //     if (flag == 1) {
-    //         ctx.strokeStyle = "white";
-    //         // ctx.setLineDash([10]);
-    //     }
-    // }
-
-
-    ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
-    ctx.stroke();
-    ctx.fill();
-    // ctx.setLineDash([]);
-
-    if (current_theme == "white") {
-        rad = Math.floor(rad * 0.87);
-    } else {
-        rad = Math.floor(rad * 0.92);
-    }
-
-
-    ctx.beginPath();
-    ctx.moveTo(nx + rad, ny);
-    ctx.lineWidth = Math.floor(12 * nowk);
-    ctx.strokeStyle = mag_fill;
-    if (flag == -1) {
-        ctx.strokeStyle = mag_backfill;
-    }
-    ctx.fillStyle = "black";
-
-    if (flag == 1) {
-        ctx.strokeStyle = "white";
-        ctx.fillStyle = mag_backfill;
-    }
-    if (current_theme == "white") {
-        if (flag == 1) {
-            ctx.fillStyle = "black";
-            ctx.strokeStyle = "red";
-            // ctx.lineWidth = Math.floor(10 * nowk);
-            // ctx.strokeStyle = "white";
-            // ctx.setLineDash([10, 10]);
-            // ctx.strokeStyle = "red";
-        } else {
-            ctx.fillStyle = "black";
-            ctx.strokeStyle = "black";
-        }
-    }
-
-    ctx.arc(nx, ny, rad, 0, Math.PI * 2, true); // Outer circle
-    ctx.stroke();
-    ctx.fill();
-    
-
-    ctx.font = Math.floor(55 * nowk) + "px Arial";
-    ctx.fillStyle = "white";
-    ctx.textAlign = "center";
-    ctx.fillText(vertex_text[i], nx, ny + Math.floor(rad * 2 / 4));
-    /*ctx.moveTo(110, 75);
-    ctx.arc(75, 75, 35, 0, Math.PI, false); // Mouth (clockwise)
-    ctx.moveTo(65, 65);
-    ctx.arc(60, 65, 5, 0, Math.PI * 2, true); // Left eye
-    ctx.moveTo(95, 65);
-    ctx.arc(90, 65, 5, 0, Math.PI * 2, true); // Right eye*/
-}
-
-
-
-
-
-function renderRandomGraph(n, p) {
-    vertex = new Array(n);
-    vertex_text = new Array(n);
-    graph = new Array(n);
-    for (var i = 0; i < n; i++) {
-        graph[i] = [];
-        vertex[i] = [10, 10];
-        vertex_text[i] = String(i);
-    }
-    m = 0;
-    for (var i = 0; i < n; i++) {
-        for (var j = i + 1; j < n; j++) {
-            if (Math.random() <= p) {
-                m++;
-                graph[i].push(j);
-                graph[j].push(i);
-            }
-        }
-    }
-    // if (p > 0 && m == 0 && n >= 5) {
-    //     v = Math.floor(Math.random() * (n - 1.1));
-    //     u = (v + 1 + Math.floor(Math.random() * (n - 1.1))) % n;
-    //     graph[u].push(v);
-    //     graph[v].push(u);
-    // }
-}
-
-
-
-
-
-function renderEdge(u, v, flag = false) {
-    nx1 = vertex_n[u][0];
-    ny1 = vertex_n[u][1];
-    nx2 = vertex_n[v][0];
-    ny2 = vertex_n[v][1];
-
-    const computedStyle = getComputedStyle(canvas);
-    var mag_fill = computedStyle.getPropertyValue('--magic-fill');
-    var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
-
-    ctx.beginPath();
-
-    ctx.lineWidth = 8;
-
-    if (current_theme == "white") {
-        ctx.strokeStyle = "white";
-        if (flag == 1) {
-            // nowlen = Math.sqrt(distanceSquare(vertex_n[u], vertex_n[v]));
-            // cnt = Math.floor(nowlen / 25);
-            // if (cnt % 2 == 0) {
-            //     cnt++;
-            // }
-            // ctx.setLineDash([Math.floor(nowlen / cnt)]);
-        }
-    }
-
-    ctx.strokeStyle = mag_fill;
-    if (flag == -1) {
-        ctx.strokeStyle = mag_backfill;
-    }
-
-    ctx.moveTo(nx1, ny1);
-    ctx.lineTo(nx2, ny2);
-    ctx.stroke();
-    // ctx.setLineDash([]);
-
-    // if (!(current_theme == "white" && flag)) {
-    if (true) {
-        ctx.beginPath();
-
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = mag_fill;
-        if (flag == 1) {
-            ctx.strokeStyle = "white";
-        }
-        if (flag == -1) {
-            ctx.strokeStyle = mag_backfill;
-        }
-        if (current_theme == "white") {
-            ctx.strokeStyle = "black";
-            if (flag == 1) {
-                // ctx.strokeStyle = "black";
-                ctx.strokeStyle = "red";
-            }
-        }
-
-        ctx.moveTo(nx1, ny1);
-        ctx.lineTo(nx2, ny2);
-        ctx.stroke();
-    }
 }
 
 
@@ -862,63 +521,6 @@ function genTest(k = 3) {
 
 
 
-function normalizeGraph() {
-    var zero_x = 0;
-    var zero_y = 0;
-
-    var n = vertex.length;
-    if (n == 0) {
-        return;
-    }
-
-    vertex_n = new Array(n);
-    for (var i = 0; i < vertex.length; i++) {
-        vertex_n[i] = [0, 0];
-        vertex_n[i][0] = vertex[i][0];
-        vertex_n[i][1] = vertex[i][1];
-    }
-    var minx = vertex_n[0][0];
-    var maxx = vertex_n[0][0];
-    var miny = vertex_n[0][1];
-    var maxy = vertex_n[0][1];
-    for (var i = 0; i < vertex.length; i++) {
-        minx = Math.min(minx, vertex_n[i][0]);
-        maxx = Math.max(maxx, vertex_n[i][0]);
-        miny = Math.min(miny, vertex_n[i][1]);
-        maxy = Math.max(maxy, vertex_n[i][1]);
-    }
-
-    var ltx = minx - 30;
-    var lty = miny - 30;
-    var rbx = maxx + 30;
-    var rby = maxy + 30;
-
-    zero_x = Math.floor((ltx + rbx) / 2);
-    zero_y = Math.floor((lty + rby) / 2);
-    var coeff = 1;
-    var maxrad = 80;
-    if (cwidth < (maxx - minx + maxrad * 2)) {
-        coeff = (cwidth - maxrad * 2) / (maxx - minx);
-    }
-    if (cheight < (maxy - miny + maxrad * 2)) {
-        coeff = Math.min(coeff, (cheight - maxrad * 2) / (maxy - miny));
-    }
-
-    for (var i = 0; i < vertex_n.length; i++) {
-        vertex_n[i][0] -= zero_x;
-        vertex_n[i][0] *= coeff;
-        vertex_n[i][0] = Math.floor(vertex_n[i][0] + cwidth / 2);
-        vertex_n[i][1] -= zero_y;
-        vertex_n[i][1] *= coeff;
-        vertex_n[i][1] = Math.floor(vertex_n[i][1] + cheight / 2);
-    }
-}
-
-
-
-
-
-
 function shakeGraph(score_t = 0) {
     // console.log("shake");
     // if (shake_finished) {
@@ -1040,6 +642,7 @@ function pause_view() {
 
 function render_view() {
     inputGraph();
+    print_graph();
     main();
 }
 
@@ -1052,6 +655,7 @@ function render_random_view() {
         n = parseInt(document.getElementById("input_rand_n").value);
         p = parseFloat(document.getElementById("input_rand_p").value);
         renderRandomGraph(n, p);
+        print_graph(true);
     } catch(err) {
         alert("failed to generate graph");
     }
@@ -1087,23 +691,34 @@ function setKey(event, status) {
 
 
 
-
 function inputGraph() {
     // console.log("on Input");
     try {
-        var ntxt = document.getElementById("input_n").value;
-        var nowtxt = document.getElementById("input_graph").value;
-        var lines = nowtxt.split("\n");
-        var n = parseInt(ntxt);
-        var Edges = [];
-        for (var i = 0; i < lines.length; i++) {
-            var line = lines[i].split(" ");
+        let zero_index = 1 - document.getElementById("zero_index").checked;
+        let weighted = document.getElementById("weighted").checked;
+
+        // var ntxt = document.getElementById("input_n").value;
+        let nowtxt = document.getElementById("input_graph").value;
+        let lines = nowtxt.split("\n");
+        let line = lines[0].split(" ");
+        let n = parseInt(line[0]);
+        let Edges = [];
+        for (let i = 1; i < lines.length; i++) {
+            let line = lines[i].split(" ");
             if (line.length >= 2) {
-                var u = parseInt(line[0]);
-                var v = parseInt(line[1]);
+                let u = parseInt(line[0]) - zero_index;
+                let v = parseInt(line[1]) - zero_index;
                 Edges.push([u, v]);
+                if (weighted && line.length >= 3) {
+                    if (u > v) {
+                        [u, v] = [v, u];
+                    }
+                    window.weights[u + "_" + v] = line[2];
+                    window.weights[v + "_" + u] = line[2];
+                }
             }
         }
+        console.log(window.weights);
         // console.log(Edges.length);
         // console.log(Edges);
         vertex = new Array(n);
@@ -1115,15 +730,16 @@ function inputGraph() {
             graph[i] = [];
         }
 
-        for (var i = 0; i < Edges.length; i++) {
-            var u = Edges[i][0];
-            var v = Edges[i][1];
+        for (let i = 0; i < Edges.length; i++) {
+            let u = Edges[i][0];
+            let v = Edges[i][1];
             graph[u].push(v);
             graph[v].push(u);
             // console.log(graph);
         }
         // console.log(graph);
     } catch(err) {
+        console.log(err);
         alert("incorrect input");
     }
 }
@@ -1135,27 +751,6 @@ function inputGraph() {
 document.addEventListener('keydown', function(e) {
     setKey(e, true);
 });
-
-
-
-
-
-function renderEntities(list) {
-    for(var i=0; i<list.length; i++) {
-        renderEntity(list[i]);
-    }    
-}
-
-
-
-
-
-function renderEntity(entity) {
-    ctx.save();
-    ctx.translate(entity[0], entity[1]);
-    entity.sprite.render(ctx);
-    ctx.restore();
-}
 
 
 
@@ -1239,42 +834,41 @@ function CrossingCheck(t1,t2,t3,t4) //проверка пересечения
 
 
 
-function print_random_view() {
-    nowtxt = "";
-    nowtxt += String(vertex.length);
+function graph_to_string() {
+    let zero_index = 1 - document.getElementById("zero_index").checked;
+    let weighted = document.getElementById("weighted").checked;
+
+    let nowtxt = "";
+    let cnt = 0;
     for (var i = 0; i < vertex.length; i++) {
         for (var j = 0; j < graph[i].length; j++) {
             var v = graph[i][j];
             if (i < v) {
-                nowtxt += "\n" + String(i) + " " + String(v);
+                // if (nowtxt != "") {
+                    
+                // }
+                cnt++;
+                nowtxt += String(i + zero_index) + " " + String(v + zero_index);
+                nowtxt += "\n";
             }
         }
     }
+    nowtxt = String(vertex.length) + " " + String(cnt) + "\n" + nowtxt;
+    return nowtxt;
+}
+
+function print_random_view() {
+    nowtxt = graph_to_string();
     document.getElementById("random_graph").innerHTML = nowtxt;
 }
 
-
-
-
-
-function print_graph() {
-    document.getElementById("input_n").value = String(vertex.length);
+function print_graph(print_input) {
+    // document.getElementById("input_n").value = String(vertex.length);
     // nowtxt = "";
     // nowtxt += String(vertex.length);
-    nowtxt = "";
-    for (var i = 0; i < vertex.length; i++) {
-        for (var j = 0; j < graph[i].length; j++) {
-            var v = graph[i][j];
-            if (i < v) {
-                if (nowtxt != "") {
-                    nowtxt += "\n";
-                }
-                nowtxt += String(i) + " " + String(v);
-            }
-        }
-    }
-    document.getElementById("random_graph").innerHTML = String(vertex.length) + "\n" + nowtxt;
-    document.getElementById("input_graph").value = nowtxt;
+    let nowtxt = graph_to_string();
+    document.getElementById("random_graph").innerHTML = nowtxt;
+    if (print_input) document.getElementById("input_graph").value = nowtxt;
 }
 
 
@@ -1344,121 +938,6 @@ function bfs(u) {
 
 init();
 
-
-
-
-
-
-function copy_to_clipboard(text_id) {
-    /* Select text area by id*/
-    var Text = document.getElementById(text_id);
-
-    /* Select the text inside text area. */
-    // Text.select();
-
-    /* Copy selected text into clipboard */
-    if (text_id == "random_graph") {
-        navigator.clipboard.writeText(Text.innerHTML);
-    } else {
-        navigator.clipboard.writeText(Text.value);
-    }
-}
-
-// test:
-/*
-6
-0 2
-0 4
-0 5
-1 4
-1 5
-2 3
-2 4
-4 5
-
-
-
-15
-0 1
-0 2
-0 3
-0 8
-0 14
-1 2
-1 5
-1 7
-1 13
-2 5
-2 10
-2 12
-3 5
-3 7
-4 6
-4 8
-4 14
-5 6
-5 11
-6 10
-6 12
-7 8
-7 10
-7 12
-7 14
-9 11
-10 11
-10 14
-11 12
-11 14
-13 14
-
-*/
-
-
-
-
-function openTab(evt, cityName) {
-  // Declare all variables
-  var i, tabcontent, tablinks;
-
-  // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-
-  // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-
-  // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
-
-document.getElementById("init_tab_button").click(); 
-
-
-function setTheme(evt, theme){
-    localStorage.setItem('theme', theme);
-    current_theme = theme;
-    theme_buttons = document.getElementsByClassName("theme_button");
-    for (i = 0; i < theme_buttons.length; i++) {
-        theme_buttons[i].className = theme_buttons[i].className.replace(" active", "");
-    }
-    // document.getElementById(theme).style.display = "block";
-    evt.currentTarget.className += " active";
-    document.documentElement.className = theme;
-    render();
-}
-
-var current_theme = localStorage.getItem('theme');
-console.log(current_theme);
-if (!current_theme) {
-    current_theme = 'white';
-}
-document.getElementById(current_theme + "_theme_button").click(); 
 
 function findVertex(coords) {
     var rad_sq = Math.pow(getVertexRad()[1], 2);

@@ -14,8 +14,14 @@ function sync_checkboxes(a, b) {
 sync_checkboxes('zero_index', 'zero_index_2');
 sync_checkboxes('weighted', 'weighted_2');
 
-
-
+var checkbox1 = document.getElementById("weighted");
+var checkbox2 = document.getElementById("weighted_2");
+checkbox1.addEventListener('change', () => {
+  render();
+});
+checkbox2.addEventListener('change', () => {
+  render();
+});
 
 function copy_to_clipboard(text_id) {
     /* Select text area by id*/

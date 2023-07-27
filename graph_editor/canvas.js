@@ -81,10 +81,10 @@ function main() {
         m += graph[i].length;
     }
     console.log(m);
-    // if (m > 250 || vertex.length > 100) {
-    //     alert("Your graph is TOO BIG to show\nMAX Vertex number is 100\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
-    //     init();
-    // }
+    if (m > 250 || vertex.length > 100) {
+        alert("Your graph is TOO BIG to show\nMAX Vertex number is 100\nMAX Edge number is 125\n\nRANDOM GRAPH WILL BE GENERATED");
+        init();
+    }
     calc_all_dist();
     window.nowDelta = maxDelta;
     window.failShakeCnt = 0;

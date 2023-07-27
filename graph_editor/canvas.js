@@ -698,32 +698,13 @@ function inputGraph() {
     try {
         let zero_index = 1 - document.getElementById("zero_index").checked;
         let weighted = document.getElementById("weighted").checked;
-
+        let oriented = (localStorage.getItem('oriented') == "true");
         // var ntxt = document.getElementById("input_n").value;
         let nowtxt = document.getElementById("input_graph").value;
         let lines = nowtxt.split("\n");
         let line = lines[0].split(" ");
         let n = parseInt(line[0]);
-        window.graph_edges = [];
-        window.weights = {};
-        for (let i = 1; i < lines.length; i++) {
-            let line = lines[i].split(" ");
-            if (line.length >= 2) {
-                let u = parseInt(line[0]) - zero_index;
-                let v = parseInt(line[1]) - zero_index;
-                window.graph_edges.push([u, v]);
-                if (weighted && line.length >= 3) {
-                    // if (u > v) {
-                    //     [u, v] = [v, u];
-                    // }
-                    window.weights[u + "_" + v] = line[2];
-                    // window.weights[v + "_" + u] = line[2];
-                }
-            }
-        }
-        console.log(window.weights);
-        // console.log(Edges.length);
-        // console.log(Edges);
+
         window.vertex = new Array(n);
         window.graph = new Array(n);
         // console.log(graph);
@@ -733,15 +714,44 @@ function inputGraph() {
             window.graph[i] = [];
         }
 
-        for (let i = 0; i < window.graph_edges.length; i++) {
-            let u = window.graph_edges[i][0];
-            let v = window.graph_edges[i][1];
-            if (!window.graph[u].includes(v)) {
-                window.graph[u].push(v);
-                window.graph[v].push(u);
+        window.graph_edges = [];
+        window.weights = {};
+        for (let i = 1; i < lines.length; i++) {
+            let line = lines[i].split(" ");
+            if (line.length >= 2) {
+                let u = parseInt(line[0]) - zero_index;
+                let v = parseInt(line[1]) - zero_index;
+                if (!window.graph[u].includes(v)) {
+                    window.graph[u].push(v);
+                    window.graph[v].push(u);
+                }
+
+                if (weighted && line.length >= 3) {
+                    window.weights[u + "_" + v] = line[2];
+                }
+
+                if (window.graph_edges.includes([u, v])) {
+                    continue;
+                }
+
+                if (oriented) {
+                    window.graph_edges.push([u, v]);
+                } else {
+                    window.graph_edges.push([u, v]);
+                    window.graph_edges.push([v, u]);
+                }
             }
-            // console.log(graph);
         }
+        console.log(window.weights);
+        // console.log(Edges.length);
+        // console.log(Edges);
+
+        // for (let i = 0; i < window.graph_edges.length; i++) {
+        //     let u = window.graph_edges[i][0];
+        //     let v = window.graph_edges[i][1];
+            
+        //     // console.log(graph);
+        // }
         // console.log(graph);
     } catch(err) {
         console.log(err);
@@ -1001,7 +1011,6 @@ function onClickCanvas(e) {
     if (!shake_finished) {
         return;
     }
-    
     // console.log("mouseclick");
 
     cw = canvas.width;

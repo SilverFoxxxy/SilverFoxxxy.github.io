@@ -291,6 +291,9 @@ function renderVertex(i, label, flag = false) {
 
 
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 function renderRandomGraph(n, p) {
     vertex = new Array(n);
@@ -312,6 +315,7 @@ function renderRandomGraph(n, p) {
                 if (i != j)
                     if (Math.random() <= p) {
                         m++;
+                        // window.weights[i+'_'+j] = getRandomInt(30) - 5;
                         if (!graph[i].includes(j)) {
                             graph[i].push(j);
                             graph[j].push(i);
@@ -344,73 +348,35 @@ function renderRandomGraph(n, p) {
 
 
 
-
-function drawEdge(x1, y1, x2, y2, oriented, clear=false) {
-    // console.log(oriented);
-    if (oriented) {
-        var nowrk = getVertexRad();
-        var nowk = nowrk[0];
-        var rad = nowrk[1];
-
-        
-        var headlen = 20; // length of head in pixels
-        var dx = x2 - x1;
-        var dy = y2 - y1;
-
-        let len = Math.sqrt((Math.pow(dx, 2) + Math.pow(dy, 2)));
-
-        let x2_ = x1 + dx * (len - rad - 10) / (len);
-        let y2_ = y1 + dy * (len - rad - 10) / (len);
-        let x2_0 = x1 + dx * (len - rad - 10 - headlen * 0.8) / (len);
-        let y2_0 = y1 + dy * (len - rad - 10 - headlen * 0.8) / (len);
-        if (len < 0.1) {
-            // console.log(len);
-            x2_ = x2;
-            y2_ = y2;
-        }
-        const computedStyle = getComputedStyle(canvas);
-        var mag_fill = computedStyle.getPropertyValue('--magic-fill');
-        var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
-        var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
-        var angle = Math.atan2(dy, dx);
-        if (clear) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.strokeStyle = mag_backgroundfill;
-            ctx.fillStyle = mag_backgroundfill;
-            ctx.moveTo((x2_0 + x2_) / 2, (y2_0 + y2_) / 2);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-            ctx.restore();
-        }
-        ctx.beginPath();
-        ctx.moveTo(x2_ - headlen * Math.cos(angle - Math.PI / 12), y2_ - headlen * Math.sin(angle - Math.PI / 12));
-        ctx.lineTo(x2_, y2_);
-        
-        //ctx.moveTo(x2_, y2_);
-        ctx.lineTo(x2_ - headlen * Math.cos(angle + Math.PI / 12), y2_ - headlen * Math.sin(angle + Math.PI / 12));
-        ctx.stroke();
-    } else {
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-
-        ctx.stroke();
-    }
-    
-}
-
-
-
-
-
 function renderEdge(u, v, flag = false, arrows = false) {
-    // let oriented = false;//document.getElementById("oriented").checked;
+    // console.log(u, v);
+
+    let oriented = document.getElementById("oriented").checked;
+    let weighted = document.getElementById("weighted").checked;
     
     nx1 = vertex_n[u][0];
     ny1 = vertex_n[u][1];
     nx2 = vertex_n[v][0];
     ny2 = vertex_n[v][1];
+
+    if (oriented && weighted && graph[v].includes(u) &&
+        window.weights.hasOwnProperty(u + "_" + v) && window.weights.hasOwnProperty(v + "_" + u)) {
+        // if (!arrows) {
+        let dx = nx2 - nx1;
+        let dy = ny2 - ny1;
+        var angle = Math.atan2(dy, dx);
+        
+        // if ((-Math.PI / 2 <= angle && angle <= 0)) {
+        var nowrk = getVertexRad();
+        var nowk = nowrk[0];
+        var rad = nowrk[1];
+        let headlen = rad / 4;
+
+        nx2 += -headlen * Math.cos(angle + Math.PI / 2);
+        nx1 += -headlen * Math.cos(angle + Math.PI / 2);
+        ny1 += -headlen * Math.sin(angle + Math.PI / 2);
+        ny2 += -headlen * Math.sin(angle + Math.PI / 2);
+    }
 
     const computedStyle = getComputedStyle(canvas);
     var mag_fill = computedStyle.getPropertyValue('--magic-fill');
@@ -489,30 +455,48 @@ function renderEdge(u, v, flag = false, arrows = false) {
 2 4 7
 4 5 2
 */
-
-    let weighted = document.getElementById("weighted").checked;
     
     if (!arrows && weighted) {
         ctx.beginPath();
         let label = "";
         if (window.weights.hasOwnProperty(u + "_" + v)) {
             label = window.weights[u + "_" + v];
+        } else {
+            return;
         }
-        let mx = (nx1 + nx2) / 2;
-        let my = (ny1 + ny2) / 2;
         var nowrk = getVertexRad();
         var nowk = nowrk[0];
         var rad = nowrk[1];
-        ctx.font = Math.floor(45 * nowk) + "px Arial";
+
+        let mx = (nx1 + nx2) / 2;
+        let my = (ny1 + ny2) / 2;
+        if (graph[v].includes(u) && oriented && window.weights.hasOwnProperty(u + "_" + v) && window.weights.hasOwnProperty(v + "_" + u)) {
+            let dx = nx2 - nx1;
+            let dy = ny2 - ny1;
+            var angle = Math.atan2(dy, dx);
+            // console.log(angle);
+            let headlen = rad / 2;
+            // if ((-Math.PI / 2 <= angle && angle <= 0)) {
+            my += -headlen * Math.sin(angle + Math.PI / 2);
+            mx += -headlen * Math.cos(angle + Math.PI / 2);
+            // } else {
+            //     my += -headlen * Math.sin(angle - Math.PI / 2);
+            //     mx += -headlen * Math.cos(angle - Math.PI / 2);
+            // }
+            // console.log(headlen * Math.cos(angle - Math.PI / 2));
+        }
+        let fontsz = 45 * nowk;
+        ctx.font = Math.floor(fontsz) + "px Arial";
         ctx.shadowColor="black";
         ctx.strokeStyle = "black";
         ctx.shadowBlur=7;
         ctx.lineWidth=5;
-        ctx.strokeText(label,mx,my + Math.floor(rad * 2 / 4));
+        // fontsz = rad * 2 / 4
+        ctx.strokeText(label, mx, my + Math.floor(fontsz / 2));
         ctx.shadowBlur=0;
         ctx.fillStyle = "#8FFE09"; // red
         ctx.textAlign = "center";
-        ctx.fillText(label, mx, my + Math.floor(rad * 2 / 4));
+        ctx.fillText(label, mx, my + Math.floor(fontsz / 2));
         ctx.stroke();
     }
 }
@@ -537,6 +521,68 @@ function renderEntity(entity) {
     entity.sprite.render(ctx);
     ctx.restore();
 }
+
+
+
+
+
+
+
+function drawEdge(x1, y1, x2, y2, oriented, clear=false) {
+    // console.log(oriented);
+    if (oriented) {
+        var nowrk = getVertexRad();
+        var nowk = nowrk[0];
+        var rad = nowrk[1];
+
+        
+        var headlen = 20; // length of head in pixels
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+
+        let len = Math.sqrt((Math.pow(dx, 2) + Math.pow(dy, 2)));
+
+        let x2_ = x1 + dx * (len - rad - 10) / (len);
+        let y2_ = y1 + dy * (len - rad - 10) / (len);
+        let x2_0 = x1 + dx * (len - rad - 10 - headlen * 0.8) / (len);
+        let y2_0 = y1 + dy * (len - rad - 10 - headlen * 0.8) / (len);
+        if (len < 0.1) {
+            // console.log(len);
+            x2_ = x2;
+            y2_ = y2;
+        }
+        const computedStyle = getComputedStyle(canvas);
+        var mag_fill = computedStyle.getPropertyValue('--magic-fill');
+        var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
+        var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
+        var angle = Math.atan2(dy, dx);
+        if (clear) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = mag_backgroundfill;
+            ctx.fillStyle = mag_backgroundfill;
+            ctx.moveTo((x2_0 + x2_) / 2, (y2_0 + y2_) / 2);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        ctx.beginPath();
+        ctx.moveTo(x2_ - headlen * Math.cos(angle - Math.PI / 12), y2_ - headlen * Math.sin(angle - Math.PI / 12));
+        ctx.lineTo(x2_, y2_);
+        
+        //ctx.moveTo(x2_, y2_);
+        ctx.lineTo(x2_ - headlen * Math.cos(angle + Math.PI / 12), y2_ - headlen * Math.sin(angle + Math.PI / 12));
+        ctx.stroke();
+    } else {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+
+        ctx.stroke();
+    }
+    
+}
+
 
 
 

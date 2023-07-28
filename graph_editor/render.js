@@ -136,6 +136,15 @@ function render(nowi = cur_i) {
         }
     }
 
+    let weighted = document.getElementById("weighted").checked;
+    if (weighted) {
+        for (let edge of edge_to_render) {
+            let u, v, flag, arrow = false, weighted = true;
+            [u, v, flag] = edge;
+            renderEdge(u, v, flag, arrow, weighted);
+        }
+    }
+
     for (var i = 0; i < vertex.length; i++) {
         if (vertex_light[i]) {
             renderVertex(i, i + zero_index,  1);
@@ -348,7 +357,7 @@ function renderRandomGraph(n, p) {
 
 
 
-function renderEdge(u, v, flag = false, arrows = false) {
+function renderEdge(u, v, flag = false, arrows = false, weights = false) {
     // console.log(u, v);
 
     let oriented = document.getElementById("oriented").checked;
@@ -380,8 +389,89 @@ function renderEdge(u, v, flag = false, arrows = false) {
 
     const computedStyle = getComputedStyle(canvas);
     var mag_fill = computedStyle.getPropertyValue('--magic-fill');
+    var mag_fontcolor = computedStyle.getPropertyValue('--magic-font-color');
     var mag_backfill = computedStyle.getPropertyValue('--magic-backfill');
     var mag_backgroundfill = computedStyle.getPropertyValue('--magic-backgroundfill');
+
+    /*
+5 7
+2 1 5
+1 3 1
+3 2 8
+3 5 7
+3 4 3
+2 4 7
+4 5 2
+*/
+
+/*
+4 8 5
+1 2 -2
+2 3 3
+3 4 -5
+4 1 3
+1 3 2
+3 1 -2
+3 2 -3
+2 4 -10
+*/
+
+    if (!arrows && weighted && weights) {
+        ctx.beginPath();
+        let label = "";
+        if (window.weights.hasOwnProperty(u + "_" + v)) {
+            label = window.weights[u + "_" + v];
+        } else {
+            return;
+        }
+        var nowrk = getVertexRad();
+        var nowk = nowrk[0];
+        var rad = nowrk[1];
+
+        let mx = (nx1 + nx2) / 2;
+        let my = (ny1 + ny2) / 2;
+        if (graph[v].includes(u) && oriented && window.weights.hasOwnProperty(u + "_" + v) && window.weights.hasOwnProperty(v + "_" + u)) {
+            let dx = nx2 - nx1;
+            let dy = ny2 - ny1;
+            var angle = Math.atan2(dy, dx);
+            // console.log(angle);
+            let headlen = rad / 2;
+            // if ((-Math.PI / 2 <= angle && angle <= 0)) {
+            my += -headlen * Math.sin(angle + Math.PI / 2);
+            mx += -headlen * Math.cos(angle + Math.PI / 2);
+            // } else {
+            //     my += -headlen * Math.sin(angle - Math.PI / 2);
+            //     mx += -headlen * Math.cos(angle - Math.PI / 2);
+            // }
+            // console.log(headlen * Math.cos(angle - Math.PI / 2));
+        } else {
+            let dx = nx2 - nx1;
+            let dy = ny2 - ny1;
+            var angle = Math.atan2(dy, dx);
+            // console.log(angle);
+            let headlen = rad / 1.5;
+            // if ((-Math.PI / 2 <= angle && angle <= 0)) {
+            my += -headlen * Math.sin(angle + Math.PI / 2);
+            mx += -headlen * Math.cos(angle + Math.PI / 2);
+        }
+        let fontsz = 45 * nowk;
+        ctx.font = Math.floor(fontsz) + "px Arial";
+        // ctx.shadowColor="black";
+        // ctx.strokeStyle = "black";
+        ctx.shadowColor=mag_backgroundfill;
+        ctx.strokeStyle = mag_backgroundfill;
+        ctx.shadowBlur=7;
+        ctx.lineWidth=5;
+        // fontsz = rad * 2 / 4
+        ctx.strokeText(label, mx, my + Math.floor(fontsz / 2));
+        ctx.shadowBlur=0;
+        ctx.fillStyle = mag_fontcolor;
+        // ctx.fillStyle = "#8FFE09"; // red
+        ctx.textAlign = "center";
+        ctx.fillText(label, mx, my + Math.floor(fontsz / 2));
+        ctx.stroke();
+        return;
+    }
 
     if (current_theme == "white") {
         ctx.strokeStyle = "white";
@@ -443,61 +533,6 @@ function renderEdge(u, v, flag = false, arrows = false) {
         // ctx.lineTo(nx2, ny2);
         // ctx.stroke();
         drawEdge(nx1, ny1, nx2, ny2, arrows);
-    }
-
-/*
-5 7
-2 1 5
-1 3 1
-3 2 8
-3 5 7
-3 4 3
-2 4 7
-4 5 2
-*/
-    
-    if (!arrows && weighted) {
-        ctx.beginPath();
-        let label = "";
-        if (window.weights.hasOwnProperty(u + "_" + v)) {
-            label = window.weights[u + "_" + v];
-        } else {
-            return;
-        }
-        var nowrk = getVertexRad();
-        var nowk = nowrk[0];
-        var rad = nowrk[1];
-
-        let mx = (nx1 + nx2) / 2;
-        let my = (ny1 + ny2) / 2;
-        if (graph[v].includes(u) && oriented && window.weights.hasOwnProperty(u + "_" + v) && window.weights.hasOwnProperty(v + "_" + u)) {
-            let dx = nx2 - nx1;
-            let dy = ny2 - ny1;
-            var angle = Math.atan2(dy, dx);
-            // console.log(angle);
-            let headlen = rad / 2;
-            // if ((-Math.PI / 2 <= angle && angle <= 0)) {
-            my += -headlen * Math.sin(angle + Math.PI / 2);
-            mx += -headlen * Math.cos(angle + Math.PI / 2);
-            // } else {
-            //     my += -headlen * Math.sin(angle - Math.PI / 2);
-            //     mx += -headlen * Math.cos(angle - Math.PI / 2);
-            // }
-            // console.log(headlen * Math.cos(angle - Math.PI / 2));
-        }
-        let fontsz = 45 * nowk;
-        ctx.font = Math.floor(fontsz) + "px Arial";
-        ctx.shadowColor="black";
-        ctx.strokeStyle = "black";
-        ctx.shadowBlur=7;
-        ctx.lineWidth=5;
-        // fontsz = rad * 2 / 4
-        ctx.strokeText(label, mx, my + Math.floor(fontsz / 2));
-        ctx.shadowBlur=0;
-        ctx.fillStyle = "#8FFE09"; // red
-        ctx.textAlign = "center";
-        ctx.fillText(label, mx, my + Math.floor(fontsz / 2));
-        ctx.stroke();
     }
 }
 

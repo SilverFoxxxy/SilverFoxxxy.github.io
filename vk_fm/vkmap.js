@@ -93,7 +93,7 @@ function clearMap() {
 
     window.series = pointSeries;
 
-    
+
 
     var circleTemplate = am5.Template.new({});
 
@@ -168,7 +168,7 @@ function clearMap() {
     //   });
     // });
 
-    
+
 
     var circleTemplate2 = am5.Template.new({});
 
@@ -213,7 +213,7 @@ function pushToSeries(series, value, data) {
     data.rad = window.map_height / 60 * (1 + Math.min(Math.floor(Math.sqrt(value + 1)) / 4, 2));
     // console.log(window.map_height, value);
     // console.log(data.rad, data.value);
-    //window.radius = 
+    //window.radius =
     var cur = series.pushDataItem(data);
     // cur.
     window.points.push(cur);
@@ -411,13 +411,18 @@ function getCoords(city, country) {
     if (citiesVec == -1) {
         return -1;
     }
+    // console.log(city, country);
     let l_i = lowerBound(city, country);
     let r_i = upperBound(city, country);
-    console.log(l_i, r_i);
-    if (l_i < r_i && citiesVec[l_i][0] == city && citiesVec[l_i][1] == country) {
+    // r_i = citiesVec.length;
+    // && (citiesVec[l_i][1] == country || country == "")
+    // console.log(l_i, r_i);
+    if (l_i < r_i && citiesVec[l_i][0] == city) {
         let max_i = l_i;
         let max_pop = 0;
         for (let i = l_i; i < r_i; i++) {
+            // console.log(city, citiesVec[i][0], citiesVec[i][1], citiesVec[i][6]);
+            // console.log([citiesVec[i][2], citiesVec[i][3]]);
             if (citiesVec[i][6] > max_pop) {
                 max_i = i;
                 max_pop = citiesVec[i][6];
@@ -493,7 +498,8 @@ function lowerBound(city, country) {
         let m = (l + r - (l + r) % 2) / 2;
         now_city = citiesVec[m][0];
         now_country = citiesVec[m][1];
-        if (now_city < city || (now_city == city && now_country < country)) {
+        //  || (now_city == city && (country == "" || now_country < country))
+        if (now_city < city) {
             l = m;
         } else {
             r = m;
@@ -513,7 +519,8 @@ function upperBound(city, country) {
         let m = (l + r - (l + r) % 2) / 2;
         now_city = citiesVec[m][0];
         now_country = citiesVec[m][1];
-        if (now_city > city || (now_city == city && now_country > country)) {
+        //  || (now_city == city && (country == "" || now_country > country))
+        if (now_city > city) {
             r = m;
         } else {
             l = m;
@@ -631,7 +638,8 @@ function element2user(element, cf /* ru element */) {
     }
     if (!element.hasOwnProperty("city")) { return -1; }
     user.city = element.city.title;
-    if (!element.hasOwnProperty("country")) { return -1; }
+    if (!element.hasOwnProperty("country")) { element.country = ""; }
+    // if (!element.hasOwnProperty("country")) { return -1; }
     user.country = element.country.title;
     user.photo_url = "res/default.png";
     if (element.hasOwnProperty("photo_50")) {
@@ -662,7 +670,7 @@ function user2text(user) {
     if (user.hasOwnProperty("country_ru")) {
         country = user.country_ru;
     }
-    if (country == "Russia" || country == "Ukraine") {
+    if (country == "Russia" || country == "Ukraine" || country == undefined || country == "") {
         country = -1;
     }
     if (user.hasOwnProperty("photo_url")) {
@@ -1007,16 +1015,26 @@ async function showFriendsCycle() {
             var element = friend_list[cur_i];
             var now_w = Math.min(Math.floor((cur_i + 1) / n * 100 + 1), 100);
             window.progress_percent = now_w;
-            
+
             if (!element.hasOwnProperty("city")) {
                 continue;
             }
             var city = element.city;
+            var country = "";
             if (element.hasOwnProperty("country")) {
-                var country = element.country;
+                country = element.country;
             } else {
-                continue;
+                element.country = "";
+                country = element.country;
+                // continue;
             }
+            if (country == undefined) {
+                friend_list[cur_i].country = "";
+                friend_list[cur_i].country_ru = "";
+                country = "";
+            }
+            // console.log(element);
+            // console.log(city, country);
             var city_ru = element.city;
             var country_ru = element.country;
             if (element.hasOwnProperty("city_ru")) {city_ru = element.city_ru;}
@@ -1033,6 +1051,7 @@ async function showFriendsCycle() {
                 coords = getCoords(city, country);
                 city_dict[nowkey] = coords;
             }
+            // console.log(nowkey, coords);
             if (coords == -1) {
                 continue;
             }
@@ -1060,7 +1079,7 @@ async function showFriendsCycle() {
         requestAnimFrame(showFriendsCycle);
     } else {
         recalcZoom(1, true);
-        console.log(city_clusters);
+        // console.log(city_clusters);
         city_arr = [];
         var loading_screen = document.getElementById("loading");
         loading_screen.style.visibility = "hidden";
@@ -1111,7 +1130,7 @@ async function showFriends() {
             alert("Ошибка:??? TODO");
             return;
         }
-        
+
         // frnds_ru = JSON.parse(friends["friends"].ru);
 
         // if (frnds_ru.hasOwnProperty("error")) {
@@ -1129,16 +1148,18 @@ async function showFriends() {
 
         var fr = [];
 
-        console.log(fr_en);
+        // console.log(fr_en);
         window.friend_list = [];
         fr_arr = fr_en;
         for (var i = 0; i < fr_arr.length; i++) {
             cur_user = element2user(fr_arr[i], fr_ru[i]);
+            // console.log(fr_arr[i], fr_ru[i]);
+            // console.log(cur_user);
             if (cur_user != -1) {
                 window.friend_list.push(cur_user);
             }
         }
-        console.log(friend_list);
+        // console.log(window.friend_list);
 
         var currentId = 0;
         var nowi = 0;

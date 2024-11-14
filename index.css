@@ -1,5 +1,5 @@
 :root {
-    --main-padding: 5px;
+    --main-padding: 0.5vh;
 }
 
 
@@ -9,17 +9,20 @@ body {
 }
 
 #container {
+    /* display: block; */
+    box-sizing: border-box;
     margin: auto;
     width: 80vh;
     max-width: 100%;
     /*width: 100vw;*/
+    font-size: 2vh;
     height: 90vh;
     border: 1px solid gray;
     padding: var(--main-padding);
 }
 
 #avatar_div {
-    margin: 0px 5px 10px 0px;
+    /* margin: 0px 0.5em 1em 0px; */
 }
 
 h1 {
@@ -36,7 +39,8 @@ h2 {
     color: #ccc;
     font-size: 3vh;
     margin: 0px;
-    margin-top: 0vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
 
 #name_div {
@@ -59,8 +63,9 @@ a {
 }
 
 #links_div {
+    grid-area: links;
     padding: var(--main-padding);
-    font-size: 2vh;
+    font-size: 2.25vh;
     color: #ccc;
 }
 
@@ -78,24 +83,22 @@ a {
     /* object-fit: contain; */
 }
 
-#links_div {
-    grid-area: links;
-    /*border-right: 1px solid gray;*/
-}
-
 #main_img {
     display: block;
     max-width: 100%;
     /* max-height: 100%; */
+    margin: auto;
+    height: 100%;
     max-height: 50vh;
     border: 1px solid violet;
     /* object-fit: contain; */
 }
 
 .link_wrapper {
-    height: 20px;
+    /* height: 1vh; */
     display: grid;
-    grid-template-columns: 20px auto;
+    grid-template-columns: 1.40em auto;
+    width:auto;
 }
 
 .link_title_wrapper {
@@ -104,20 +107,27 @@ a {
 }
 
 .link_icon {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    max-width: 1.25em;
+    max-height: 1.25em;
+    object-fit: contain;
+    /* margin: auto; */
+    /* max-width: 1.25rem;
+    max-height: 1.25rem; */
+    /* margin-right: 0; */
     border-radius: 50%;
 }
 
 .link_text {
     color: #7CC1FD;
     margin-top: auto;
-    margin-left: 3px;
+    margin-left: 0.25rem;
 }
 
 #github_icon {
-    background-color: white;
+    background-color: black;
     border-radius: 50%;
+    /* outline: 5px solid gray; */
 }
 
 #cf_icon {
@@ -191,16 +201,16 @@ table tr:nth-child(even) {
     }
 
     .link_wrapper {
-        height: 3vh;
+        height: 1.5em;
         display: grid;
         grid-template-columns: 4vh auto;
     }
 
     .link_text {
-        font-size: 3vh;
+        font-size: 1.5em;
         color: #7CC1FD;
         margin-top: auto;
-        margin-left: 3px;
+        margin-left: 0.25em;
     }
 
     table {
@@ -216,7 +226,7 @@ table tr:nth-child(even) {
 
     #links_div {
         padding: var(--main-padding);
-        font-size: 2vh;
+        font-size: 2.5vh;
         color: #ccc;
 
         border-top: 1px solid gray;

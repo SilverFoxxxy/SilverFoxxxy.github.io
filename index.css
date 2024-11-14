@@ -72,7 +72,10 @@ a {
 
 #avatar_div {
     grid-area: photo;
-    border-right: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
+    /* border-right: 1px solid gray; */
+    /* border: 15px solid green; */
+    /* object-fit: contain; */
 }
 
 #links_div {
@@ -81,9 +84,12 @@ a {
 }
 
 #main_img {
+    display: block;
     max-width: 100%;
-    max-height: 100%;
+    /* max-height: 100%; */
+    max-height: 50vh;
     border: 1px solid violet;
+    /* object-fit: contain; */
 }
 
 .link_wrapper {
@@ -170,6 +176,8 @@ table tr:nth-child(even) {
     #avatar_div {
         margin: auto;
         height: auto;
+        max-width: 80%;
+        /* max-height: 50vh; */
     }
 
     #container {

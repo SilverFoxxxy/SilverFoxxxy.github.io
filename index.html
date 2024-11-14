@@ -82,7 +82,44 @@
             <div id="name_div">
                 <div id="title_div">
                     <h1>Ivan Belkov</h1>
-                    <h2>[Student, Programmer]</h2>
+                    <h2>[Student, Programmer, <span id="years_old">24</span> y.o.]</h2>
+                    <script>
+                        function diff_years(dt2, dt1) {
+                            var y2 = dt2.getFullYear();
+                            var y1 = dt1.getFullYear();
+                            if (y2 < y1) {
+                                return 23;
+                            }
+
+                            var m2 = dt2.getMonth();
+                            var m1 = dt1.getMonth();
+
+                            var d2 = dt2.getDate();
+                            var d1 = dt1.getDate();
+
+                            console.log(y1, m1, d1);
+                            console.log(y2, m2, d2);
+
+                            if (m2 > m1 || m2 == m1 && d2 >= d1) {
+                                return y2 - y1;
+                            } else {
+                                return y2 - y1 - 1;
+                            }
+                        }
+                        const date1 = new Date('March 9, 2001 00:00:00');
+                        // const date1 = new Date('November 15, 2001 00:00:00');
+                        const date2 = new Date(Date.now());
+
+                        var y_o_str = diff_years(date2, date1).toString();
+
+                        console.log(y_o_str);
+
+                        var span_yo = document.getElementById("years_old");
+                        span_yo.innerHTML = y_o_str;
+                        // var birthday = moment([2001, 2, ]);
+                        // var b = moment([2007, 0, 28]);
+                        // a.diff(b) // 86400000
+                    </script>
                     <!-- <br><br> -->
                 </div>
                 <!-- <div id="description">
@@ -98,7 +135,7 @@
                 }
             </style> -->
 
-            <div id="exp" style="font-size:1.5vh; padding: 1.5rem;">
+            <div id="exp" style="font-size:1.5vh; padding: 1.5em;">
                 <center>
             <table>
                 <tr>
@@ -187,7 +224,7 @@
             </div>
 
             <h2>Areas of Interest</h2>
-            <div id="areas" style="font-size:1.5vh; padding: 1.5rem;">
+            <div id="areas" style="font-size:1.5vh; padding: 1.5em;">
                 <center>
                     <table>
                         <tr>

@@ -8,6 +8,11 @@ body {
     background-color: #282923;
 }
 
+hr {
+    border: none;
+    border: 1px solid gray;
+}
+
 #container {
     /* display: block; */
     box-sizing: border-box;
@@ -16,12 +21,13 @@ body {
     max-width: 100%;
     /*width: 100vw;*/
     font-size: 2vh;
-    height: 90vh;
+    /* height: 90vh; */
     border: 1px solid gray;
-    padding: var(--main-padding);
+    /* padding: var(--main-padding); */
 }
 
 #avatar_div {
+    padding-top: 0.5em;
     /* margin: 0px 0.5em 1em 0px; */
 }
 
@@ -29,7 +35,7 @@ h1 {
     width: 100%;
     text-align: center;
     font-size: 4vh;
-    margin: 0px;
+    margin: 0;
     margin-top: 2.5vh;
 }
 
@@ -38,13 +44,13 @@ h2 {
     text-align: center;
     color: #ccc;
     font-size: 3vh;
-    margin: 0px;
+    margin: 0;
     margin-top: 1vh;
     margin-bottom: 1vh;
 }
 
 #name_div {
-    display: flex;
+    display: block;
 }
 
 #title_div {
@@ -64,7 +70,8 @@ a {
 
 #links_div {
     grid-area: links;
-    padding: var(--main-padding);
+    padding: 0.5em;
+    /* padding: var(--main-padding); */
     font-size: 2.25vh;
     color: #ccc;
 }
@@ -113,8 +120,6 @@ a {
     max-height: 1.25em;
     object-fit: contain;
     /* margin: auto; */
-    /* max-width: 1.25rem;
-    max-height: 1.25rem; */
     /* margin-right: 0; */
     border-radius: 50%;
 }
@@ -122,7 +127,7 @@ a {
 .link_text {
     color: #7CC1FD;
     margin-top: auto;
-    margin-left: 0.25rem;
+    margin-left: 0.25em;
 }
 
 #github_icon {
@@ -141,7 +146,7 @@ table {
 
 th, td {
 /* tr { */
-    padding: 0 0.5rem;
+    padding: 0.25em 0.5em;
     margin: 0;
     border-left: 1px solid;
     border-top: 1px solid;

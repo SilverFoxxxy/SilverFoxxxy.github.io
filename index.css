@@ -91,6 +91,7 @@ a {
     height: 100%;
     max-height: 50vh;
     border: 1px solid violet;
+    object-fit: contain;
     /* object-fit: contain; */
 }
 
@@ -170,7 +171,7 @@ table tr:nth-child(even) {
     "links main";
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) and (max-aspect-ratio: 1/1) {
     .content_wrapper {
         max-width: 100%;
         /* background-color: azure; */
